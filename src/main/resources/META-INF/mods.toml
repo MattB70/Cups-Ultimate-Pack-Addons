@@ -6,10 +6,14 @@ license="MIT License"
 modId="cupsultimatepackaddons"
 version="${file.jarVersion}"
 logoFile="logo.png"
+credits="Joel Fulkerth (Firebolt7780): Concept Art"
 displayName="Cup's Ultimate Pack Addons"
 authors="Cup"
 description='''
-Unique Items and More
+
+Addons and other related helper content for Cup's Ultimate Pack and Cup's Ultimate Pack Official Server.
+
+Do not use standalone.
 '''
 
 # DEPENDENCIES =========================================================================================================
@@ -29,6 +33,12 @@ Unique Items and More
     modId="geckolib3"
     mandatory=true
     versionRange="[1.18-3.0.56,)"
+    ordering="NONE" # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    side="BOTH" # Side this dependency is applied on - BOTH, CLIENT or SERVER
+[[dependencies.cupsultimatepackaddons]]
+    modId="playeranimator"
+    mandatory=true
+    versionRange="[0.4.0+1.18,)"
     ordering="NONE" # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     side="BOTH" # Side this dependency is applied on - BOTH, CLIENT or SERVER
 
