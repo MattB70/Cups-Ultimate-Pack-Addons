@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "architects_palette:withered_bone"
+    }
+  ],
+  "result": {
+    "item": "consistency_plus:withered_bone",
+    "count": 1
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "cupsultimatepackaddons:mashed_grains"
+    },
+    {
+      "fluid": "minecraft:water",
+      "nbt": {},
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "cupsultimatepackaddons:impure_bottle_o_moonshine",
+      "count": 1
+    }
+  ],
+  "heatRequirement": "heated"
+}

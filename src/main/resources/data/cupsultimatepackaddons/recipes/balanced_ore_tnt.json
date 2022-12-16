@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+      "DTD",
+      "TAT",
+      "DTD"
+  ],
+  "key": {
+      "D": {
+          "item": "minecraft:deepslate"
+      },
+      "T": {
+        "item": "minecraft:tnt"
+      },
+      "A": {
+        "item": "enigmaticlegacy:astral_dust"
+      }
+  },
+  "result": {
+    "item": "ore_creeper:ore_tnt",
+    "count": 4
+  }
+}

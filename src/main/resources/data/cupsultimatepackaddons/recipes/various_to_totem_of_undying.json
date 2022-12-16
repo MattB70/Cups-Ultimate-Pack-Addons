@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+      "DSD",
+      "G#G",
+      "HEH"
+  ],
+  "key": {
+      "D": {
+          "item": "minecraft:diamond"
+      },
+      "S": {
+        "item": "minecraft:skeleton_skull"
+      },
+      "G": {
+        "item": "minecraft:golden_apple"
+      },
+      "H": {
+        "item": "create_sa:heap_of_experience"
+      },
+      "#": {
+        "item": "supplementaries:statue"
+      },
+      "E": {
+        "item": "minecraft:ender_eye"
+      }
+  },
+  "result": {
+    "item": "minecraft:totem_of_undying",
+    "count": 1
+  }
+}

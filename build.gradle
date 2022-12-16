@@ -162,9 +162,15 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.dev"
     }
+    // Animation mods by KosmX
     maven {
         name = "KosmX's maven"
         url = 'https://maven.kosmx.dev/'
+    }
+    // Create mod and dependencies
+    maven {
+        name = 'tterrag maven'
+        url = 'https://maven.tterrag.com/'
     }
 }
 
@@ -182,6 +188,11 @@ dependencies {
 
     // Apply Mixin AP
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+
+    // Create mod and dependencies
+    implementation fg.deobf("com.simibubi.create:create-${mc_version}:${create_version}:slim") { transitive = false }
+    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${mc_version}:${flywheel_version}")
+    implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
 }
 
 mixin {

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+      "AAA",
+      "AFA",
+      "AAA"
+  ],
+  "key": {
+      "A": {
+          "item": "supplementaries:ash"
+      },
+      "F": {
+        "item": "minecraft:rotten_flesh"
+      }
+  },
+  "result": {
+    "item": "minecraft:leather",
+    "count": 1
+  }
+}

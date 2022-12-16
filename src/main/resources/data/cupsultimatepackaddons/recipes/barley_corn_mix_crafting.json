@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "croptopia:barley"
+    },
+    {
+      "item": "croptopia:barley"
+    },
+    {
+      "item": "croptopia:barley"
+    },
+    {
+      "item": "croptopia:corn"
+    }
+  ],
+  "result": {
+    "item": "cupsultimatepackaddons:barley_corn_mix",
+    "count": 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tconstruct:necrotic_bone"
+    }
+  ],
+  "result": {
+    "item": "consistency_plus:withered_bone",
+    "count": 1
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+      "LBL",
+      "BLB",
+      "LBL"
+  ],
+  "key": {
+      "L": {
+          "item": "minecraft:lapis_lazuli"
+      },
+      "B": {
+        "item": "supplementaries:bomb"
+      }
+  },
+  "result": {
+    "item": "supplementaries:bomb_blue",
+    "count": 2
+  }
+}
