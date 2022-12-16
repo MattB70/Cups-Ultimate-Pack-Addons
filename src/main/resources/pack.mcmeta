@@ -1,0 +1,8 @@
+{
+    "pack": {
+        "description": "Addons for Cup's Ultimate Pack modpack. May not work at all outside of the modpack.",
+        "pack_format": 9,
+        "forge:resource_pack_format": 8,
+        "forge:data_pack_format": 9
+    }
+}
