@@ -1,8 +1,11 @@
 package com.mattborle.cupsultimatepackaddons;
 
-import com.mattborle.cupsultimatepackaddons.registry.EntityRegistry;
-import com.mattborle.cupsultimatepackaddons.registry.ItemRegistry;
+import com.mattborle.cupsultimatepackaddons.init.EnchantmentRegistry;
+import com.mattborle.cupsultimatepackaddons.init.EntityRegistry;
+import com.mattborle.cupsultimatepackaddons.init.ItemRegistry;
+import com.mattborle.cupsultimatepackaddons.init.MobEffectRegistry;
 import com.mojang.logging.LogUtils;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -11,7 +14,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 import org.slf4j.Logger;
+
+import static org.antlr.runtime.debug.DebugEventListener.PROTOCOL_VERSION;
 
 @Mod("cupsultimatepackaddons")
 public class CupsUltimatePackAddons
@@ -19,12 +26,18 @@ public class CupsUltimatePackAddons
     public static boolean debugMode = true;
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final String MOD_ID = "cupsultimatepackaddons";
+    public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(new ResourceLocation(MOD_ID, MOD_ID), () -> PROTOCOL_VERSION,
+            PROTOCOL_VERSION::equals, PROTOCOL_VERSION::equals);
+
     public CupsUltimatePackAddons()
     {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
-        ItemRegistry.ITEMS.register(modEventBus);
-        EntityRegistry.ENTITY_TYPES.register(modEventBus);
+        ItemRegistry.MOD_ITEMS.register(modEventBus);
+        EntityRegistry.MOD_ENTITIES.register(modEventBus);
+        EnchantmentRegistry.MOD_ENCHANTMENTS.register(modEventBus);
+        MobEffectRegistry.MOD_EFFECTS.register(modEventBus);
+
         MinecraftForge.EVENT_BUS.register(this);
     }
 
