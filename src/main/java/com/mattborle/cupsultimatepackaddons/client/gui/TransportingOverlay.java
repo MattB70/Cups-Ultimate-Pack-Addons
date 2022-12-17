@@ -1,5 +1,6 @@
 package com.mattborle.cupsultimatepackaddons.client.gui;
 
+import com.mattborle.cupsultimatepackaddons.handlers.TransportingDisplayOverlayIngame;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -44,7 +45,7 @@ public class TransportingOverlay {
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
                     GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             RenderSystem.setShaderColor(1, 1, 1, 1);
-            if (TransportingDisplayOverlayIngameProcedure.execute(entity)) {
+            if (TransportingDisplayOverlayIngame.execute(entity)) {
                 RenderSystem.setShaderTexture(0, new ResourceLocation("cupsultimatepackadddons:textures/screens/transporting_overlay.png"));
                 Minecraft.getInstance().gui.blit(event.getMatrixStack(), 0, 0, 0, 0, w, h, w, h);
             }

@@ -1,17 +1,15 @@
 
 package com.mattborle.cupsultimatepackaddons.item;
 
-import com.mattborle.cupsultimatepackaddons.init.TabInit;
+import com.mattborle.cupsultimatepackaddons.init.ItemRegistry;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.food.FoodProperties;
 
-import com.mattborle.cupsaddons.init.CupsaddonsModTabs;
-
 public class MashedGrainsItem extends Item {
 	public MashedGrainsItem() {
-		super(new Properties().tab(TabInit.TAB_ITEMS)
+		super(new Properties().tab(ItemRegistry.CreativeTab.instance)
 				.stacksTo(64)
 				.rarity(Rarity.COMMON)
 				.food((new FoodProperties.Builder())

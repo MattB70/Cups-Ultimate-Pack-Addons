@@ -1,5 +1,6 @@
 package com.mattborle.cupsultimatepackaddons.init;
 
+import com.mattborle.cupsultimatepackaddons.client.renderer.NightCrawlerRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -9,6 +10,6 @@ import net.minecraftforge.fml.common.Mod;
 public class EntityRendererInit {
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(CupsUltimatePackAddonsEntities.NIGHT_CRAWLER_MOB.get(), NightCrawlerMobRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.NIGHT_CRAWLER_MOB.get(), NightCrawlerRenderer::new);
     }
 }

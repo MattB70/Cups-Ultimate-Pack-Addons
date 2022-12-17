@@ -1,11 +1,10 @@
 
 package com.mattborle.cupsultimatepackaddons.potion;
 
+import com.mattborle.cupsultimatepackaddons.handlers.CaveSensesHandler;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffect;
-
-import com.mattborle.cupsaddons.procedures.CaveSensesHandlerProcedure;
 
 public class CaveSensesMobEffect extends MobEffect {
 	public CaveSensesMobEffect() {
@@ -19,7 +18,7 @@ public class CaveSensesMobEffect extends MobEffect {
 
 	@Override
 	public void applyEffectTick(LivingEntity entity, int amplifier) {
-		CaveSensesHandlerProcedure.execute(entity.level, entity);
+		CaveSensesHandler.execute(entity.level, entity);
 	}
 
 	@Override

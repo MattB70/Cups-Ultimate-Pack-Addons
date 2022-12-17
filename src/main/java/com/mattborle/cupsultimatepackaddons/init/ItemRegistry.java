@@ -10,6 +10,21 @@ import net.minecraftforge.registries.RegistryObject;
 
 // Item registration using ReferredRegister. Items are initialized here as to avoid the hassle of static referencing.
 public class ItemRegistry {
+
+    // Creative Mode Tab
+    public static class CreativeTab extends CreativeModeTab {
+        private CreativeTab(int index, String label) {
+            super(index, label);
+        }
+        @Override
+        public ItemStack makeIcon() {
+            return new ItemStack(BOTTLE_O_MOONSHINE.get()); // Use an item as the tab icon
+        }
+        // Register the new Creative Mod menu tab.
+        public static final CreativeTab instance = new CreativeTab(CreativeModeTab.TABS.length, CupsUltimatePackAddons.MOD_ID);
+    }
+
+
     // Registry
     public static final DeferredRegister<Item> MOD_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, CupsUltimatePackAddons.MOD_ID);
 
@@ -17,7 +32,7 @@ public class ItemRegistry {
     // Register Chrysophilists Pickaxe with id chrysophilists_pickaxe and reference CHRYSOPHILISTS_PICKAXE.
     public static final RegistryObject<Item> CHRYSOPHILISTS_PICKAXE = MOD_ITEMS.register("chrysophilists_pickaxe",
             //TODO: Consider unique tiers for some items
-            () -> new PickaxeItem(Tiers.DIAMOND,1, 1.0f, new Item.Properties().tab(TabInit.TAB_ITEMS)));
+            () -> new PickaxeItem(Tiers.DIAMOND,1, 1.0f, new Item.Properties().tab(CreativeTab.instance)));
 
     // Items ===========================================================================================================
     public static final RegistryObject<Item> BARLEY_CORN_MIX = MOD_ITEMS.register("barley_corn_mix", BarleyCornMixItem::new);
@@ -31,5 +46,5 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SWEETENED_MILK = MOD_ITEMS.register("sweetened_milk", () -> new SweetenedMilkItem());
 
     // Spawn Eggs ======================================================================================================
-    public static final RegistryObject<Item> NIGHT_CRAWLER_MOB = MOD_ITEMS.register("night_crawler_mob_spawn_egg", () -> new ForgeSpawnEggItem(CupsUltimatePackAddons.NIGHT_CRAWLER_MOB, -1, -1184257, new Item.Properties().tab(TabInit.TAB_ITEMS)));
+    public static final RegistryObject<Item> NIGHT_CRAWLER_MOB = MOD_ITEMS.register("night_crawler_mob_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.NIGHT_CRAWLER_MOB, -1, -1184257, new Item.Properties().tab(CreativeTab.instance)));
 }

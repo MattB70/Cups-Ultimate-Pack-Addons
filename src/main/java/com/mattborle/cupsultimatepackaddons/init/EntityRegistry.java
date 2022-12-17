@@ -1,6 +1,7 @@
 package com.mattborle.cupsultimatepackaddons.init;
 
 import com.mattborle.cupsultimatepackaddons.CupsUltimatePackAddons;
+import com.mattborle.cupsultimatepackaddons.entity.NightCrawlerMobEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;

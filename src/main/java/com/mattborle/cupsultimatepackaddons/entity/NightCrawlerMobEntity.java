@@ -1,6 +1,8 @@
 package com.mattborle.cupsultimatepackaddons.entity;
 
 import com.mattborle.cupsultimatepackaddons.CupsUltimatePackAddons;
+import com.mattborle.cupsultimatepackaddons.handlers.NightEssenceEatingHandler;
+import com.mattborle.cupsultimatepackaddons.init.EntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
@@ -39,11 +41,11 @@ public class NightCrawlerMobEntity extends Monster {
     public static void addLivingEntityToBiomes(BiomeLoadingEvent event) {
         if (SPAWN_BIOMES.contains(event.getName()))
             event.getSpawns().getSpawner(MobCategory.MONSTER)
-                    .add(new MobSpawnSettings.SpawnerData(CupsUltimatePackAddonsModEntities.NIGHT_CRAWLER_MOB.get(), 6, 5, 10));
+                    .add(new MobSpawnSettings.SpawnerData(EntityRegistry.NIGHT_CRAWLER_MOB.get(), 6, 5, 10));
     }
 
     public NightCrawlerMobEntity(PlayMessages.SpawnEntity packet, Level world) {
-        this(CupsUltimatePackAddonsModEntities.NIGHT_CRAWLER_MOB.get(), world);
+        this(EntityRegistry.NIGHT_CRAWLER_MOB.get(), world);
     }
 
     public NightCrawlerMobEntity(EntityType<NightCrawlerMobEntity> type, Level world) {
@@ -103,7 +105,7 @@ public class NightCrawlerMobEntity extends Monster {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        NightEssenceEatingHandlerProcedure.execute(this);
+        NightEssenceEatingHandler.execute(this);
         if (source == DamageSource.FALL)
             return false;
         if (source == DamageSource.LIGHTNING_BOLT)
@@ -114,14 +116,14 @@ public class NightCrawlerMobEntity extends Monster {
     @Override
     public void die(DamageSource source) {
         super.die(source);
-        NightCrawlerMobEntityDiesProcedure.execute(this.level, this);
+        NightEssenceEatingHandler.execute(this);
     }
 
     public static void init() {
-        SpawnPlacements.register(CupsUltimatePackAddonsModEntities.NIGHT_CRAWLER_MOB.get(), SpawnPlacements.Type.ON_GROUND,
+        SpawnPlacements.register(EntityRegistry.NIGHT_CRAWLER_MOB.get(), SpawnPlacements.Type.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> (world.getDifficulty() != Difficulty.PEACEFUL
                         && Monster.isDarkEnoughToSpawn(world, pos, random) && Mob.checkMobSpawnRules(entityType, world, reason, pos, random)));
-        DungeonHooks.addDungeonMob(CupsUltimatePackAddonsModEntities.NIGHT_CRAWLER_MOB.get(), 180);
+        DungeonHooks.addDungeonMob(EntityRegistry.NIGHT_CRAWLER_MOB.get(), 180);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

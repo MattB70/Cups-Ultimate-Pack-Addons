@@ -1,5 +1,7 @@
 package com.mattborle.cupsultimatepackaddons.handlers;
 
+import com.mattborle.cupsultimatepackaddons.init.EnchantmentRegistry;
+import com.mattborle.cupsultimatepackaddons.init.MobEffectRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -18,9 +20,6 @@ import javax.annotation.Nullable;
 
 import java.util.Random;
 
-import com.mattborle.cupsaddons.init.CupsaddonsModMobEffects;
-import com.mattborle.cupsaddons.init.CupsaddonsModEnchantments;
-
 @Mod.EventBusSubscriber
 public class TransportEnchantmentHandler {
 	@SubscribeEvent
@@ -38,57 +37,58 @@ public class TransportEnchantmentHandler {
 		if (entity == null)
 			return;
 		if (entity instanceof Player) {
-			if (EnchantmentHelper.getItemEnchantmentLevel(CupsaddonsModEnchantments.TRANSPORTING_ENCHANTMENT.get(),
+			if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.TRANSPORTING_ENCHANTMENT.get(),
 					(entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY)) == 1
-					&& EnchantmentHelper.getItemEnchantmentLevel(CupsaddonsModEnchantments.TRANSPORTING_ENCHANTMENT.get(),
+					&& EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.TRANSPORTING_ENCHANTMENT.get(),
 							(entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.CHEST) : ItemStack.EMPTY)) == 1
-					&& EnchantmentHelper.getItemEnchantmentLevel(CupsaddonsModEnchantments.TRANSPORTING_ENCHANTMENT.get(),
+					&& EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.TRANSPORTING_ENCHANTMENT.get(),
 							(entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.LEGS) : ItemStack.EMPTY)) == 1
-					&& EnchantmentHelper.getItemEnchantmentLevel(CupsaddonsModEnchantments.TRANSPORTING_ENCHANTMENT.get(),
+					&& EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.TRANSPORTING_ENCHANTMENT.get(),
 							(entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY)) == 1) {
-				if (!(entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(CupsaddonsModMobEffects.TRANSPORTING.get()) : false)) {
+				if (!(entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MobEffectRegistry.TRANSPORTING.get()) : false)) {
 					if (Mth.nextDouble(new Random(), 0, 1) >= 0.15) {
 						if (entity instanceof LivingEntity _entity)
-							_entity.addEffect(new MobEffectInstance(CupsaddonsModMobEffects.TRANSPORTING.get(), 100, 0, (false), (true)));
+							_entity.addEffect(new MobEffectInstance(MobEffectRegistry.TRANSPORTING.get(), 100, 0, (false), (true)));
 					}
 				}
 			} else {
-				if (EnchantmentHelper.getItemEnchantmentLevel(CupsaddonsModEnchantments.TRANSPORTING_ENCHANTMENT.get(),
+				MobEffectRegistry CupsaddonsModMobEffects;
+				if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.TRANSPORTING_ENCHANTMENT.get(),
 						(entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY)) == 2
-						&& EnchantmentHelper.getItemEnchantmentLevel(CupsaddonsModEnchantments.TRANSPORTING_ENCHANTMENT.get(),
+						&& EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.TRANSPORTING_ENCHANTMENT.get(),
 								(entity instanceof LivingEntity _entGetArmor
 										? _entGetArmor.getItemBySlot(EquipmentSlot.CHEST)
 										: ItemStack.EMPTY)) == 2
-						&& EnchantmentHelper.getItemEnchantmentLevel(CupsaddonsModEnchantments.TRANSPORTING_ENCHANTMENT.get(),
+						&& EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.TRANSPORTING_ENCHANTMENT.get(),
 								(entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.LEGS) : ItemStack.EMPTY)) == 2
-						&& EnchantmentHelper.getItemEnchantmentLevel(CupsaddonsModEnchantments.TRANSPORTING_ENCHANTMENT.get(),
+						&& EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.TRANSPORTING_ENCHANTMENT.get(),
 								(entity instanceof LivingEntity _entGetArmor
 										? _entGetArmor.getItemBySlot(EquipmentSlot.FEET)
 										: ItemStack.EMPTY)) == 2) {
-					if (!(entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(CupsaddonsModMobEffects.TRANSPORTING.get()) : false)) {
+					if (!(entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MobEffectRegistry.TRANSPORTING.get()) : false)) {
 						if (Mth.nextDouble(new Random(), 0, 1) >= 0.35) {
 							if (entity instanceof LivingEntity _entity)
-								_entity.addEffect(new MobEffectInstance(CupsaddonsModMobEffects.TRANSPORTING.get(), 150, 0, (false), (true)));
+								_entity.addEffect(new MobEffectInstance(MobEffectRegistry.TRANSPORTING.get(), 150, 0, (false), (true)));
 						}
 					}
 				} else {
-					if (EnchantmentHelper.getItemEnchantmentLevel(CupsaddonsModEnchantments.TRANSPORTING_ENCHANTMENT.get(),
+					if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.TRANSPORTING_ENCHANTMENT.get(),
 							(entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY)) == 3
-							&& EnchantmentHelper.getItemEnchantmentLevel(CupsaddonsModEnchantments.TRANSPORTING_ENCHANTMENT.get(),
+							&& EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.TRANSPORTING_ENCHANTMENT.get(),
 									(entity instanceof LivingEntity _entGetArmor
 											? _entGetArmor.getItemBySlot(EquipmentSlot.CHEST)
 											: ItemStack.EMPTY)) == 3
-							&& EnchantmentHelper.getItemEnchantmentLevel(CupsaddonsModEnchantments.TRANSPORTING_ENCHANTMENT.get(),
+							&& EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.TRANSPORTING_ENCHANTMENT.get(),
 									(entity instanceof LivingEntity _entGetArmor
 											? _entGetArmor.getItemBySlot(EquipmentSlot.LEGS)
 											: ItemStack.EMPTY)) == 3
-							&& EnchantmentHelper.getItemEnchantmentLevel(CupsaddonsModEnchantments.TRANSPORTING_ENCHANTMENT.get(),
+							&& EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.TRANSPORTING_ENCHANTMENT.get(),
 									(entity instanceof LivingEntity _entGetArmor
 											? _entGetArmor.getItemBySlot(EquipmentSlot.FEET)
 											: ItemStack.EMPTY)) == 3) {
-						if (!(entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(CupsaddonsModMobEffects.TRANSPORTING.get()) : false)) {
+						if (!(entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MobEffectRegistry.TRANSPORTING.get()) : false)) {
 							if (entity instanceof LivingEntity _entity)
-								_entity.addEffect(new MobEffectInstance(CupsaddonsModMobEffects.TRANSPORTING.get(), 200, 0, (false), (true)));
+								_entity.addEffect(new MobEffectInstance(MobEffectRegistry.TRANSPORTING.get(), 200, 0, (false), (true)));
 						}
 					}
 				}

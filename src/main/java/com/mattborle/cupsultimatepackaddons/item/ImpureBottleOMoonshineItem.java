@@ -1,7 +1,7 @@
 
 package com.mattborle.cupsultimatepackaddons.item;
 
-import com.mattborle.cupsultimatepackaddons.init.TabInit;
+import com.mattborle.cupsultimatepackaddons.init.ItemRegistry;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.TooltipFlag;
@@ -15,12 +15,11 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import com.mattborle.cupsaddons.procedures.MoonshineImpureDrinkHandlerProcedure;
-import com.mattborle.cupsaddons.init.CupsaddonsModTabs;
+import com.mattborle.cupsultimatepackaddons.handlers.MoonshineImpureDrinkHandler;
 
 public class ImpureBottleOMoonshineItem extends Item {
 	public ImpureBottleOMoonshineItem() {
-		super(new Properties().tab(TabInit.TAB_ITEMS)
+		super(new Properties().tab(ItemRegistry.CreativeTab.instance)
 				.stacksTo(16)
 				.rarity(Rarity.UNCOMMON)
 				.food((new FoodProperties.Builder())
@@ -54,7 +53,7 @@ public class ImpureBottleOMoonshineItem extends Item {
 		double y = entity.getY();
 		double z = entity.getZ();
 
-		MoonshineImpureDrinkHandlerProcedure.execute(entity);
+		MoonshineImpureDrinkHandler.execute(entity);
 		return retval;
 	}
 }

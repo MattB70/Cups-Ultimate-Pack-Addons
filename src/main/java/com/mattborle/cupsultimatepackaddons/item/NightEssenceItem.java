@@ -1,7 +1,7 @@
 
 package com.mattborle.cupsultimatepackaddons.item;
 
-import com.mattborle.cupsultimatepackaddons.init.TabInit;
+import com.mattborle.cupsultimatepackaddons.init.ItemRegistry;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
@@ -17,12 +17,11 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import com.mattborle.cupsaddons.procedures.NightEssenceEatingHandlerProcedure;
-import com.mattborle.cupsaddons.init.CupsaddonsModTabs;
+import com.mattborle.cupsultimatepackaddons.handlers.NightEssenceEatingHandler;
 
 public class NightEssenceItem extends Item {
 	public NightEssenceItem() {
-		super(new Properties().tab(TabInit.TAB_ITEMS)
+		super(new Properties().tab(ItemRegistry.CreativeTab.instance)
 				.stacksTo(64)
 				.rarity(Rarity.UNCOMMON)
 				.food((new FoodProperties.Builder())
@@ -53,7 +52,7 @@ public class NightEssenceItem extends Item {
 		double y = entity.getY();
 		double z = entity.getZ();
 
-		NightEssenceEatingHandlerProcedure.execute(entity);
+		NightEssenceEatingHandler.execute(entity);
 		return retval;
 	}
 }

@@ -1,11 +1,10 @@
 
 package com.mattborle.cupsultimatepackaddons.potion;
 
+import com.mattborle.cupsultimatepackaddons.handlers.UndeadHandler;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffect;
-
-import com.mattborle.cupsaddons.procedures.UndeadHandlerProcedure;
 
 public class UndeadMobEffect extends MobEffect {
 	public UndeadMobEffect() {
@@ -19,7 +18,7 @@ public class UndeadMobEffect extends MobEffect {
 
 	@Override
 	public void applyEffectTick(LivingEntity entity, int amplifier) {
-		UndeadHandlerProcedure.execute(entity.level, entity);
+		UndeadHandler.execute(entity.level, entity);
 	}
 
 	@Override

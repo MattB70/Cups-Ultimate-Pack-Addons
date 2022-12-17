@@ -1,11 +1,10 @@
 
 package com.mattborle.cupsultimatepackaddons.potion;
 
+import com.mattborle.cupsultimatepackaddons.handlers.GreenedOutHandler;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffect;
-
-import com.mattborle.cupsaddons.procedures.GreenedOutHandlerProcedure;
 
 public class GreenedOutMobEffect extends MobEffect {
 	public GreenedOutMobEffect() {
@@ -19,7 +18,7 @@ public class GreenedOutMobEffect extends MobEffect {
 
 	@Override
 	public void applyEffectTick(LivingEntity entity, int amplifier) {
-		GreenedOutHandlerProcedure.execute(entity);
+		GreenedOutHandler.execute(entity);
 	}
 
 	@Override

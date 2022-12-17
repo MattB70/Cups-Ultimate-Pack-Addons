@@ -1,11 +1,10 @@
 
 package com.mattborle.cupsultimatepackaddons.potion;
 
+import com.mattborle.cupsultimatepackaddons.handlers.AmpedHandler;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffect;
-
-import com.mattborle.cupsaddons.procedures.AmpedHandlerProcedure;
 
 public class AmpedMobEffect extends MobEffect {
 	public AmpedMobEffect() {
@@ -19,7 +18,7 @@ public class AmpedMobEffect extends MobEffect {
 
 	@Override
 	public void applyEffectTick(LivingEntity entity, int amplifier) {
-		AmpedHandlerProcedure.execute(entity);
+		AmpedHandler.execute(entity);
 	}
 
 	@Override

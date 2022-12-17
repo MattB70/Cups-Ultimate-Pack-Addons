@@ -1,5 +1,6 @@
 package com.mattborle.cupsultimatepackaddons.handlers;
 
+import com.mattborle.cupsultimatepackaddons.init.MobEffectRegistry;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import net.minecraft.world.level.block.Blocks;
@@ -18,22 +19,20 @@ import net.minecraft.core.BlockPos;
 
 import java.util.Random;
 
-import com.mattborle.cupsaddons.init.CupsaddonsModMobEffects;
-
 public class NightTransportHandler {
 	public static void execute(LevelAccessor world, Entity entity) {
 		if (entity == null)
 			return;
 		if (entity instanceof LivingEntity _entity)
 			_entity.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY,
-					entity instanceof LivingEntity _livEnt && _livEnt.hasEffect(CupsaddonsModMobEffects.TRANSPORTING.get())
-							? _livEnt.getEffect(CupsaddonsModMobEffects.TRANSPORTING.get()).getDuration()
+					entity instanceof LivingEntity _livEnt && _livEnt.hasEffect(MobEffectRegistry.TRANSPORTING.get())
+							? _livEnt.getEffect(MobEffectRegistry.TRANSPORTING.get()).getDuration()
 							: 0,
 					0, (false), (false)));
 		if (entity instanceof LivingEntity _entity)
 			_entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,
-					entity instanceof LivingEntity _livEnt && _livEnt.hasEffect(CupsaddonsModMobEffects.TRANSPORTING.get())
-							? _livEnt.getEffect(CupsaddonsModMobEffects.TRANSPORTING.get()).getDuration()
+					entity instanceof LivingEntity _livEnt && _livEnt.hasEffect(MobEffectRegistry.TRANSPORTING.get())
+							? _livEnt.getEffect(MobEffectRegistry.TRANSPORTING.get()).getDuration()
 							: 0,
 					2, (false), (false)));
 		if (entity instanceof LivingEntity _entity)

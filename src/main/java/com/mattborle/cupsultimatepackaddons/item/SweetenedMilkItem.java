@@ -1,7 +1,7 @@
 
 package com.mattborle.cupsultimatepackaddons.item;
 
-import com.mattborle.cupsultimatepackaddons.init.TabInit;
+import com.mattborle.cupsultimatepackaddons.init.ItemRegistry;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.item.UseAnim;
@@ -16,12 +16,11 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import com.mattborle.cupsaddons.procedures.SweetenedMilkDrinkHandlerProcedure;
-import com.mattborle.cupsaddons.init.CupsaddonsModTabs;
+import com.mattborle.cupsultimatepackaddons.handlers.SweetenedMilkDrinkHandler;
 
 public class SweetenedMilkItem extends Item {
 	public SweetenedMilkItem() {
-		super(new Properties().tab(TabInit.TAB_ITEMS)
+		super(new Properties().tab(ItemRegistry.CreativeTab.instance)
 				.stacksTo(16)
 				.rarity(Rarity.UNCOMMON)
 				.food((new FoodProperties.Builder())
@@ -59,7 +58,7 @@ public class SweetenedMilkItem extends Item {
 		double y = entity.getY();
 		double z = entity.getZ();
 
-		SweetenedMilkDrinkHandlerProcedure.execute(entity);
+		SweetenedMilkDrinkHandler.execute(entity);
 		return retval;
 	}
 }

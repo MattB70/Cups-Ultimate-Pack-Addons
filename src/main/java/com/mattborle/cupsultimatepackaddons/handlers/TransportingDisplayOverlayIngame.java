@@ -1,5 +1,6 @@
 package com.mattborle.cupsultimatepackaddons.handlers;
 
+import com.mattborle.cupsultimatepackaddons.init.MobEffectRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -10,7 +11,6 @@ import net.minecraft.world.entity.Entity;
 
 import javax.annotation.Nullable;
 
-import com.mattborle.cupsaddons.init.CupsaddonsModMobEffects;
 
 @Mod.EventBusSubscriber
 public class TransportingDisplayOverlayIngame {
@@ -28,7 +28,7 @@ public class TransportingDisplayOverlayIngame {
 	private static boolean execute(@Nullable Event event, Entity entity) {
 		if (entity == null)
 			return false;
-		if (entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(CupsaddonsModMobEffects.TRANSPORTING.get()) : false) {
+		if (entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MobEffectRegistry.TRANSPORTING.get()) : false) {
 			return true;
 		}
 		return false;

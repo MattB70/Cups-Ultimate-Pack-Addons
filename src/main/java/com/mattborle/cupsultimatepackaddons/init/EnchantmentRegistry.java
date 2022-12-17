@@ -1,6 +1,7 @@
 package com.mattborle.cupsultimatepackaddons.init;
 
 import com.mattborle.cupsultimatepackaddons.CupsUltimatePackAddons;
+import com.mattborle.cupsultimatepackaddons.enchantment.TransportingEnchantment;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

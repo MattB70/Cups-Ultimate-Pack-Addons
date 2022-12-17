@@ -10,9 +10,9 @@ public class FuelInit {
     @SubscribeEvent
     public static void furnaceFuelBurnTimeEvent(FurnaceFuelBurnTimeEvent event) {
         ItemStack itemstack = event.getItemStack();
-        if (itemstack.getItem() == CupsUltimatePackAddonsItems.BOTTLE_O_MOONSHINE.get())
+        if (itemstack.getItem() == ItemRegistry.BOTTLE_O_MOONSHINE.get())
             event.setBurnTime(3200);
-        else if (itemstack.getItem() == CupsUltimatePackAddonsItems.IMPURE_BOTTLE_O_MOONSHINE.get())
+        else if (itemstack.getItem() == ItemRegistry.IMPURE_BOTTLE_O_MOONSHINE.get())
             event.setBurnTime(2800);
     }
 }
