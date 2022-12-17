@@ -12,7 +12,7 @@ public class TabInit {
         TAB_ITEMS = new CreativeModeTab("tabitems") {
             @Override
             public ItemStack makeIcon() {
-                return new ItemStack(CupsUltimatePackAddonsModItems.BARLEY_CORN_MIX.get());
+                return new ItemStack(ItemRegistry.BARLEY_CORN_MIX.get());
             }
 
             @OnlyIn(Dist.CLIENT)
