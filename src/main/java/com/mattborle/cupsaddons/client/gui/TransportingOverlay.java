@@ -46,7 +46,7 @@ public class TransportingOverlay {
                     GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             RenderSystem.setShaderColor(1, 1, 1, 1);
             if (TransportingDisplayOverlayIngame.execute(entity)) {
-                RenderSystem.setShaderTexture(0, new ResourceLocation("cupsultimatepackadddons:textures/screens/transporting_overlay.png"));
+                RenderSystem.setShaderTexture(0, new ResourceLocation("cupsadddons:textures/screens/transporting_overlay.png"));
                 Minecraft.getInstance().gui.blit(event.getMatrixStack(), 0, 0, 0, 0, w, h, w, h);
             }
             RenderSystem.depthMask(true);
