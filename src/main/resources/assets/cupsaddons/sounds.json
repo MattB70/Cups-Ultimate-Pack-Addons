@@ -1,0 +1,52 @@
+{
+  "night_crawler_hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.night_crawler_hurt",
+    "sounds": [
+      {
+        "name": "cupsaddons:night_crawler_hurt",
+        "stream": false
+      }
+    ]
+  },
+  "night_crawler_death": {
+    "category": "hostile",
+    "subtitle": "subtitles.night_crawler_death",
+    "sounds": [
+      {
+        "name": "cupsaddons:night_crawler_death",
+        "stream": false
+      }
+    ]
+  },
+  "night_crawler_ambient": {
+    "category": "hostile",
+    "subtitle": "subtitles.night_crawler_ambient",
+    "sounds": [
+      {
+        "name": "cupsaddons:night_crawler_ambient",
+        "stream": false
+      }
+    ]
+  },
+  "transport_end": {
+    "category": "player",
+    "subtitle": "subtitles.transport_end",
+    "sounds": [
+      {
+        "name": "cupsaddons:transport_end",
+        "stream": false
+      }
+    ]
+  },
+  "transport_observed": {
+    "category": "player",
+    "subtitle": "subtitles.transport_observed",
+    "sounds": [
+      {
+        "name": "cupsaddons:transport_observed",
+        "stream": false
+      }
+    ]
+  }
+}

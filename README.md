@@ -21,3 +21,5 @@ Please report all of the above in the issues page on this repo. I do not care if
 Fork, Clone, or otherwise acquire this repository.
 
 Run `.\gradlew build` to generate a .jar
+
+You cannot run this mod properly without a proper environment with the required mods such as the modpack itself, or a custom made pack with just the required mods. Basically this will build, usually allow you to the main menu, but will not allow you to play. If you want to make a build and test it, you must do it properly.

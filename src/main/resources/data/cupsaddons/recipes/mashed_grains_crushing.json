@@ -1,0 +1,15 @@
+{
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "cupsaddons:barley_corn_mix"
+    }
+  ],
+  "results": [
+    {
+      "item": "cupsaddons:mashed_grains",
+      "count": 1
+    }
+  ],
+  "processingTime": 500
+}

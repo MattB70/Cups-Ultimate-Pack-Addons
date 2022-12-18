@@ -1,0 +1,20 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "cupsaddons:cooked_mashed_grains"
+    },
+    {
+      "fluid": "minecraft:water",
+      "nbt": {},
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "cupsaddons:bottle_o_moonshine",
+      "count": 1
+    }
+  ],
+  "heatRequirement": "heated"
+}
