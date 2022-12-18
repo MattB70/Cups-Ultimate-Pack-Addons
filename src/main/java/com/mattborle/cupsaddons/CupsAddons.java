@@ -23,7 +23,6 @@ import static org.antlr.runtime.debug.DebugEventListener.PROTOCOL_VERSION;
 @Mod("cupsaddons")
 public class CupsAddons
 {
-    public static boolean debugMode = true; //TODO: consider the build destination. False if production.
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final String MOD_ID = "cupsaddons";
     public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(new ResourceLocation(MOD_ID, MOD_ID), () -> PROTOCOL_VERSION,
