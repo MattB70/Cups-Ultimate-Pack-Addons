@@ -1,6 +1,6 @@
-package com.mattborle.cupsaddons.client.renderer;
+package com.mattborle.cupsaddons.client.renderer.entity;
 
-import com.mattborle.cupsaddons.client.model.NightCrawlerModel;
+import com.mattborle.cupsaddons.client.model.entity.NightCrawlerModel;
 import com.mattborle.cupsaddons.entity.NightCrawlerMobEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

@@ -8,6 +8,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityLeaveWorldEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -17,6 +18,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.slf4j.Logger;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
 import static org.antlr.runtime.debug.DebugEventListener.PROTOCOL_VERSION;
 
@@ -56,6 +59,25 @@ public class CupsAddons
         {
             // Some client setup code
             LOGGER.info("Cup's Ultimate Pack Addons (CLIENT)");
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEntityRemoved(EntityLeaveWorldEvent event) {
+        if (event.getEntity() == null) {
+            return;
+        }
+        if (event.getEntity().getUUID() == null) {
+            return;
+        }
+        if (event.getWorld().isClientSide) {
+            GeoArmorRenderer.LIVING_ENTITY_RENDERERS.values().forEach(instances -> {
+                if (instances.containsKey(event.getEntity().getUUID())) {
+                    AnimationController.ModelFetcher<?> beGone = instances.get(event.getEntity().getUUID());
+                    AnimationController.removeModelFetcher(beGone);
+                    instances.remove(event.getEntity().getUUID());
+                }
+            });
         }
     }
 

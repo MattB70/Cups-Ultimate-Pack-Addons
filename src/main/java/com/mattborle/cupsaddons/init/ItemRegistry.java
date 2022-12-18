@@ -30,8 +30,8 @@ public class ItemRegistry {
 
     // Tools ===========================================================================================================
     // Register Chrysophilists Pickaxe with id chrysophilists_pickaxe and reference CHRYSOPHILISTS_PICKAXE.
+    //TODO: Consider unique tiers for some items
     public static final RegistryObject<Item> CHRYSOPHILISTS_PICKAXE = MOD_ITEMS.register("chrysophilists_pickaxe",
-            //TODO: Consider unique tiers for some items
             () -> new PickaxeItem(Tiers.DIAMOND,1, 1.0f, new Item.Properties().tab(CreativeTab.instance)));
 
     // Items ===========================================================================================================

@@ -1,4 +1,4 @@
-package com.mattborle.cupsaddons.client.model;
+package com.mattborle.cupsaddons.client.model.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
