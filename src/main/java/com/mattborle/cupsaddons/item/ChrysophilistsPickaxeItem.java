@@ -28,6 +28,7 @@ import java.util.function.Consumer;
 
 public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable {
 
+    //TODO: This model renders invisible, but leaves no errors in the log!
     /*
         ChrysophilistsPickaxe or Chrysophilist's Pickaxe
 
