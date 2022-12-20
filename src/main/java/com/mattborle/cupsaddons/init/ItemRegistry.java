@@ -32,7 +32,7 @@ public class ItemRegistry {
     // Register Chrysophilists Pickaxe with id chrysophilists_pickaxe and reference CHRYSOPHILISTS_PICKAXE.
     //TODO: Consider unique tiers for some items
     public static final RegistryObject<Item> CHRYSOPHILISTS_PICKAXE = MOD_ITEMS.register("chrysophilists_pickaxe",
-            () -> new PickaxeItem(Tiers.DIAMOND,1, 1.0f, new Item.Properties().tab(CreativeTab.instance)));
+            () -> new ChrysophilistsPickaxeItem(Tiers.DIAMOND,1, 0.3f, new Item.Properties().tab(CreativeTab.instance)));
 
     // Items ===========================================================================================================
     public static final RegistryObject<Item> BARLEY_CORN_MIX = MOD_ITEMS.register("barley_corn_mix", BarleyCornMixItem::new);

@@ -1,6 +1,6 @@
 package com.mattborle.cupsaddons.client.model.item;
 
-import com.mattborle.cupsaddons.client.EntityResources;
+import com.mattborle.cupsaddons.CupsAddons;
 import com.mattborle.cupsaddons.item.ChrysophilistsPickaxeItem;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
@@ -8,14 +8,14 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class ChrysophilistsPickaxeModel extends AnimatedGeoModel<ChrysophilistsPickaxeItem> {
     @Override
     public ResourceLocation getModelLocation(ChrysophilistsPickaxeItem object) {
-        return EntityResources.CHRYSOPHILISTS_PICKAXE_MODEL;
+        return new ResourceLocation(CupsAddons.MOD_ID, "geo/chrysophilists_pickaxe.geo.json");
     }
     @Override
     public ResourceLocation getTextureLocation(ChrysophilistsPickaxeItem object) {
-        return EntityResources.CHRYSOPHILISTS_PICKAXE_TEXTURE;
+        return new ResourceLocation(CupsAddons.MOD_ID, "textures/items/chrysophilists_pickaxe.png");
     }
     @Override
     public ResourceLocation getAnimationFileLocation(ChrysophilistsPickaxeItem animatable) {
-        return EntityResources.CHRYSOPHILISTS_PICKAXE_ANIMATIONS;
+        return new ResourceLocation(CupsAddons.MOD_ID, "animations/chrysophilists_pickaxe.animation.json");
     }
 }

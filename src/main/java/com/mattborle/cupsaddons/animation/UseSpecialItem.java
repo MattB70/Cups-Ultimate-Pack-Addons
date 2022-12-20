@@ -1,7 +1,7 @@
 package com.mattborle.cupsaddons.animation;
 
 import com.mattborle.cupsaddons.CupsAddons;
-import com.mattborle.cupsaddons.init.ItemRegistry;
+import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.KeyframeAnimationPlayer;
 import dev.kosmx.playerAnim.api.layered.ModifierLayer;
@@ -34,23 +34,20 @@ public class UseSpecialItem {
 
 
         // Animation selection =========================================================================================
-        // Here we place every special item in a list and set an animation to play.
+        // Here we pair every special item in a hash map with another item it can be fueled with.
+        //      Example: Chrysophilist's Pickaxe can be fueled with Lapis Lazuli.
         // Any item in this list will play the "animation.model.tool.use" animation upon right-clicking.
-        Item items[] = {
-                ItemRegistry.CHRYSOPHILISTS_PICKAXE.get()
-        };
+
 
         // Item the player is holding upon right-clicking
         Item heldItem = event.getItemStack().getItem();
 
-        // Iterate through all special items listed above, and if the player is hold it, play the animation.
-        for(int i = 0; i < items.length; i++) {
-            if (heldItem == items[i]) {
-                // Get tool use animation (grab tool with two hands in front of the player)
-                animation.setAnimation(new KeyframeAnimationPlayer(Objects.requireNonNull(PlayerAnimationRegistry
-                        .getAnimation(new ResourceLocation("cupsaddons", "animation.model.tool.use")))));
-                return;
-            }
+        CupsAddons.LOGGER.info("Item1: "+ heldItem +", Item2: "+CupsAddonsCommonConfigs.FUEL_CHRYSOPHILISTS_PICKAXE.get());
+        // check if the player is holding both special item and its fuel, if so, play the animation.
+        if (heldItem.toString() == CupsAddonsCommonConfigs.FUEL_CHRYSOPHILISTS_PICKAXE.get()) {
+            // Get tool use animation (grab tool with two hands in front of the player)
+            animation.setAnimation(new KeyframeAnimationPlayer(Objects.requireNonNull(PlayerAnimationRegistry
+                    .getAnimation(new ResourceLocation("cupsaddons", "animation.model.tool.use")))));
         }
     }
 }

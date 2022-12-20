@@ -1,5 +1,10 @@
 {
+  "tooltip.cupsaddons.reward_item":  "\u00A7o\u00A75Reward Item",
+  "tooltip.cupsaddons.unique_item":  "\u00A7o\u00A76Unique Item",
+  "tooltip.cupsaddons.hold_alt_for_details":  "\u00A77Hold \u00A7o\u00A7eAlt \u00A7r\u00A77for Details",
+
   "item.cupsaddons.chrysophilists_pickaxe": "Chrysophilist's Pickaxe",
+  "tooltip.cupsaddons.chrysophilists_pickaxe_description": "\u00A7o\u00A7dChrysophilist's Pickaxe Description Goes Here!",
 
   "itemGroup.cupsaddons": "Cup's Ultimate Pack",
   "effect.cupsaddons.aquaphilia": "Aquaphilia",

@@ -1,5 +1,7 @@
 package com.mattborle.cupsaddons;
 
+import com.mattborle.cupsaddons.config.CupsAddonsClientConfigs;
+import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import com.mattborle.cupsaddons.init.EnchantmentRegistry;
 import com.mattborle.cupsaddons.init.EntityRegistry;
 import com.mattborle.cupsaddons.init.ItemRegistry;
@@ -11,7 +13,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityLeaveWorldEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -41,6 +45,9 @@ public class CupsAddons
         EntityRegistry.MOD_ENTITIES.register(modEventBus);
         EnchantmentRegistry.MOD_ENCHANTMENTS.register(modEventBus);
         MobEffectRegistry.MOD_EFFECTS.register(modEventBus);
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CupsAddonsClientConfigs.SPEC, "cupsaddons-client.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CupsAddonsCommonConfigs.SPEC, "cupsaddons-common.toml");
 
         MinecraftForge.EVENT_BUS.register(this);
     }

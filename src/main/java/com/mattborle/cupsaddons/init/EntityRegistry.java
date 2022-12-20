@@ -28,7 +28,7 @@ public class EntityRegistry {
                     .sized(0.6f, 1.9f));
 
     private static <T extends Entity> RegistryObject<EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
-        return MOD_ENTITIES.register(registryname, () -> (EntityType<T>) entityTypeBuilder.build(registryname));
+        return MOD_ENTITIES.register(registryname, () -> entityTypeBuilder.build(registryname));
     }
     @SubscribeEvent
     public static void init(FMLCommonSetupEvent event) {
