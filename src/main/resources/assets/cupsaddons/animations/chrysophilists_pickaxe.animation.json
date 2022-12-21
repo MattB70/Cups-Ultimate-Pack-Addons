@@ -64,70 +64,6 @@
 				}
 			}
 		},
-		"animation.chrysophilists_pickaxe.active": {
-			"loop": true,
-			"animation_length": 4,
-			"bones": {
-				"picks": {
-					"position": {
-						"vector": [0, "-math.sin(query.anim_time*360)/5", 0]
-					}
-				},
-				"float": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"4.0": {
-							"vector": [2160, 2160, 0]
-						}
-					},
-					"position": {
-						"vector": [0, "math.sin(query.anim_time*180 )/5", 0]
-					}
-				},
-				"decalbottom": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"4.0": {
-							"vector": [720, 720, 0]
-						}
-					},
-					"position": {
-						"vector": [0, "-math.sin(query.anim_time*180 )/15", 0]
-					}
-				},
-				"decalback": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"4.0": {
-							"vector": [720, 720, 0]
-						}
-					},
-					"position": {
-						"vector": [0, "-math.sin(query.anim_time*180 )/15", 0]
-					}
-				},
-				"decalfront": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"4.0": {
-							"vector": [720, 720, 0]
-						}
-					},
-					"position": {
-						"vector": [0, "-math.sin(query.anim_time*180 )/15", 0]
-					}
-				}
-			},
-			"particle_effects": {}
-		},
 		"animation.chrysophilists_pickaxe.use": {
 			"animation_length": 2.5,
 			"bones": {
@@ -185,11 +121,8 @@
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
-						"1.0": {
-							"vector": [180, 180, 0]
-						},
 						"2.5": {
-							"vector": [1080, 1080, 0]
+							"vector": [270, 270, 0]
 						}
 					}
 				},
@@ -218,7 +151,12 @@
 			},
 			"sound_effects": {
 				"0.0": {
-					"effect": "music"
+					"effect": "magic_pop"
+				}
+			},
+			"particle_effects": {
+				"1.25": {
+					"effect": "particle"
 				}
 			}
 		}

@@ -50,8 +50,8 @@ public class UseSpecialItem {
 
             // This is the logic for the animation, and as such can exist on the client. The effect is handled by the item.
             // check if the player is holding both special item and its fuel, if so, play the animation.
-            if (mainHandItem.toString() == "chrysophilists_pickaxe" && offHandItem.toString() == CupsAddonsCommonConfigs.FUEL_CHRYSOPHILISTS_PICKAXE.get()) {
-
+            if (mainHandItem.toString().equals("chrysophilists_pickaxe") && offHandItem.toString().equals(CupsAddonsCommonConfigs.FUEL_CHRYSOPHILISTS_PICKAXE.get())) {
+                CupsAddons.LOGGER.info("Fueling Item!");
                 // Get tool use animation (grab tool with two hands in front of the player)
                 animation.setAnimation(new KeyframeAnimationPlayer(Objects.requireNonNull(PlayerAnimationRegistry
                         .getAnimation(new ResourceLocation("cupsaddons", "animation.model.tool.use")))));
