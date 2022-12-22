@@ -1,7 +1,6 @@
 package com.mattborle.cupsaddons.animation;
 
 import com.mattborle.cupsaddons.CupsAddons;
-import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.KeyframeAnimationPlayer;
 import dev.kosmx.playerAnim.api.layered.ModifierLayer;
@@ -11,7 +10,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -19,6 +17,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.Objects;
+
+import static com.mattborle.cupsaddons.init.ItemPairsInit.itemPairs;
 
 // These animation triggers must remain client sided.
 @Mod.EventBusSubscriber(modid = CupsAddons.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
@@ -38,23 +38,20 @@ public class UseSpecialItem {
 
 
             // Animation selection =========================================================================================
-            // Here we pair every special item in a hash map with another item it can be fueled with.
-            //      Example: Chrysophilist's Pickaxe can be fueled with Lapis Lazuli.
-            // Any item in this list will play the "animation.model.tool.use" animation upon right-clicking.
-
 
             // Items the player is holding upon right-clicking
             Item mainHandItem = event.getItemStack().getItem();
             Item offHandItem = player.getOffhandItem().getItem();
-            CupsAddons.LOGGER.info("mainHandItem: " + mainHandItem + ", offHandItem: " + offHandItem + ", Required Fuel: " + CupsAddonsCommonConfigs.FUEL_CHRYSOPHILISTS_PICKAXE.get());
 
-            // This is the logic for the animation, and as such can exist on the client. The effect is handled by the item.
-            // check if the player is holding both special item and its fuel, if so, play the animation.
-            if (mainHandItem.toString().equals("chrysophilists_pickaxe") && offHandItem.toString().equals(CupsAddonsCommonConfigs.FUEL_CHRYSOPHILISTS_PICKAXE.get())) {
-                CupsAddons.LOGGER.info("Fueling Item!");
-                // Get tool use animation (grab tool with two hands in front of the player)
-                animation.setAnimation(new KeyframeAnimationPlayer(Objects.requireNonNull(PlayerAnimationRegistry
-                        .getAnimation(new ResourceLocation("cupsaddons", "animation.model.tool.use")))));
+            // This is the logic for the animation, and as such can exist on the client. The server side effect is
+            // handled in ItemNameItem.java.
+            // Check if the player is holding both special item and its fuel, if so, play the animation.
+            for(int i = 0; i < itemPairs.length; i++){
+                if (mainHandItem.toString().equals(itemPairs[i][0]) && offHandItem.toString().equals(itemPairs[i][1])) {
+                    // Get tool use animation (grab tool with two hands in front of the player)
+                    animation.setAnimation(new KeyframeAnimationPlayer(Objects.requireNonNull(PlayerAnimationRegistry
+                            .getAnimation(new ResourceLocation("cupsaddons", "animation.model.tool.use")))));
+                }
             }
         }
     }

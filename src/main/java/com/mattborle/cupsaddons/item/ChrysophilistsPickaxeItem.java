@@ -4,27 +4,30 @@ import com.mattborle.cupsaddons.CupsAddons;
 import com.mattborle.cupsaddons.client.renderer.item.ChrysophilistsPickaxeRenderer;
 import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import com.mattborle.cupsaddons.init.ItemRegistry;
-import com.mattborle.cupsaddons.init.SoundRegistry;
-import com.simibubi.create.foundation.sound.SoundScapes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.client.resources.sounds.Sound;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.common.data.ForgeItemTagsProvider;
+import net.minecraftforge.common.extensions.IForgeBlockState;
 import net.minecraftforge.network.PacketDistributor;
 import org.apache.commons.lang3.text.WordUtils;
 import software.bernie.geckolib3.core.AnimationState;
@@ -49,6 +52,10 @@ import java.util.function.Consumer;
 
 public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable, ISyncable {
 
+    /*  TODO:   Re-write, especially nested if statements, and create a implementable class out of this. Something like
+        TODO:   a "Fuelable" so it can be applied to new items easily.
+    */
+
     /*
         ChrysophilistsPickaxe or Chrysophilist's Pickaxe
 
@@ -58,18 +65,21 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
         never be discovered outside completing the task required by the modpack designer.
     */
 
+
     // Functionality Variables
     public String fuelItem = CupsAddonsCommonConfigs.FUEL_CHRYSOPHILISTS_PICKAXE.get();
-    public int fuel = 0;
-    public int maxFuel = 100;
+    public int maxFuel = 100;   // Max fuel, typically the number of uses an item has before needing to be refueled
+
 
     // Animation Variables
     public String idleAnimationName = "animation.chrysophilists_pickaxe.idle";
     public String useAnimationName = "animation.chrysophilists_pickaxe.use";
     public String activeAnimationName = "animation.chrysophilists_pickaxe.active";
     private static final String CONTROLLER_NAME = "useController";
-    private static final int ANIM_OPEN = 0;
+    private static final int ANIM_USE = 0;
     public AnimationFactory factory = GeckoLibUtil.createFactory(this);
+
+
 
     // Constructor and Usage ===========================================================================================
     public ChrysophilistsPickaxeItem(Tier tier, int p_42962_, float p_42963_, Properties properties) {
@@ -84,7 +94,17 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
     @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         if(CupsAddonsCommonConfigs.ABILITY_CHRYSOPHILISTS_PICKAXE.get()){
-            tooltip.add(new TextComponent("Fuel ("+ WordUtils.capitalize(fuelItem.replace("_", " "))+"): "+fuel+"/"+maxFuel)
+            int fuel = 0;
+            // Get fuel nbt and put it in fuel variable if exists
+            if(stack.getTag() != null){
+                if(stack.getTag().get("cupsaddons.fuel") != null) {
+                    if (stack.getTag().get("cupsaddons.fuel").getAsString() != null) {
+                        fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
+                    }
+                }
+            }
+            // Display fuel tooltip
+            tooltip.add(new TextComponent("Fuel: "+fuel+"/"+maxFuel+ " ("+ WordUtils.capitalize(fuelItem.replace("_", " "))+")")
                     .withStyle(ChatFormatting.BLUE));
             if(Screen.hasAltDown()){
                 tooltip.add(new TranslatableComponent("tooltip.cupsaddons.chrysophilists_pickaxe_description"));
@@ -94,6 +114,39 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
             tooltip.add(new TranslatableComponent("tooltip.cupsaddons.unique_item"));
         }
     }
+    @Override
+    public boolean mineBlock(ItemStack stack, Level level, BlockState blockState, BlockPos blockPos, LivingEntity livingEntity) {
+        // Check if the item has fuel and do something special if it does.
+        if (!level.isClientSide) {
+            if (stack.getTag() != null) {
+                if (stack.getTag().get("cupsaddons.fuel") != null) {
+                    if (stack.getTag().get("cupsaddons.fuel").getAsString() != null) {
+                        if (Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString()) > 0) {
+                            // Special action
+                            CupsAddons.LOGGER.info("MINED BLOCK WITH FUEL");
+                            // Particles
+                            for(int i = 0; i < 5; i++){
+                                Random r = new Random();
+                                livingEntity.level.addParticle(ParticleTypes.ENCHANT, livingEntity.getX(), livingEntity.getY()+livingEntity.getEyeHeight()*1.5, livingEntity.getZ(),
+                                        (-3f + r.nextFloat() * (6f)),
+                                        (-3f + r.nextFloat() * (6f)),
+                                        (-3f + r.nextFloat() * (6f)));
+                            }
+
+                            // Reduce the item's fuel by 1.
+                            int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
+                            CompoundTag nbtData = new CompoundTag();
+                            nbtData.putInt("cupsaddons.fuel", fuel-1);
+                            livingEntity.getMainHandItem().setTag(nbtData);
+                        }
+                    }
+                }
+            }
+        }
+        return super.mineBlock(stack, level, blockState, blockPos, livingEntity);
+    }
+
+
 
     // Animation and Model =============================================================================================
 
@@ -121,7 +174,7 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
 
     @Override
     public void registerControllers(AnimationData data) {
-        AnimationController controller = new AnimationController(this, CONTROLLER_NAME, 20, this::predicate);
+        AnimationController controller = new AnimationController(this, CONTROLLER_NAME, 1, this::predicate);
         // Registering a sound listener just makes it so when any sound keyframe is hit
         // the method will be called.
         // To register a particle listener or custom event listener you do the exact
@@ -131,7 +184,7 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
         controller.registerParticleListener(this::particleListener);
         data.addAnimationController(controller);
         // Idle animation controller
-        data.addAnimationController(new AnimationController(this, "idle", 20, this::idleAnimation));
+        data.addAnimationController(new AnimationController(this, "idle", 1, this::idleAnimation));
     }
 
     private <ENTITY extends IAnimatable> void soundListener(SoundKeyframeEvent<ENTITY> event) {
@@ -141,19 +194,19 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
         // As soon as the particles play, Do nothing.
         LocalPlayer player = Minecraft.getInstance().player;
         if (player != null) {
-            player.playSound(SoundEvents.TOTEM_USE, 0.8f, 1.3f);
-        }
-        // Particles
-        for(int i = 0; i < 20; i++){
-            Random r = new Random();
-            player.level.addParticle(ParticleTypes.ENCHANT, player.getX(), player.getY()+player.getEyeHeight()*1.5, player.getZ(),
-                    (-3f + r.nextFloat() * (6f)),
-                    (-3f + r.nextFloat() * (6f)),
-                    (-3f + r.nextFloat() * (6f)));
-            player.level.addParticle(ParticleTypes.SMOKE, player.getX(), player.getY()+player.getEyeHeight()*1.5, player.getZ(),
-                    (-3f + r.nextFloat() * (6f)),
-                    (-3f + r.nextFloat() * (6f)),
-                    (-3f + r.nextFloat() * (6f)));
+            player.playSound(SoundEvents.TOTEM_USE, 0.7f, 1.5f);
+            // Particles
+            for(int i = 0; i < 20; i++){
+                Random r = new Random();
+                player.level.addParticle(ParticleTypes.ENCHANT, player.getX(), player.getY()+player.getEyeHeight()*1.5, player.getZ(),
+                        (-3f + r.nextFloat() * (6f)),
+                        (-3f + r.nextFloat() * (6f)),
+                        (-3f + r.nextFloat() * (6f)));
+                player.level.addParticle(ParticleTypes.SMOKE, player.getX(), player.getY()+player.getEyeHeight(), player.getZ(),
+                        (-0.5f + r.nextFloat() * (1f)),
+                        (-0.5f + r.nextFloat() * (1f)),
+                        (-0.5f + r.nextFloat() * (1f)));
+            }
         }
     }
 
@@ -164,20 +217,53 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
-        if (!world.isClientSide) {
-            // Gets the item that the player is holding, should be this item
-            final ItemStack stack = player.getItemInHand(hand);
-            final int id = GeckoLibUtil.guaranteeIDForStack(stack, (ServerLevel) world);
-            // Tell all nearby clients to trigger this Item
-            final PacketDistributor.PacketTarget target = PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player);
-            GeckoLibNetwork.syncAnimation(target, this, id, ANIM_OPEN);
+        // Return if client side
+        if (world.isClientSide) {
+            return super.use(world, player, hand);
         }
+
+        // Here we check if the item can be used/fueled on the server side, the client side player animation is
+        // handled in UseSpecialItem.java and is similar.
+        Item mainHandItem = player.getMainHandItem().getItem();
+        Item offHandItem = player.getOffhandItem().getItem();
+        // Return if not correct item pair
+        if (!(mainHandItem.toString().equals("chrysophilists_pickaxe") && offHandItem.toString().equals(CupsAddonsCommonConfigs.FUEL_CHRYSOPHILISTS_PICKAXE.get()))) {
+            return super.use(world, player, hand);
+        }
+        // Return if item already fully fueled
+        if(player.getMainHandItem().getTag() != null) {
+            if (player.getMainHandItem().getTag().get("cupsaddons.fuel") != null) {
+                if (player.getMainHandItem().getTag().get("cupsaddons.fuel").getAsString() != null) {
+                    if (Integer.parseInt(player.getMainHandItem().getTag().get("cupsaddons.fuel").getAsString()) == maxFuel) {
+                        player.displayClientMessage(new TextComponent("Already Fully Fueled").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.RED), true);
+                        return super.use(world, player, hand);
+                    }
+                }
+            }
+        }
+
+        // Remove one item from the offhand stack
+        player.getOffhandItem().setCount(player.getOffhandItem().getCount()-1);
+
+        // Make a compound tag and set our fuel data in it.
+        CompoundTag nbtData = new CompoundTag();
+        nbtData.putInt("cupsaddons.fuel", maxFuel);
+        player.getMainHandItem().setTag(nbtData);
+
+        // Animation Sync:
+        // Gets the itemStack that the player is holding.
+        final ItemStack stack = player.getItemInHand(hand);
+        final int id = GeckoLibUtil.guaranteeIDForStack(stack, (ServerLevel) world);
+        // Tell all nearby clients to trigger this itemStack.
+        final PacketDistributor.PacketTarget target = PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player);
+        GeckoLibNetwork.syncAnimation(target, this, id, ANIM_USE);
+
         return super.use(world, player, hand);
     }
 
     @Override
     public void onAnimationSync(int id, int state) {
-        if (state == ANIM_OPEN) {
+        if (state == ANIM_USE) {
             // Always use GeckoLibUtil to get AnimationControllers when you don't have
             // access to an AnimationEvent
             final AnimationController controller = GeckoLibUtil.getControllerForID(this.factory, id, CONTROLLER_NAME);
@@ -185,9 +271,9 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
             if (controller.getAnimationState() == AnimationState.Stopped) {
                 final LocalPlayer player = Minecraft.getInstance().player;
                 if (player != null) {
-                    player.displayClientMessage(new TextComponent("Fueling Item...").withStyle(ChatFormatting.DARK_BLUE,ChatFormatting.ITALIC), true);
+                    player.displayClientMessage(new TextComponent("Fueling Item...").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GOLD), true);
                 }
-                // If you don't do this, the popup animation will only play once because the
+                // If you don't do this, the use animation will only play once because the
                 // animation will be cached.
                 controller.markNeedsReload();
                 // eventually do the actual animation. Also sets it to not loop
