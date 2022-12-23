@@ -5,7 +5,7 @@
   "tooltip.cupsaddons.fuel_item_instructions":  "§8Right click with the required fuel in your off-hand to fuel this item.",
 
   "item.cupsaddons.chrysophilists_pickaxe": "Chrysophilist's Pickaxe",
-  "tooltip.cupsaddons.chrysophilists_pickaxe_description": "§o§7While fueled, mined §6stone§7 or §6ore§7 blocks will drop an additional §6Raw Gold§7. Without fuel, the pickaxe acts similar to a Diamond Pickaxe.",
+  "tooltip.cupsaddons.chrysophilists_pickaxe_description": "§o§7While fueled, mined §fStone§7 or §fOre§7 blocks will drop an additional §6Raw Gold§7. Without fuel, the pickaxe acts as normal.",
 
   "itemGroup.cupsaddons": "Cup's Ultimate Pack",
   "effect.cupsaddons.aquaphilia": "Aquaphilia",

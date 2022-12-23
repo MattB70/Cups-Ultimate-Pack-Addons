@@ -1,9 +1,11 @@
 package com.mattborle.cupsaddons.item;
 
+import ca.weblite.objc.Client;
 import com.mattborle.cupsaddons.client.renderer.item.ChrysophilistsPickaxeRenderer;
 import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import com.mattborle.cupsaddons.init.ItemRegistry;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
@@ -25,6 +27,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.network.PacketDistributor;
 import org.apache.commons.lang3.text.WordUtils;
@@ -178,8 +181,8 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
         controller.registerSoundListener(this::soundListener);
         controller.registerParticleListener(this::particleListener);
         data.addAnimationController(controller);
-        // Idle animation controller
-        data.addAnimationController(new AnimationController(this, "idle", 1, this::idleAnimationPredicate));
+        // Idle animation controller, delay for the return to idle smoothness.
+        data.addAnimationController(new AnimationController(this, "idle", 40, this::idleAnimationPredicate));
     }
 
     private <ENTITY extends IAnimatable> void soundListener(SoundKeyframeEvent<ENTITY> event) {
