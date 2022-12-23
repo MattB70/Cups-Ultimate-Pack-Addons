@@ -1,6 +1,5 @@
 package com.mattborle.cupsaddons.item;
 
-import com.mattborle.cupsaddons.CupsAddons;
 import com.mattborle.cupsaddons.client.renderer.item.ChrysophilistsPickaxeRenderer;
 import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import com.mattborle.cupsaddons.init.ItemRegistry;
@@ -20,14 +19,13 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.IItemRenderProperties;
-import net.minecraftforge.common.data.ForgeItemTagsProvider;
-import net.minecraftforge.common.extensions.IForgeBlockState;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.network.PacketDistributor;
 import org.apache.commons.lang3.text.WordUtils;
 import software.bernie.geckolib3.core.AnimationState;
@@ -53,7 +51,7 @@ import java.util.function.Consumer;
 public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable, ISyncable {
 
     /*  TODO:   Re-write, especially nested if statements, and create a implementable class out of this. Something like
-        TODO:   a "Fuelable" so it can be applied to new items easily.
+        TODO:   a "FuelableItem" so it can be applied to new items easily.
     */
 
     /*
@@ -68,13 +66,12 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
 
     // Functionality Variables
     public String fuelItem = CupsAddonsCommonConfigs.FUEL_CHRYSOPHILISTS_PICKAXE.get();
-    public int maxFuel = 100;   // Max fuel, typically the number of uses an item has before needing to be refueled
+    public int maxFuel = CupsAddonsCommonConfigs.MAX_FUEL_CHRYSOPHILISTS_PICKAXE.get();   // Max fuel, typically the number of uses an item has before needing to be refueled
 
 
     // Animation Variables
-    public String idleAnimationName = "animation.chrysophilists_pickaxe.idle";
-    public String useAnimationName = "animation.chrysophilists_pickaxe.use";
-    public String activeAnimationName = "animation.chrysophilists_pickaxe.active";
+    public String IDLE_ANIMATION_NAME = "animation.chrysophilists_pickaxe.idle";
+    public String USE_ANIMATION_NAME = "animation.chrysophilists_pickaxe.use";
     private static final String CONTROLLER_NAME = "useController";
     private static final int ANIM_USE = 0;
     public AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -108,36 +105,35 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
                     .withStyle(ChatFormatting.BLUE));
             if(Screen.hasAltDown()){
                 tooltip.add(new TranslatableComponent("tooltip.cupsaddons.chrysophilists_pickaxe_description"));
+                tooltip.add(new TranslatableComponent("tooltip.cupsaddons.fuel_item_instructions"));
             }else{
                 tooltip.add(new TranslatableComponent("tooltip.cupsaddons.hold_alt_for_details"));
             }
-            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.unique_item"));
+            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.reward_item"));
         }
     }
     @Override
     public boolean mineBlock(ItemStack stack, Level level, BlockState blockState, BlockPos blockPos, LivingEntity livingEntity) {
-        // Check if the item has fuel and do something special if it does.
-        if (!level.isClientSide) {
+        // Check if the mined block is of Tag STONE or ORE
+        if (blockState.is(Tags.Blocks.STONE) || blockState.is(Tags.Blocks.ORES)) {
+            // Check if the item has fuel and do something special if it does.
             if (stack.getTag() != null) {
                 if (stack.getTag().get("cupsaddons.fuel") != null) {
                     if (stack.getTag().get("cupsaddons.fuel").getAsString() != null) {
                         if (Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString()) > 0) {
-                            // Special action
-                            CupsAddons.LOGGER.info("MINED BLOCK WITH FUEL");
-                            // Particles
-                            for(int i = 0; i < 5; i++){
-                                Random r = new Random();
-                                livingEntity.level.addParticle(ParticleTypes.ENCHANT, livingEntity.getX(), livingEntity.getY()+livingEntity.getEyeHeight()*1.5, livingEntity.getZ(),
-                                        (-3f + r.nextFloat() * (6f)),
-                                        (-3f + r.nextFloat() * (6f)),
-                                        (-3f + r.nextFloat() * (6f)));
-                            }
+                            if (!level.isClientSide) {
+                                // On the server side:
 
-                            // Reduce the item's fuel by 1.
-                            int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
-                            CompoundTag nbtData = new CompoundTag();
-                            nbtData.putInt("cupsaddons.fuel", fuel-1);
-                            livingEntity.getMainHandItem().setTag(nbtData);
+                                // Special action
+                                ItemEntity droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
+                                level.addFreshEntity(droppedItem);
+
+                                // Reduce the item's fuel by 1.
+                                int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
+                                CompoundTag nbtData = new CompoundTag();
+                                nbtData.putInt("cupsaddons.fuel", fuel - 1);
+                                livingEntity.getMainHandItem().setTag(nbtData);
+                            }
                         }
                     }
                 }
@@ -145,7 +141,6 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
         }
         return super.mineBlock(stack, level, blockState, blockPos, livingEntity);
     }
-
 
 
     // Animation and Model =============================================================================================
@@ -163,18 +158,18 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
         });
     }
 
-    private <E extends IAnimatable> PlayState idleAnimation(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation(idleAnimationName, ILoopType.EDefaultLoopTypes.LOOP));
+    private <E extends IAnimatable> PlayState idleAnimationPredicate(AnimationEvent<E> event) {
+        event.getController().setAnimation(new AnimationBuilder().addAnimation(IDLE_ANIMATION_NAME, ILoopType.EDefaultLoopTypes.LOOP));
         return PlayState.CONTINUE;
     }
-    private <P extends Item & IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+    private <P extends Item & IAnimatable> PlayState useAnimationPredicate(AnimationEvent<P> event) {
         // Not setting an animation here as that's handled below
         return PlayState.CONTINUE;
     }
 
     @Override
     public void registerControllers(AnimationData data) {
-        AnimationController controller = new AnimationController(this, CONTROLLER_NAME, 1, this::predicate);
+        AnimationController controller = new AnimationController(this, CONTROLLER_NAME, 1, this::useAnimationPredicate);
         // Registering a sound listener just makes it so when any sound keyframe is hit
         // the method will be called.
         // To register a particle listener or custom event listener you do the exact
@@ -184,14 +179,14 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
         controller.registerParticleListener(this::particleListener);
         data.addAnimationController(controller);
         // Idle animation controller
-        data.addAnimationController(new AnimationController(this, "idle", 1, this::idleAnimation));
+        data.addAnimationController(new AnimationController(this, "idle", 1, this::idleAnimationPredicate));
     }
 
     private <ENTITY extends IAnimatable> void soundListener(SoundKeyframeEvent<ENTITY> event) {
-        // Immediately on use, do nothing extra.
+        // At the sound keyframe:
     }
     private <ENTITY extends IAnimatable> void particleListener(ParticleKeyFrameEvent<ENTITY> event) {
-        // As soon as the particles play, Do nothing.
+        // At the particle keyframe:
         LocalPlayer player = Minecraft.getInstance().player;
         if (player != null) {
             player.playSound(SoundEvents.TOTEM_USE, 0.7f, 1.5f);
@@ -273,11 +268,10 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
                 if (player != null) {
                     player.displayClientMessage(new TextComponent("Fueling Item...").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GOLD), true);
                 }
-                // If you don't do this, the use animation will only play once because the
-                // animation will be cached.
-                controller.markNeedsReload();
+                // It's okay to cache the animation, so this may be commented out.
+                // controller.markNeedsReload();
                 // eventually do the actual animation. Also sets it to not loop
-                controller.setAnimation(new AnimationBuilder().addAnimation(useAnimationName, ILoopType.EDefaultLoopTypes.PLAY_ONCE));
+                controller.setAnimation(new AnimationBuilder().addAnimation(USE_ANIMATION_NAME, ILoopType.EDefaultLoopTypes.PLAY_ONCE));
             }
         }
     }

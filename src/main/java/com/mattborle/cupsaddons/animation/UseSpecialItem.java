@@ -18,11 +18,13 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.Objects;
 
-import static com.mattborle.cupsaddons.init.ItemPairsInit.itemPairs;
+import static com.mattborle.cupsaddons.init.SpecialItemDataInit.specialItemData;
 
 // These animation triggers must remain client sided.
 @Mod.EventBusSubscriber(modid = CupsAddons.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class UseSpecialItem {
+
+    // TODO: re-write to remove nested if-statements.
 
     @SubscribeEvent
     public static void onSpecialItemUsed(PlayerInteractEvent.RightClickItem event) {
@@ -45,12 +47,19 @@ public class UseSpecialItem {
 
             // This is the logic for the animation, and as such can exist on the client. The server side effect is
             // handled in ItemNameItem.java.
-            // Check if the player is holding both special item and its fuel, if so, play the animation.
-            for(int i = 0; i < itemPairs.length; i++){
-                if (mainHandItem.toString().equals(itemPairs[i][0]) && offHandItem.toString().equals(itemPairs[i][1])) {
-                    // Get tool use animation (grab tool with two hands in front of the player)
-                    animation.setAnimation(new KeyframeAnimationPlayer(Objects.requireNonNull(PlayerAnimationRegistry
-                            .getAnimation(new ResourceLocation("cupsaddons", "animation.model.tool.use")))));
+            for(int i = 0; i < specialItemData.length; i++){
+                // Check if the player is holding both special item and its fuel,
+                if (mainHandItem.toString().equals(specialItemData[i][0]) && offHandItem.toString().equals(specialItemData[i][1])) {
+                    // If the item has a fuel tag, and it is less than its maximum,
+                    if(event.getItemStack().getTag() != null) {
+                        if (event.getItemStack().getTag().get("cupsaddons.fuel") != null) {
+                            if (Integer.parseInt(event.getItemStack().getTag().get("cupsaddons.fuel").getAsString()) < Integer.parseInt(specialItemData[i][2])) {
+                                // Get tool use animation (grab tool with two hands in front of the player) and play the animation.
+                                animation.setAnimation(new KeyframeAnimationPlayer(Objects.requireNonNull(PlayerAnimationRegistry
+                                        .getAnimation(new ResourceLocation("cupsaddons", "animation.model.tool.use")))));
+                            }
+                        }
+                    }
                 }
             }
         }
