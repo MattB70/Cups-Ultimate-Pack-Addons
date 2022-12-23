@@ -50,9 +50,7 @@ import java.util.function.Consumer;
 
 public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable, ISyncable {
 
-    /*  TODO:   Re-write, especially nested if statements, and create a implementable class out of this. Something like
-        TODO:   a "FuelableItem" so it can be applied to new items easily.
-    */
+    //  TODO:  Create a implementable class out of this. Something like a "FuelableItem" so it can be applied to new items easily.
 
     /*
         ChrysophilistsPickaxe or Chrysophilist's Pickaxe

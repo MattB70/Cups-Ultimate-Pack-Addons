@@ -29,7 +29,7 @@ public class UseSpecialItem {
     @SubscribeEvent
     public static void onSpecialItemUsed(PlayerInteractEvent.RightClickItem event) {
         // Run on client side, and only once using the MainHand. 0 = true in this comparison for some reason.
-        if (event.getWorld().isClientSide && event.getHand().compareTo(InteractionHand.MAIN_HAND) == 0){
+        if (event.getWorld().isClientSide && event.getHand().compareTo(InteractionHand.MAIN_HAND) == 0) {
             var player = Minecraft.getInstance().player;
             if (player == null) return;
 
@@ -47,19 +47,24 @@ public class UseSpecialItem {
 
             // This is the logic for the animation, and as such can exist on the client. The server side effect is
             // handled in ItemNameItem.java.
-            for(int i = 0; i < specialItemData.length; i++){
-                // Check if the player is holding both special item and its fuel,
-                if (mainHandItem.toString().equals(specialItemData[i][0]) && offHandItem.toString().equals(specialItemData[i][1])) {
-                    // If the item has a fuel tag, and it is less than its maximum,
-                    if(event.getItemStack().getTag() != null) {
-                        if (event.getItemStack().getTag().get("cupsaddons.fuel") != null) {
-                            if (Integer.parseInt(event.getItemStack().getTag().get("cupsaddons.fuel").getAsString()) < Integer.parseInt(specialItemData[i][2])) {
-                                // Get tool use animation (grab tool with two hands in front of the player) and play the animation.
-                                animation.setAnimation(new KeyframeAnimationPlayer(Objects.requireNonNull(PlayerAnimationRegistry
-                                        .getAnimation(new ResourceLocation("cupsaddons", "animation.model.tool.use")))));
-                            }
-                        }
-                    }
+            for (int i = 0; i < specialItemData.length; i++) {
+                // Check if the player is holding both special item and its fuel, return if not
+                if (!mainHandItem.toString().equals(specialItemData[i][0]) || !offHandItem.toString().equals(specialItemData[i][1])) {
+                    return;
+                }
+                // If the item has no fuel nbt,
+                if (event.getItemStack().getTag() == null) {
+                    return;
+                }
+                // If the fuel nbt cannot be parsed,
+                if (event.getItemStack().getTag().get("cupsaddons.fuel") != null) {
+                    return;
+                }
+                // If the tool's fuel is below its maximum,
+                if (Integer.parseInt(event.getItemStack().getTag().get("cupsaddons.fuel").getAsString()) < Integer.parseInt(specialItemData[i][2])) {
+                    // Get tool use animation (grab tool with two hands in front of the player) and play the animation.
+                    animation.setAnimation(new KeyframeAnimationPlayer(Objects.requireNonNull(PlayerAnimationRegistry
+                            .getAnimation(new ResourceLocation("cupsaddons", "animation.model.tool.use")))));
                 }
             }
         }
