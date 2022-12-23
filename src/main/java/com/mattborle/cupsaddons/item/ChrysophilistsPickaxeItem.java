@@ -114,35 +114,29 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
     }
     @Override
     public boolean mineBlock(ItemStack stack, Level level, BlockState blockState, BlockPos blockPos, LivingEntity livingEntity) {
-        // Check if the mined block is not of Tag STONE or ORE
-        if (!blockState.is(Tags.Blocks.STONE) || !blockState.is(Tags.Blocks.ORES)) {
-            return super.mineBlock(stack, level, blockState, blockPos, livingEntity);
-        }
-        // Check if the item has NBT
-        if (stack.getTag() == null) {
-            return super.mineBlock(stack, level, blockState, blockPos, livingEntity);
-        }
-        // Check if the item has specific fuel NBT
-        if (stack.getTag().get("cupsaddons.fuel") == null) {
-            return super.mineBlock(stack, level, blockState, blockPos, livingEntity);
-        }
-        // Check if fuel NBT can be parsed
-        if (stack.getTag().get("cupsaddons.fuel").getAsString() == null) {
-            return super.mineBlock(stack, level, blockState, blockPos, livingEntity);
-        }
-        // Check if the item has fuel (active)
-        if (Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString()) > 0) {
-            // Execute on the server:
-            if (!level.isClientSide) {
-                // Special action
-                ItemEntity droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
-                level.addFreshEntity(droppedItem);
+        // Check if the mined block is of Tag STONE or ORE
+        if (blockState.is(Tags.Blocks.STONE) || blockState.is(Tags.Blocks.ORES)) {
+            // Check if the item has fuel and do something special if it does.
+            if (stack.getTag() != null) {
+                if (stack.getTag().get("cupsaddons.fuel") != null) {
+                    if (stack.getTag().get("cupsaddons.fuel").getAsString() != null) {
+                        if (Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString()) > 0) {
+                            if (!level.isClientSide) {
+                                // On the server side:
 
-                // Reduce the item's fuel by 1.
-                int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
-                CompoundTag nbtData = new CompoundTag();
-                nbtData.putInt("cupsaddons.fuel", fuel - 1);
-                livingEntity.getMainHandItem().setTag(nbtData);
+                                // Special action
+                                ItemEntity droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
+                                level.addFreshEntity(droppedItem);
+
+                                // Reduce the item's fuel by 1.
+                                int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
+                                CompoundTag nbtData = new CompoundTag();
+                                nbtData.putInt("cupsaddons.fuel", fuel - 1);
+                                livingEntity.getMainHandItem().setTag(nbtData);
+                            }
+                        }
+                    }
+                }
             }
         }
         return super.mineBlock(stack, level, blockState, blockPos, livingEntity);
