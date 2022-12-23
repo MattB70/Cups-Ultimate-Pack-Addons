@@ -53,9 +53,7 @@ import java.util.function.Consumer;
 
 public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable, ISyncable {
 
-    /*  TODO:   Re-write, especially nested if statements, and create a implementable class out of this. Something like
-        TODO:   a "FuelableItem" so it can be applied to new items easily.
-    */
+    // TODO: Create a implementable class out of this. Something like a "FuelableItem" so it can be applied to new items easily.
 
     /*
         ChrysophilistsPickaxe or Chrysophilist's Pickaxe
@@ -272,7 +270,7 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
                     player.displayClientMessage(new TextComponent("Fueling Item...").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GOLD), true);
                 }
                 // It's okay to cache the animation, so this may be commented out.
-                // controller.markNeedsReload();
+                controller.markNeedsReload();
                 // eventually do the actual animation. Also sets it to not loop
                 controller.setAnimation(new AnimationBuilder().addAnimation(USE_ANIMATION_NAME, ILoopType.EDefaultLoopTypes.PLAY_ONCE));
             }
