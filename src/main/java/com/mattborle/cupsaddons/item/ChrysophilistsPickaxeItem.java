@@ -1,11 +1,9 @@
 package com.mattborle.cupsaddons.item;
 
-import ca.weblite.objc.Client;
 import com.mattborle.cupsaddons.client.renderer.item.ChrysophilistsPickaxeRenderer;
 import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import com.mattborle.cupsaddons.init.ItemRegistry;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
@@ -27,7 +25,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.IItemRenderProperties;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.network.PacketDistributor;
 import org.apache.commons.lang3.text.WordUtils;
@@ -64,11 +61,9 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
         never be discovered outside completing the task required by the modpack designer.
     */
 
-
     // Functionality Variables
     public String fuelItem = CupsAddonsCommonConfigs.FUEL_CHRYSOPHILISTS_PICKAXE.get();
     public int maxFuel = CupsAddonsCommonConfigs.MAX_FUEL_CHRYSOPHILISTS_PICKAXE.get();   // Max fuel, typically the number of uses an item has before needing to be refueled
-
 
     // Animation Variables
     public String IDLE_ANIMATION_NAME = "animation.chrysophilists_pickaxe.idle";
@@ -79,7 +74,9 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
 
 
 
+
     // Constructor and Usage ===========================================================================================
+
     public ChrysophilistsPickaxeItem(Tier tier, int p_42962_, float p_42963_, Properties properties) {
         super(tier, p_42962_, p_42963_, properties
                 .tab(ItemRegistry.CreativeTab.instance)     // Show in creative menu tab
@@ -135,6 +132,9 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
                                 nbtData.putInt("cupsaddons.fuel", fuel - 1);
                                 livingEntity.getMainHandItem().setTag(nbtData);
                             }
+                            // On the client, display fuel level:
+                            int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
+                            displayFuelLevel(fuel); // display max fuel
                         }
                     }
                 }
@@ -142,6 +142,9 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
         }
         return super.mineBlock(stack, level, blockState, blockPos, livingEntity);
     }
+
+
+
 
 
     // Animation and Model =============================================================================================
@@ -190,6 +193,9 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
         // At the particle keyframe:
         LocalPlayer player = Minecraft.getInstance().player;
         if (player != null) {
+            // Text
+            displayFuelLevel(maxFuel); // display max fuel
+            // Sound
             player.playSound(SoundEvents.TOTEM_USE, 0.7f, 1.5f);
             // Particles
             for(int i = 0; i < 20; i++){
@@ -231,7 +237,7 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
             if (player.getMainHandItem().getTag().get("cupsaddons.fuel") != null) {
                 if (player.getMainHandItem().getTag().get("cupsaddons.fuel").getAsString() != null) {
                     if (Integer.parseInt(player.getMainHandItem().getTag().get("cupsaddons.fuel").getAsString()) == maxFuel) {
-                        player.displayClientMessage(new TextComponent("Already Fully Fueled").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.RED), true);
+                        displayFuelLevel(maxFuel); // display max fuel
                         return super.use(world, player, hand);
                     }
                 }
@@ -265,10 +271,6 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
             final AnimationController controller = GeckoLibUtil.getControllerForID(this.factory, id, CONTROLLER_NAME);
 
             if (controller.getAnimationState() == AnimationState.Stopped) {
-                final LocalPlayer player = Minecraft.getInstance().player;
-                if (player != null) {
-                    player.displayClientMessage(new TextComponent("Fueling Item...").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GOLD), true);
-                }
                 // It's okay to cache the animation, so this may be commented out.
                 controller.markNeedsReload();
                 // eventually do the actual animation. Also sets it to not loop
@@ -276,4 +278,28 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
             }
         }
     }
+
+
+
+
+
+    // Helpers =========================================================================================================
+
+    // Call this every time the fuel level changes, or if that is too often, when it makes sense.
+    private void displayFuelLevel(int currentFuel){
+        LocalPlayer player = Minecraft.getInstance().player;
+        if(player == null) return;
+
+        if(currentFuel == maxFuel){ // If the item is fully fueled:
+            player.displayClientMessage(new TextComponent("Fuel: FULL").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GREEN), true);
+            return;
+        }
+        if(currentFuel == 0){       // If the item fuel is empty
+            player.displayClientMessage(new TextComponent("Fuel: EMPTY").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.RED), true);
+            return;
+        }
+        // else, display fuel as a percentage
+        player.displayClientMessage(new TextComponent("Fuel: "+(int)(((float)currentFuel/(float)maxFuel)*100)+"%").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GOLD), true);
+    }
+
 }
