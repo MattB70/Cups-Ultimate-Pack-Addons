@@ -30,17 +30,17 @@ public class ItemRegistry {
 
     // Tools ===========================================================================================================
     /*  Diamond Tool reference:
-                    damage  ready_speed
-        Pickaxe:    1,      -2.8f
-        Axe:        5.0f,   -3.0f
-        Shovel:     1.5f,   -3.0f
-        Hoe:        -3,     0.0f
-        Sword:      3,      -2.4f
+                    ready_speed
+        Pickaxe:    -2.8f
+        Axe:        -3.0f
+        Shovel:     -3.0f
+        Hoe:        0.0f
+        Sword:      -2.4f
     */
-    // Register Chrysophilists Pickaxe with id chrysophilists_pickaxe and reference CHRYSOPHILISTS_PICKAXE.
+    // Register Crysophilists Pickaxe with id crysophilists_pickaxe and reference CRYSOPHILISTS_PICKAXE.
     //TODO: Consider unique tiers for some items
-    public static final RegistryObject<Item> CHRYSOPHILISTS_PICKAXE = MOD_ITEMS.register("chrysophilists_pickaxe",
-            () -> new ChrysophilistsPickaxeItem(Tiers.DIAMOND,1, -2.8f, new Item.Properties().tab(CreativeTab.instance)));
+    public static final RegistryObject<Item> CRYSOPHILISTS_PICKAXE = MOD_ITEMS.register("crysophilists_pickaxe",
+            () -> new CrysophilistsPickaxeItem(Tiers.NETHERITE,1, -2.0f, new Item.Properties().tab(CreativeTab.instance)));
 
     // Items ===========================================================================================================
     public static final RegistryObject<Item> BARLEY_CORN_MIX = MOD_ITEMS.register("barley_corn_mix", BarleyCornMixItem::new);

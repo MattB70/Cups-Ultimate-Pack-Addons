@@ -1,6 +1,6 @@
 package com.mattborle.cupsaddons.item;
 
-import com.mattborle.cupsaddons.client.renderer.item.ChrysophilistsPickaxeRenderer;
+import com.mattborle.cupsaddons.client.renderer.item.CrysophilistsPickaxeRenderer;
 import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import com.mattborle.cupsaddons.init.ItemRegistry;
 import net.minecraft.ChatFormatting;
@@ -22,6 +22,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.IItemRenderProperties;
@@ -48,12 +50,10 @@ import java.util.Random;
 import java.util.function.Consumer;
 
 
-public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable, ISyncable {
-
-    // TODO: Create a implementable class out of this. Something like a "FuelableItem" so it can be applied to new items easily.
-
+public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable, ISyncable {
+    // TODO: Enchantments are not retained after fueling the item.
     /*
-        ChrysophilistsPickaxe or Chrysophilist's Pickaxe
+        CrysophilistsPickaxe or Crysophilist's Pickaxe
 
         Unique:
         A unique item is rewarded to the player for completion of a quest, task, purchased, or otherwise rewarded
@@ -62,12 +62,12 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
     */
 
     // Functionality Variables
-    public String fuelItem = CupsAddonsCommonConfigs.FUEL_CHRYSOPHILISTS_PICKAXE.get();
-    public int maxFuel = CupsAddonsCommonConfigs.MAX_FUEL_CHRYSOPHILISTS_PICKAXE.get();   // Max fuel, typically the number of uses an item has before needing to be refueled
+    public String fuelItem = CupsAddonsCommonConfigs.FUEL_CRYSOPHILISTS_PICKAXE.get();
+    public int maxFuel = CupsAddonsCommonConfigs.MAX_FUEL_CRYSOPHILISTS_PICKAXE.get();   // Max fuel, typically the number of uses an item has before needing to be refueled
 
     // Animation Variables
-    public String IDLE_ANIMATION_NAME = "animation.chrysophilists_pickaxe.idle";
-    public String USE_ANIMATION_NAME = "animation.chrysophilists_pickaxe.use";
+    public String IDLE_ANIMATION_NAME = "animation.crysophilists_pickaxe.idle";
+    public String USE_ANIMATION_NAME = "animation.crysophilists_pickaxe.use";
     private static final String CONTROLLER_NAME = "useController";
     private static final int ANIM_USE = 0;
     public AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -77,7 +77,7 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
 
     // Constructor and Usage ===========================================================================================
 
-    public ChrysophilistsPickaxeItem(Tier tier, int p_42962_, float p_42963_, Properties properties) {
+    public CrysophilistsPickaxeItem(Tier tier, int p_42962_, float p_42963_, Properties properties) {
         super(tier, p_42962_, p_42963_, properties
                 .tab(ItemRegistry.CreativeTab.instance)     // Show in creative menu tab
                 .rarity(Rarity.EPIC)                        // Rarity color for title and loot beams
@@ -88,7 +88,7 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
     }
     @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        if(CupsAddonsCommonConfigs.ABILITY_CHRYSOPHILISTS_PICKAXE.get()){
+        if(CupsAddonsCommonConfigs.ABILITY_CRYSOPHILISTS_PICKAXE.get()){
             int fuel = 0;
             // Get fuel nbt and put it in fuel variable if exists
             if(stack.getTag() != null){
@@ -101,19 +101,29 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
             // Display fuel tooltip
             tooltip.add(new TextComponent("Fuel: "+fuel+"/"+maxFuel+ " ("+ WordUtils.capitalize(fuelItem.replace("_", " "))+")")
                     .withStyle(ChatFormatting.BLUE));
-            if(Screen.hasAltDown()){
-                tooltip.add(new TranslatableComponent("tooltip.cupsaddons.chrysophilists_pickaxe_description"));
-                tooltip.add(new TranslatableComponent("tooltip.cupsaddons.fuel_item_instructions"));
+            if(Screen.hasControlDown()){
+                tooltip.add(new TranslatableComponent("tooltip.cupsaddons.crysophilists_pickaxe_description"));
+                if(Screen.hasAltDown()){
+                    tooltip.add(new TranslatableComponent("tooltip.cupsaddons.crysophilists_pickaxe_description_extra"));
+                }else{
+                    tooltip.add(new TranslatableComponent("tooltip.cupsaddons.hold_ctrl_alt_for_details"));
+                }
             }else{
-                tooltip.add(new TranslatableComponent("tooltip.cupsaddons.hold_alt_for_details"));
+                tooltip.add(new TranslatableComponent("tooltip.cupsaddons.hold_ctrl_for_details"));
             }
-            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.reward_item"));
+            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.fuel_item_instructions"));
         }
+        tooltip.add(new TranslatableComponent("tooltip.cupsaddons.reward_item"));
     }
     @Override
     public boolean mineBlock(ItemStack stack, Level level, BlockState blockState, BlockPos blockPos, LivingEntity livingEntity) {
         // Check if the mined block is of Tag STONE or ORE
-        if (blockState.is(Tags.Blocks.STONE) || blockState.is(Tags.Blocks.ORES)) {
+        if (blockState.is(Tags.Blocks.ORE_BEARING_GROUND_STONE) ||
+                blockState.is(Tags.Blocks.ORE_BEARING_GROUND_NETHERRACK) ||
+                blockState.is(Tags.Blocks.ORE_BEARING_GROUND_DEEPSLATE) ||
+                blockState.is(Tags.Blocks.ORES_IN_GROUND_STONE) ||
+                blockState.is(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE) ||
+                blockState.is(Tags.Blocks.ORES_IN_GROUND_NETHERRACK)) {
             // Check if the item has fuel and do something special if it does.
             if (stack.getTag() != null) {
                 if (stack.getTag().get("cupsaddons.fuel") != null) {
@@ -125,7 +135,11 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
                                 // Special action
                                 ItemEntity droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
                                 level.addFreshEntity(droppedItem);
-
+                                // One extra gold per fortune level:
+                                for(int i = 0; i < EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE,stack); i++) {
+                                    droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
+                                    level.addFreshEntity(droppedItem);
+                                }
                                 // Reduce the item's fuel by 1.
                                 int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
                                 CompoundTag nbtData = new CompoundTag();
@@ -153,7 +167,7 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
     public void initializeClient(Consumer<IItemRenderProperties> consumer) {
         super.initializeClient(consumer);
         consumer.accept(new IItemRenderProperties() {
-            private final BlockEntityWithoutLevelRenderer renderer = new ChrysophilistsPickaxeRenderer();
+            private final BlockEntityWithoutLevelRenderer renderer = new CrysophilistsPickaxeRenderer();
 
             @Override
             public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
@@ -183,7 +197,7 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
         controller.registerParticleListener(this::particleListener);
         data.addAnimationController(controller);
         // Idle animation controller, delay for the return to idle smoothness.
-        data.addAnimationController(new AnimationController(this, "idle", 40, this::idleAnimationPredicate));
+        data.addAnimationController(new AnimationController(this, "idle", 1, this::idleAnimationPredicate));
     }
 
     private <ENTITY extends IAnimatable> void soundListener(SoundKeyframeEvent<ENTITY> event) {
@@ -229,7 +243,7 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
         Item mainHandItem = player.getMainHandItem().getItem();
         Item offHandItem = player.getOffhandItem().getItem();
         // Return if not correct item pair
-        if (!(mainHandItem.toString().equals("chrysophilists_pickaxe") && offHandItem.toString().equals(CupsAddonsCommonConfigs.FUEL_CHRYSOPHILISTS_PICKAXE.get()))) {
+        if (!(mainHandItem.toString().equals("crysophilists_pickaxe") && offHandItem.toString().equals(CupsAddonsCommonConfigs.FUEL_CRYSOPHILISTS_PICKAXE.get()))) {
             return super.use(world, player, hand);
         }
         // Return if item already fully fueled
@@ -291,15 +305,15 @@ public class ChrysophilistsPickaxeItem extends PickaxeItem implements IAnimatabl
         if(player == null) return;
 
         if(currentFuel == maxFuel){ // If the item is fully fueled:
-            player.displayClientMessage(new TextComponent("Fuel: FULL").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GREEN), true);
+            player.displayClientMessage(new TextComponent("Fuel: FULL").withStyle(ChatFormatting.GREEN), true);
             return;
         }
         if(currentFuel == 0){       // If the item fuel is empty
-            player.displayClientMessage(new TextComponent("Fuel: EMPTY").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.RED), true);
+            player.displayClientMessage(new TextComponent("Fuel: EMPTY").withStyle(ChatFormatting.RED), true);
             return;
         }
         // else, display fuel as a percentage
-        player.displayClientMessage(new TextComponent("Fuel: "+(int)(((float)currentFuel/(float)maxFuel)*100)+"%").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GOLD), true);
+        player.displayClientMessage(new TextComponent("Fuel: "+(int)(((float)currentFuel/(float)maxFuel)*100)+"%").withStyle(ChatFormatting.GOLD), true);
     }
 
 }
