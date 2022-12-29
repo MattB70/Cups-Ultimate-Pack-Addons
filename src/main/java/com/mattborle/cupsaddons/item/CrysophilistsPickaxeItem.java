@@ -142,7 +142,8 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
                                 }
                                 // Reduce the item's fuel by 1.
                                 int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
-                                CompoundTag nbtData = new CompoundTag();
+                                stack.getTag().remove("cupsaddons.fuel");
+                                CompoundTag nbtData = stack.getTag();
                                 nbtData.putInt("cupsaddons.fuel", fuel - 1);
                                 livingEntity.getMainHandItem().setTag(nbtData);
                             }
@@ -261,10 +262,19 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
         // Remove one item from the offhand stack
         player.getOffhandItem().setCount(player.getOffhandItem().getCount()-1);
 
-        // Make a compound tag and set our fuel data in it.
-        CompoundTag nbtData = new CompoundTag();
-        nbtData.putInt("cupsaddons.fuel", maxFuel);
-        player.getMainHandItem().setTag(nbtData);
+        // Check if nbt data already exists
+        if(player.getMainHandItem().hasTag()) {
+            // Get existing nbt and set the fuel to max.
+            player.getMainHandItem().getTag().remove("cupsaddons.fuel"); // Remove fuel entry
+            CompoundTag nbtData = player.getMainHandItem().getTag(); // Get nbt
+            nbtData.putInt("cupsaddons.fuel", maxFuel); // Set fuel entry to maxFuel and put
+            player.getMainHandItem().setTag(nbtData); // Set nbt
+        }else{
+            // Make a compound tag and set our fuel data in it.
+            CompoundTag nbtData = new CompoundTag(); // Create new nbt
+            nbtData.putInt("cupsaddons.fuel", maxFuel); // Set fuel entry to maxFuel and put
+            player.getMainHandItem().setTag(nbtData); // Set nbt
+        }
 
         // Animation Sync:
         // Gets the itemStack that the player is holding.
