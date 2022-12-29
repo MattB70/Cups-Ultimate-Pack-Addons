@@ -1,5 +1,5 @@
 
-package com.mattborle.cupsaddons.item;
+package com.mattborle.cupsaddons.item.consumable;
 
 import com.mattborle.cupsaddons.init.ItemRegistry;
 import net.minecraft.world.level.Level;
@@ -15,15 +15,15 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import com.mattborle.cupsaddons.handlers.MoonshineImpureDrinkHandler;
+import com.mattborle.cupsaddons.handlers.EggnogAndRumDrinkHandler;
 
-public class ImpureBottleOMoonshineItem extends Item {
-	public ImpureBottleOMoonshineItem() {
+public class EggnogAndRumItem extends Item {
+	public EggnogAndRumItem() {
 		super(new Properties().tab(ItemRegistry.CreativeTab.instance)
 				.stacksTo(16)
 				.rarity(Rarity.UNCOMMON)
 				.food((new FoodProperties.Builder())
-				.nutrition(1)
+				.nutrition(5)
 				.saturationMod(1f)
 				.alwaysEat()
 				.build()));
@@ -37,13 +37,12 @@ public class ImpureBottleOMoonshineItem extends Item {
 	@Override
 	public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(itemstack, world, list, flag);
-		list.add(new TextComponent("\u00A7cImpure"));
+		list.add(new TextComponent("\u00A7aRelieves eggshaustion and prepares the drinker for a good time."));
 		list.add(new TextComponent("\u00A7dEffects:"));
-		list.add(new TextComponent("\u00A79Resistance I (4m)"));
-		list.add(new TextComponent("\u00A79Strength I (4m)"));
-		list.add(new TextComponent("\u00A7cNausea III (40s)"));
-		list.add(new TextComponent("\u00A7cSlowness I (40s)"));
-		list.add(new TextComponent("\u00A7cBlindness (5s)"));
+		list.add(new TextComponent("\u00A79Haste II (2m)"));
+		list.add(new TextComponent("\u00A79Luck III (2m)"));
+		list.add(new TextComponent("\u00A79Resistance I (2m)"));
+		list.add(new TextComponent("\u00A76Collectable Event Item"));
 	}
 
 	@Override
@@ -53,7 +52,7 @@ public class ImpureBottleOMoonshineItem extends Item {
 		double y = entity.getY();
 		double z = entity.getZ();
 
-		MoonshineImpureDrinkHandler.execute(entity);
+		EggnogAndRumDrinkHandler.execute(entity);
 		return retval;
 	}
 }

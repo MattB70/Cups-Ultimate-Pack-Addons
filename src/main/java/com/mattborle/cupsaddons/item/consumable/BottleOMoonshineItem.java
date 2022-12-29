@@ -1,5 +1,5 @@
 
-package com.mattborle.cupsaddons.item;
+package com.mattborle.cupsaddons.item.consumable;
 
 import com.mattborle.cupsaddons.init.ItemRegistry;
 import net.minecraft.world.level.Level;

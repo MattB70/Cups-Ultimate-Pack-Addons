@@ -1,7 +1,7 @@
 package com.mattborle.cupsaddons.client.model.item;
 
 import com.mattborle.cupsaddons.CupsAddons;
-import com.mattborle.cupsaddons.item.CrysophilistsPickaxeItem;
+import com.mattborle.cupsaddons.item.tool.CrysophilistsPickaxeItem;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

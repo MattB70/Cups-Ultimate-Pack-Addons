@@ -1,5 +1,5 @@
 
-package com.mattborle.cupsaddons.item;
+package com.mattborle.cupsaddons.item.ingredient;
 
 import com.mattborle.cupsaddons.init.ItemRegistry;
 import net.minecraft.world.item.Rarity;

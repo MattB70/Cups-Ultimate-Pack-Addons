@@ -1,7 +1,8 @@
 
-package com.mattborle.cupsaddons.item;
+package com.mattborle.cupsaddons.item.consumable;
 
 import com.mattborle.cupsaddons.init.ItemRegistry;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.TooltipFlag;
@@ -15,10 +16,10 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import com.mattborle.cupsaddons.handlers.EggnogAndRumDrinkHandler;
+import com.mattborle.cupsaddons.handlers.SweetenedMilkDrinkHandler;
 
-public class EggnogAndRumItem extends Item {
-	public EggnogAndRumItem() {
+public class SweetenedMilkItem extends Item {
+	public SweetenedMilkItem() {
 		super(new Properties().tab(ItemRegistry.CreativeTab.instance)
 				.stacksTo(16)
 				.rarity(Rarity.UNCOMMON)
@@ -35,13 +36,18 @@ public class EggnogAndRumItem extends Item {
 	}
 
 	@Override
+	public boolean isCorrectToolForDrops(BlockState state) {
+		return true;
+	}
+
+	@Override
 	public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(itemstack, world, list, flag);
-		list.add(new TextComponent("\u00A7aRelieves eggshaustion and prepares the drinker for a good time."));
+		list.add(new TextComponent("\u00A7aHealthier than you may think."));
 		list.add(new TextComponent("\u00A7dEffects:"));
-		list.add(new TextComponent("\u00A79Haste II (2m)"));
-		list.add(new TextComponent("\u00A79Luck III (2m)"));
-		list.add(new TextComponent("\u00A79Resistance I (2m)"));
+		list.add(new TextComponent("\u00A79Health Boost III (2m)"));
+		list.add(new TextComponent("\u00A79Resistance II (2m)"));
+		list.add(new TextComponent("\u00A79Strength I (2m)"));
 		list.add(new TextComponent("\u00A76Collectable Event Item"));
 	}
 
@@ -52,7 +58,7 @@ public class EggnogAndRumItem extends Item {
 		double y = entity.getY();
 		double z = entity.getZ();
 
-		EggnogAndRumDrinkHandler.execute(entity);
+		SweetenedMilkDrinkHandler.execute(entity);
 		return retval;
 	}
 }

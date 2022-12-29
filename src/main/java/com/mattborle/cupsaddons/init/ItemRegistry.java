@@ -1,7 +1,13 @@
 package com.mattborle.cupsaddons.init;
 
 import com.mattborle.cupsaddons.CupsAddons;
-import com.mattborle.cupsaddons.item.*;
+import com.mattborle.cupsaddons.item.consumable.*;
+import com.mattborle.cupsaddons.item.curios.FerromagneticObjectItem;
+import com.mattborle.cupsaddons.item.ingredient.BarleyCornMixItem;
+import com.mattborle.cupsaddons.item.ingredient.BundleOfSticksItem;
+import com.mattborle.cupsaddons.item.ingredient.CookedMashedGrainsItem;
+import com.mattborle.cupsaddons.item.ingredient.MashedGrainsItem;
+import com.mattborle.cupsaddons.item.tool.CrysophilistsPickaxeItem;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
@@ -40,7 +46,10 @@ public class ItemRegistry {
     // Register Crysophilists Pickaxe with id crysophilists_pickaxe and reference CRYSOPHILISTS_PICKAXE.
     //TODO: Consider unique tiers for some items
     public static final RegistryObject<Item> CRYSOPHILISTS_PICKAXE = MOD_ITEMS.register("crysophilists_pickaxe",
-            () -> new CrysophilistsPickaxeItem(Tiers.NETHERITE,1, -2.0f, new Item.Properties().tab(CreativeTab.instance)));
+            () -> new CrysophilistsPickaxeItem(Tiers.NETHERITE,1, -2.0f, new Item.Properties()));
+
+    // Curios ==========================================================================================================
+    public static final RegistryObject<Item> FERROMAGNETIC_OBJECT = MOD_ITEMS.register("ferromagnetic_object", () -> new FerromagneticObjectItem(new Item.Properties()));
 
     // Items ===========================================================================================================
     public static final RegistryObject<Item> BARLEY_CORN_MIX = MOD_ITEMS.register("barley_corn_mix", BarleyCornMixItem::new);

@@ -1,4 +1,4 @@
-package com.mattborle.cupsaddons.item;
+package com.mattborle.cupsaddons.item.tool;
 
 import com.mattborle.cupsaddons.client.renderer.item.CrysophilistsPickaxeRenderer;
 import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;

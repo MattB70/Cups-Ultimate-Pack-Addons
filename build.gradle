@@ -172,6 +172,10 @@ repositories {
         name = 'tterrag maven'
         url = 'https://maven.tterrag.com/'
     }
+    // Curios
+    maven {
+        url = "https://maven.theillusivec4.top/"
+    }
 }
 
 dependencies {
@@ -193,6 +197,10 @@ dependencies {
     implementation fg.deobf("com.simibubi.create:create-${mc_version}:${create_version}:slim") { transitive = false }
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${mc_version}:${flywheel_version}")
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
+
+    // Curios
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
 }
 
 mixin {
