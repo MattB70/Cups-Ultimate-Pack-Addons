@@ -51,7 +51,6 @@ import java.util.function.Consumer;
 
 
 public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable, ISyncable {
-    // TODO: Enchantments are not retained after fueling the item.
     /*
         CrysophilistsPickaxe or Crysophilist's Pickaxe
 
