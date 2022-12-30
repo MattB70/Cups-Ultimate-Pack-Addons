@@ -1,24 +1,24 @@
 
-package com.mattborle.cupsaddons.potion;
+package com.mattborle.cupsaddons.effect;
 
-import com.mattborle.cupsaddons.handlers.GreenedOutHandler;
+import com.mattborle.cupsaddons.handlers.effect.CaveSensesHandler;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffect;
 
-public class GreenedOutMobEffect extends MobEffect {
-	public GreenedOutMobEffect() {
-		super(MobEffectCategory.HARMFUL, -10854576);
+public class CaveSensesMobEffect extends MobEffect {
+	public CaveSensesMobEffect() {
+		super(MobEffectCategory.HARMFUL, -12503247);
 	}
 
 	@Override
 	public String getDescriptionId() {
-		return "effect.cupsaddons.greened_out";
+		return "effect.cupsaddons.cave_senses";
 	}
 
 	@Override
 	public void applyEffectTick(LivingEntity entity, int amplifier) {
-		GreenedOutHandler.execute(entity);
+		CaveSensesHandler.execute(entity.level, entity);
 	}
 
 	@Override

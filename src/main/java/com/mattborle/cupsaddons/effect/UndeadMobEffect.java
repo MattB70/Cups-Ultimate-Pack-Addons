@@ -1,24 +1,24 @@
 
-package com.mattborle.cupsaddons.potion;
+package com.mattborle.cupsaddons.effect;
 
-import com.mattborle.cupsaddons.handlers.CaveSensesHandler;
+import com.mattborle.cupsaddons.handlers.effect.UndeadHandler;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffect;
 
-public class CaveSensesMobEffect extends MobEffect {
-	public CaveSensesMobEffect() {
-		super(MobEffectCategory.HARMFUL, -12503247);
+public class UndeadMobEffect extends MobEffect {
+	public UndeadMobEffect() {
+		super(MobEffectCategory.HARMFUL, -12826083);
 	}
 
 	@Override
 	public String getDescriptionId() {
-		return "effect.cupsaddons.cave_senses";
+		return "effect.cupsaddons.undead";
 	}
 
 	@Override
 	public void applyEffectTick(LivingEntity entity, int amplifier) {
-		CaveSensesHandler.execute(entity.level, entity);
+		UndeadHandler.execute(entity.level, entity);
 	}
 
 	@Override

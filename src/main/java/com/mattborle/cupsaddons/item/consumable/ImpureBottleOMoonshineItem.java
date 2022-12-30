@@ -15,7 +15,7 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import com.mattborle.cupsaddons.handlers.MoonshineImpureDrinkHandler;
+import com.mattborle.cupsaddons.handlers.consumable.MoonshineImpureDrinkHandler;
 
 public class ImpureBottleOMoonshineItem extends Item {
 	public ImpureBottleOMoonshineItem() {

@@ -1,4 +1,4 @@
-package com.mattborle.cupsaddons.handlers;
+package com.mattborle.cupsaddons.handlers.enchantment;
 
 import com.mattborle.cupsaddons.init.EnchantmentRegistry;
 import com.mattborle.cupsaddons.init.MobEffectRegistry;

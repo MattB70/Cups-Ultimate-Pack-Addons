@@ -1,4 +1,4 @@
-package com.mattborle.cupsaddons.handlers;
+package com.mattborle.cupsaddons.handlers.effect;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Entity;

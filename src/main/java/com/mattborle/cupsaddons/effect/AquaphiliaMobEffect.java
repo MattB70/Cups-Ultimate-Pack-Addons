@@ -1,24 +1,24 @@
 
-package com.mattborle.cupsaddons.potion;
+package com.mattborle.cupsaddons.effect;
 
-import com.mattborle.cupsaddons.handlers.AmpedHandler;
+import com.mattborle.cupsaddons.handlers.effect.AquaphiliaHandler;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffect;
 
-public class AmpedMobEffect extends MobEffect {
-	public AmpedMobEffect() {
-		super(MobEffectCategory.BENEFICIAL, -10704439);
+public class AquaphiliaMobEffect extends MobEffect {
+	public AquaphiliaMobEffect() {
+		super(MobEffectCategory.HARMFUL, -10322771);
 	}
 
 	@Override
 	public String getDescriptionId() {
-		return "effect.cupsaddons.amped";
+		return "effect.cupsaddons.aquaphilia";
 	}
 
 	@Override
 	public void applyEffectTick(LivingEntity entity, int amplifier) {
-		AmpedHandler.execute(entity);
+		AquaphiliaHandler.execute(entity.level, entity);
 	}
 
 	@Override

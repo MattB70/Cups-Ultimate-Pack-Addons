@@ -15,7 +15,7 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import com.mattborle.cupsaddons.handlers.EggnogAndRumDrinkHandler;
+import com.mattborle.cupsaddons.handlers.consumable.EggnogAndRumDrinkHandler;
 
 public class EggnogAndRumItem extends Item {
 	public EggnogAndRumItem() {

@@ -16,7 +16,7 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import com.mattborle.cupsaddons.handlers.SweetenedMilkDrinkHandler;
+import com.mattborle.cupsaddons.handlers.consumable.SweetenedMilkDrinkHandler;
 
 public class SweetenedMilkItem extends Item {
 	public SweetenedMilkItem() {

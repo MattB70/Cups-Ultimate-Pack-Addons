@@ -1,7 +1,7 @@
 package com.mattborle.cupsaddons.init;
 
 import com.mattborle.cupsaddons.CupsAddons;
-import com.mattborle.cupsaddons.potion.*;
+import com.mattborle.cupsaddons.effect.*;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

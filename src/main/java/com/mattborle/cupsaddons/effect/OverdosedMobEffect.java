@@ -1,8 +1,8 @@
 
-package com.mattborle.cupsaddons.potion;
+package com.mattborle.cupsaddons.effect;
 
-import com.mattborle.cupsaddons.handlers.OverdoseFinishedHandler;
-import com.mattborle.cupsaddons.handlers.OverdosedHandler;
+import com.mattborle.cupsaddons.handlers.effect.OverdoseFinishedHandler;
+import com.mattborle.cupsaddons.handlers.effect.OverdosedHandler;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.effect.MobEffectCategory;

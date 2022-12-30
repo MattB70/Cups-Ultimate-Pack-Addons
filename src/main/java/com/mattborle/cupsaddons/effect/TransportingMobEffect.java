@@ -1,8 +1,8 @@
 
-package com.mattborle.cupsaddons.potion;
+package com.mattborle.cupsaddons.effect;
 
-import com.mattborle.cupsaddons.handlers.NightTransportHandler;
-import com.mattborle.cupsaddons.handlers.NightTransportingEffectExpires;
+import com.mattborle.cupsaddons.handlers.effect.NightTransportHandler;
+import com.mattborle.cupsaddons.handlers.effect.NightTransportingEffectExpires;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.effect.MobEffectCategory;

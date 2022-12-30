@@ -1,6 +1,6 @@
 package com.mattborle.cupsaddons.client.gui;
 
-import com.mattborle.cupsaddons.handlers.TransportingDisplayOverlayIngame;
+import com.mattborle.cupsaddons.handlers.overlay.TransportingDisplayOverlayIngame;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;

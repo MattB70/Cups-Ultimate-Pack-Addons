@@ -1,6 +1,6 @@
 package com.mattborle.cupsaddons.entity;
 
-import com.mattborle.cupsaddons.handlers.NightEssenceEatingHandler;
+import com.mattborle.cupsaddons.handlers.consumable.NightEssenceEatingHandler;
 import com.mattborle.cupsaddons.init.EntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;

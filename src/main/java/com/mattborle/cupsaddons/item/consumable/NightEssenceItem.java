@@ -17,7 +17,7 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import com.mattborle.cupsaddons.handlers.NightEssenceEatingHandler;
+import com.mattborle.cupsaddons.handlers.consumable.NightEssenceEatingHandler;
 
 public class NightEssenceItem extends Item {
 	public NightEssenceItem() {
