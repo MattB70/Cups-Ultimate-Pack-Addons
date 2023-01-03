@@ -1,6 +1,7 @@
 {
   "tooltip.cupsaddons.reward_item":  "§5§oReward Item",
   "tooltip.cupsaddons.unique_item":  "§6§oUnique Item",
+  "tooltip.cupsaddons.hold_shift_for_details":  "§5Hold §6Shift§5 to see details",
   "tooltip.cupsaddons.hold_ctrl_for_details":  "§eHold §6§oCtrl §r§efor details",
   "tooltip.cupsaddons.hold_ctrl_alt_for_details":  "§eHold §6§oCtrl §r§e+ §6§oAlt §r§efor more details",
   "tooltip.cupsaddons.fuel_item_instructions":  "§8§oRight click with the required fuel in your off-hand to fuel this item.",
@@ -11,9 +12,12 @@
   "tooltip.cupsaddons.crysophilists_pickaxe_description": "§7While fueled, mined §fStone§7 or §fOre§7 blocks will drop an additional §6Raw Gold§7, plus one for every level of §6Fortune§7. Without fuel, the pickaxe acts as normal.\n§fThis tool is Unbreakable§7.",
   "tooltip.cupsaddons.crysophilists_pickaxe_description_extra": "\n§6Netherite§8 tier pickaxe.\n\nFueled ability works on the following tags: \n§6Blocks.ORE_BEARING_GROUND_DEEPSLATE§8\n§6Blocks.ORE_BEARING_GROUND_NETHERRACK§8\n§6Blocks.ORE_BEARING_GROUND_STONE§8\n§6Blocks.ORES_IN_GROUND_STONE§8\n§6Blocks.ORES_IN_GROUND_DEEPSLATE§8\n§6Blocks.ORES_IN_GROUND_NETHERRACK§8\n",
 
+  "item.cupsaddons.ferromagnetic_object": "Ferromagnetic Object",
+  "tooltip.cupsaddons.ferromagnetic_object_active_ability": "§d\nActive abilities:§r\n§6- Knocks back all surrounding entities that are §dNOT§6 wearing §eIron§6 or §eChainmail§6 armor.\n§6- Attracts all surrounding entities that §dARE§6 wearing §eIron§6 or §eChainmail§6 armor.\n",
+  "tooltip.cupsaddons.ferromagnetic_object_passive_ability": "§dPassive abilities:§r\n§5- Wearing §dIron§5 or §dChainmail§5 armor grants effects:\n  §5- §6+1 Armor Point§5 per §darmor piece§5.\n  §5- §6+2 Armor Points§5 bonus for wearing a §dfull set§5.\n",
+
   "itemGroup.cupsaddons": "Cup's Ultimate Pack",
   "effect.cupsaddons.aquaphilia": "Aquaphilia",
-  "item.cupsaddons.ferromagnetic_object": "Ferromagnetic Object",
   "item.cupsaddons.impure_bottle_o_moonshine": "Bottle o' Moonshine",
   "item.cupsaddons.eggnog_and_rum": "Eggnog and Rum",
   "item.cups_mobs.night_crawler_spawn_egg": "Night Crawler Spawn Egg",
