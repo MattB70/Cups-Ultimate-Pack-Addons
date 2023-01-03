@@ -8,7 +8,7 @@
   "tooltip.cupsaddons.use_item_offhand_instructions":  "§eRight click with this item in your off-hand to use it.",
 
   "item.cupsaddons.crysophilists_pickaxe": "Crysophilist's Pickaxe",
-  "tooltip.cupsaddons.crysophilists_pickaxe_description": "§7While fueled, mined §fStone§7 or §fOre§7 blocks will drop an additional §6Raw Gold§7, plus one for every level of §6Fortune§7. Without fuel, the pickaxe acts as normal.",
+  "tooltip.cupsaddons.crysophilists_pickaxe_description": "§7While fueled, mined §fStone§7 or §fOre§7 blocks will drop an additional §6Raw Gold§7, plus one for every level of §6Fortune§7. Without fuel, the pickaxe acts as normal.\n§fThis tool is Unbreakable§7.",
   "tooltip.cupsaddons.crysophilists_pickaxe_description_extra": "\n§6Netherite§8 tier pickaxe.\n\nFueled ability works on the following tags: \n§6Blocks.ORE_BEARING_GROUND_DEEPSLATE§8\n§6Blocks.ORE_BEARING_GROUND_NETHERRACK§8\n§6Blocks.ORE_BEARING_GROUND_STONE§8\n§6Blocks.ORES_IN_GROUND_STONE§8\n§6Blocks.ORES_IN_GROUND_DEEPSLATE§8\n§6Blocks.ORES_IN_GROUND_NETHERRACK§8\n",
 
   "itemGroup.cupsaddons": "Cup's Ultimate Pack",
