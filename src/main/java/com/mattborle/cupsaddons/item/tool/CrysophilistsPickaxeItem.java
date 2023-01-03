@@ -54,10 +54,10 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
     /*
         CrysophilistsPickaxe or Crysophilist's Pickaxe
 
-        Unique:
-        A unique item is rewarded to the player for completion of a quest, task, purchased, or otherwise rewarded
-        to the player through modpack defined methods. These items may not always be totally "unique", but that can
-        never be discovered outside completing the task required by the modpack designer.
+        Reward:
+        A reward item is rewarded to the player for completion of a quest, task, purchased, or otherwise rewarded
+        to the player through modpack defined methods. These items may not always be unique, but that can never be
+        discovered outside completing the task required by the modpack designer.
     */
 
     // Functionality Variables
