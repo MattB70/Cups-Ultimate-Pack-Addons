@@ -2,11 +2,13 @@ package com.mattborle.cupsaddons.item.curios;
 
 import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import com.mattborle.cupsaddons.init.ItemRegistry;
+import com.mattborle.cupsaddons.init.SoundRegistry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.registries.ForgeRegistries;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
@@ -56,7 +59,9 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
             } else if (!tag.getBoolean("cupsaddons.has_used") && entity.isShiftKeyDown()) {
                 tag.putBoolean("cupsaddons.has_used", true);
                 // Do active ability
-                entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1, 0.5F + entity.getRandom().nextFloat() * 0.1F);
+
+                // Play magnet sound
+                entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.PLAYERS, 1, 0.5F + entity.getRandom().nextFloat() * 0.1F);
             }
         }
     }

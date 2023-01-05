@@ -48,5 +48,25 @@
         "stream": false
       }
     ]
+  },
+  "magic_pop": {
+    "category": "player",
+    "subtitle": "subtitles.magic_pop",
+    "sounds": [
+      {
+        "name": "cupsaddons:magic_pop",
+        "stream": false
+      }
+    ]
+  },
+  "magnetize": {
+    "category": "player",
+    "subtitle": "subtitles.magnetize",
+    "sounds": [
+      {
+        "name": "cupsaddons:magnetize",
+        "stream": false
+      }
+    ]
   }
 }

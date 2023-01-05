@@ -14,6 +14,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -29,6 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.text.WordUtils;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -210,7 +212,8 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
             // Text
             displayFuelLevel(maxFuel); // display max fuel
             // Sound
-            player.playSound(SoundEvents.TOTEM_USE, 0.7f, 1.5f);
+            player.playSound(ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magic_pop")), 0.8f, 1.2f);
+            player.playSound(SoundEvents.TOTEM_USE, 0.5f, 1.5f);
             // Particles
             for(int i = 0; i < 20; i++){
                 Random r = new Random();
