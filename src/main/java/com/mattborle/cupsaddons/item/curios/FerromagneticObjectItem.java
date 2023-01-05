@@ -3,27 +3,20 @@ package com.mattborle.cupsaddons.item.curios;
 import com.mattborle.cupsaddons.CupsAddons;
 import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import com.mattborle.cupsaddons.init.ItemRegistry;
-import com.mattborle.cupsaddons.init.MobEffectRegistry;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.client.EffectRenderer;
 import net.minecraftforge.registries.ForgeRegistries;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
@@ -31,9 +24,13 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import static com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs.ACTIVE_ABILITY_FERROMAGNETIC_OBJECT;
+import static com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs.TUNE_FERROMAGNETIC_OBJECT;
+
 public class FerromagneticObjectItem extends Item implements ICurioItem {
 
-    static final int RANGE = 10; // Range of effect
+    static final int RANGE = 8; // Range of effect
+    static final float DAMAGE = 2.0f * TUNE_FERROMAGNETIC_OBJECT.get().floatValue();
 
     public FerromagneticObjectItem(Properties properties) {
         super(properties
@@ -60,29 +57,57 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
 
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
-        LivingEntity livingEntity = slotContext.entity();
+        LivingEntity player = slotContext.entity();
+
         // On the server,
-        if (!livingEntity.level.isClientSide()) {
+        if (!player.level.isClientSide()) {
             CompoundTag tag = stack.getOrCreateTag();
-            if (tag.getBoolean("cupsaddons.has_used") && !livingEntity.isShiftKeyDown()) {
+            if (tag.getBoolean("cupsaddons.has_used") && !player.isShiftKeyDown()) {
                 tag.putBoolean("cupsaddons.has_used", false);
-            } else if (!tag.getBoolean("cupsaddons.has_used") && livingEntity.isShiftKeyDown()) {
+            } else if (!tag.getBoolean("cupsaddons.has_used") && player.isShiftKeyDown()) {
                 tag.putBoolean("cupsaddons.has_used", true);
-                // Do active ability
-
-                // Play magnet sound
-                livingEntity.level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.PLAYERS, 1, 0.5F + livingEntity.getRandom().nextFloat() * 0.1F);
-
-                // Find nearby entites
-                List<LivingEntity> nearbyEntities = livingEntity.level.getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), livingEntity, AABB.ofSize(livingEntity.getEyePosition(),RANGE,RANGE/2,RANGE));
 
 
+                // Do active ability if enabled
+                if(ACTIVE_ABILITY_FERROMAGNETIC_OBJECT.get()) {
+                    // Play magnet sound
+                    player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.PLAYERS, 1.0f, 1.0f + player.getRandom().nextFloat() * 0.1f);
+                    // Find nearby entities
+                    List<LivingEntity> nearbyEntities = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), player, AABB.ofSize(player.getEyePosition(), RANGE, RANGE / 2, RANGE));
+                    // Iterate nearbyEntities and knock back non-iron/chainmail wearing entities, and pull in those with the armor
+                    for (int i = 0; i < nearbyEntities.size(); i++) {
+                        LivingEntity entity = nearbyEntities.get(i);
+                        // If entity is alive and can see the player (don't knockback through walls):
+                        if (entity.isAlive() && entity.hasLineOfSight(player)) {
+                            try {
+                                // Get armor for checking
+                                ItemStack entityHead = entity.getItemBySlot(EquipmentSlot.HEAD);
+                                ItemStack entityChest = entity.getItemBySlot(EquipmentSlot.CHEST);
+                                ItemStack entityLegs = entity.getItemBySlot(EquipmentSlot.LEGS);
+                                ItemStack entityFeet = entity.getItemBySlot(EquipmentSlot.FEET);
+                                // Check armor
+                                if (entityHead.getItem() == Items.IRON_HELMET || entityHead.getItem() == Items.CHAINMAIL_HELMET ||
+                                        entityChest.getItem() == Items.IRON_CHESTPLATE || entityChest.getItem() == Items.CHAINMAIL_CHESTPLATE ||
+                                        entityLegs.getItem() == Items.IRON_LEGGINGS || entityLegs.getItem() == Items.CHAINMAIL_LEGGINGS ||
+                                        entityFeet.getItem() == Items.IRON_BOOTS || entityFeet.getItem() == Items.CHAINMAIL_BOOTS) {
+                                    // Repel entities that fail any of the above tests
+                                    entity.push(player); // TODO: FIX Very light push (sort of like walking into an entity)
+                                } else {
+                                    // Damage entities that pass any of the above tests
+                                    entity.hurt(DamageSource.MAGIC, DAMAGE);
+                                }
+                            } catch (Exception e) {
+                                CupsAddons.LOGGER.error(e.getStackTrace().toString());
+                            }
+                        }
+                    }
 
 
-                // List nearby entities to console for debug.
-                CupsAddons.LOGGER.debug("nearbyEntities:");
-                for(int i = 0; i < nearbyEntities.size(); i++){
-                    CupsAddons.LOGGER.debug("   Entity: "+nearbyEntities.get(i).getDisplayName().getString());
+                    // List nearby entities to console for debug.
+                    CupsAddons.LOGGER.info("nearbyEntities:");
+                    for(int i = 0; i < nearbyEntities.size(); i++){
+                        CupsAddons.LOGGER.info("   Entity: "+nearbyEntities.get(i).getDisplayName().getString());
+                    }
                 }
             }
         }
