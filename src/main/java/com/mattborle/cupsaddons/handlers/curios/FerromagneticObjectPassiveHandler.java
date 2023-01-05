@@ -2,14 +2,12 @@ package com.mattborle.cupsaddons.handlers.curios;
 
 import com.mattborle.cupsaddons.CupsAddons;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import org.jetbrains.annotations.NotNull;
 import top.theillusivec4.curios.api.CuriosApi;
 
+//TODO: Determine if a class such as this is necessary.
 
 @Mod.EventBusSubscriber
 public class FerromagneticObjectPassiveHandler {
@@ -24,7 +22,7 @@ public class FerromagneticObjectPassiveHandler {
 					// Do something:
 					CupsAddons.LOGGER.info("");
 					CupsAddons.LOGGER.info("Cups Addons Curios Debug:");
-					CupsAddons.LOGGER.info("   " + CuriosApi.getCuriosHelper().getEquippedCurios(event.getEntityLiving()));
+					CupsAddons.LOGGER.info("   " + CuriosApi.getCuriosHelper().getEquippedCurios(event.getEntityLiving()).isPresent());
 					CupsAddons.LOGGER.info("");
 				}
 			}
