@@ -212,8 +212,8 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
             // Text
             displayFuelLevel(maxFuel); // display max fuel
             // Sound
-            player.playSound(ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magic_pop")), 0.8f, 1.2f);
-            player.playSound(SoundEvents.TOTEM_USE, 0.5f, 1.5f);
+            player.playSound(ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magic_pop")), 0.9f, 1.0f);
+            player.playSound(SoundEvents.TOTEM_USE, 0.1f, 1.4f);
             // Particles
             for(int i = 0; i < 20; i++){
                 Random r = new Random();
