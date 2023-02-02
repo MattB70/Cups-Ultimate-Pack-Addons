@@ -12,6 +12,11 @@ public class CupsAddonsCommonConfigs {
     public static final ForgeConfigSpec.ConfigValue<String> FUEL_CRYSOPHILISTS_PICKAXE;
     public static final ForgeConfigSpec.ConfigValue<Integer> MAX_FUEL_CRYSOPHILISTS_PICKAXE;
     public static final ForgeConfigSpec.ConfigValue<Double> TUNE_CRYSOPHILISTS_PICKAXE;
+    // Neanderthal's Pickaxe
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ABILITY_NEANDERTHALS_PICKAXE;
+    public static final ForgeConfigSpec.ConfigValue<String> FUEL_NEANDERTHALS_PICKAXE;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MAX_FUEL_NEANDERTHALS_PICKAXE;
+    public static final ForgeConfigSpec.ConfigValue<Double> TUNE_NEANDERTHALS_PICKAXE;
 
     // Ferromagnetic Object
     public static final ForgeConfigSpec.ConfigValue<Boolean> ACTIVE_ABILITY_FERROMAGNETIC_OBJECT;
@@ -33,6 +38,18 @@ public class CupsAddonsCommonConfigs {
         TUNE_CRYSOPHILISTS_PICKAXE = BUILDER.comment("How strong should the Crysophilist's Pickaxe be (Applies to most attributes including abilities) (Default: 1.0 = 100%)")
                 .defineInRange("Crysophilist's Pickaxe Strength (%)", 1.0, 0.0, 100.0);
         BUILDER.pop();
+
+        BUILDER.push("Neanderthal's Pickaxe");
+        ABILITY_NEANDERTHALS_PICKAXE = BUILDER.comment("Enable the Neanderthal's Pickaxe's ability (Default: true)")
+                .define("Neanderthal's Pickaxe Ability (Boolean)", true);
+        FUEL_NEANDERTHALS_PICKAXE = BUILDER.comment("Item to be used as fuel for the Neanderthal's Pickaxe's ability. (Default: \"cobblestone\")")
+                .define("Neanderthal's Pickaxe Fuel Item (Vanilla ItemID)", Items.COBBLESTONE.toString());
+        MAX_FUEL_NEANDERTHALS_PICKAXE = BUILDER.comment("The maximum fueled usages of the item before needing to be refueled. (Default: 4)")
+                .defineInRange("Neanderthal's Pickaxe Max Fuel (Integer)", 4, 1, 2147483647);
+        TUNE_NEANDERTHALS_PICKAXE = BUILDER.comment("How strong should the Neanderthal's Pickaxe be (Applies to most attributes including abilities) (Default: 1.0 = 100%)")
+                .defineInRange("Neanderthal's Pickaxe Strength (%)", 1.0, 0.0, 100.0);
+        BUILDER.pop();
+
 
 
         // Weapons

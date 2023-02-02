@@ -249,7 +249,11 @@
 					"effect": "magic_pop"
 				}
 			},
-			"particle_effects": {}
+			"particle_effects": {
+				"1.25": {
+					"effect": "particle"
+				}
+			}
 		},
 		"animation.neanderthals_pickaxe.idle": {
 			"loop": true

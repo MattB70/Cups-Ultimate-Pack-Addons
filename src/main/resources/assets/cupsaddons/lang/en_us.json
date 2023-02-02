@@ -8,13 +8,20 @@
   "tooltip.cupsaddons.use_item_mainhand_instructions":  "§eRight click with this item in your main-hand to use it.",
   "tooltip.cupsaddons.use_item_offhand_instructions":  "§eRight click with this item in your off-hand to use it.",
 
+
   "item.cupsaddons.crysophilists_pickaxe": "Crysophilist's Pickaxe",
-  "tooltip.cupsaddons.crysophilists_pickaxe_description": "§7While fueled, mined §fStone§7 or §fOre§7 blocks will drop an additional §6Raw Gold§7, plus one for every level of §6Fortune§7. Without fuel, the pickaxe acts as normal.\n§fThis tool is Unbreakable§7.",
+  "tooltip.cupsaddons.crysophilists_pickaxe_description": "§7While fueled, mined §fStone§7 or §fOre§7 blocks will drop an additional §6Raw Gold§7, plus one more for every level of §6Fortune§7. Without fuel, the pickaxe acts as normal.\n§fThis tool is Unbreakable§7.",
   "tooltip.cupsaddons.crysophilists_pickaxe_description_extra": "\n§6Netherite§8 tier pickaxe.\n\nFueled ability works on the following tags: \n§6Blocks.ORE_BEARING_GROUND_DEEPSLATE§8\n§6Blocks.ORE_BEARING_GROUND_NETHERRACK§8\n§6Blocks.ORE_BEARING_GROUND_STONE§8\n§6Blocks.ORES_IN_GROUND_STONE§8\n§6Blocks.ORES_IN_GROUND_DEEPSLATE§8\n§6Blocks.ORES_IN_GROUND_NETHERRACK§8\n",
+
+  "item.cupsaddons.neanderthals_pickaxe": "Neanderthal's Pickaxe",
+  "tooltip.cupsaddons.neanderthals_pickaxe_description": "§7While fueled, mined §fStone§7 or §fOre§7 blocks will drop an additional §6Raw Iron§7 and §6Coal§7, plus one more of each for every level of §6Fortune§7. Without fuel, the pickaxe acts as normal.\n§fThis tool is Unbreakable§7.",
+  "tooltip.cupsaddons.neanderthals_pickaxe_description_extra": "\n§6Stone§8 tier pickaxe.\n\nFueled ability works on the following tags: \n§6Blocks.ORE_BEARING_GROUND_DEEPSLATE§8\n§6Blocks.ORE_BEARING_GROUND_NETHERRACK§8\n§6Blocks.ORE_BEARING_GROUND_STONE§8\n§6Blocks.ORES_IN_GROUND_STONE§8\n§6Blocks.ORES_IN_GROUND_DEEPSLATE§8\n§6Blocks.ORES_IN_GROUND_NETHERRACK§8\n",
+
 
   "item.cupsaddons.ferromagnetic_object": "Ferromagnetic Object",
   "tooltip.cupsaddons.ferromagnetic_object_active_ability": "§d\nActive abilities:§r\n§6- Damages all surrounding entities that are §dNOT§6 wearing §eIron§6 or §eChainmail§6 armor.\n§6- Knocks back all surrounding entities that §dARE§6 wearing §eIron§6 or §eChainmail§6 armor.\n",
   "tooltip.cupsaddons.ferromagnetic_object_passive_ability": "§dPassive abilities:§r\n§5- Wearing §dIron§5 or §dChainmail§5 armor grants effects:\n  §5- §6+1 Armor Point§5 per §darmor piece§5.\n  §5- §6+2 Armor Points§5 bonus for wearing a §dfull set§5.\n",
+
 
   "itemGroup.cupsaddons": "Cup's Ultimate Pack",
 

@@ -63,8 +63,8 @@ public class NeanderthalsPickaxeItem extends PickaxeItem implements IAnimatable,
     */
 
     // Functionality Variables
-    public String fuelItem = CupsAddonsCommonConfigs.FUEL_CRYSOPHILISTS_PICKAXE.get();
-    public int maxFuel = CupsAddonsCommonConfigs.MAX_FUEL_CRYSOPHILISTS_PICKAXE.get();   // Max fuel, typically the number of uses an item has before needing to be refueled
+    public String fuelItem = CupsAddonsCommonConfigs.FUEL_NEANDERTHALS_PICKAXE.get();
+    public int maxFuel = CupsAddonsCommonConfigs.MAX_FUEL_NEANDERTHALS_PICKAXE.get();   // Max fuel, typically the number of uses an item has before needing to be refueled
 
     // Animation Variables
     public String IDLE_ANIMATION_NAME = "animation.neanderthals_pickaxe.idle";
@@ -89,7 +89,7 @@ public class NeanderthalsPickaxeItem extends PickaxeItem implements IAnimatable,
     }
     @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        if(CupsAddonsCommonConfigs.ABILITY_CRYSOPHILISTS_PICKAXE.get()){
+        if(CupsAddonsCommonConfigs.ABILITY_NEANDERTHALS_PICKAXE.get()){
             int fuel = 0;
             // Get fuel nbt and put it in fuel variable if exists
             if(stack.getTag() != null){
@@ -103,9 +103,9 @@ public class NeanderthalsPickaxeItem extends PickaxeItem implements IAnimatable,
             tooltip.add(new TextComponent("Fuel: "+fuel+"/"+maxFuel+ " ("+ WordUtils.capitalize(fuelItem.replace("_", " "))+")")
                     .withStyle(ChatFormatting.BLUE));
             if(Screen.hasControlDown()){
-                tooltip.add(new TranslatableComponent("tooltip.cupsaddons.crysophilists_pickaxe_description"));
+                tooltip.add(new TranslatableComponent("tooltip.cupsaddons.neanderthals_pickaxe_description"));
                 if(Screen.hasAltDown()){
-                    tooltip.add(new TranslatableComponent("tooltip.cupsaddons.crysophilists_pickaxe_description_extra"));
+                    tooltip.add(new TranslatableComponent("tooltip.cupsaddons.neanderthals_pickaxe_description_extra"));
                 }else{
                     tooltip.add(new TranslatableComponent("tooltip.cupsaddons.hold_ctrl_alt_for_details"));
                 }
@@ -134,12 +134,16 @@ public class NeanderthalsPickaxeItem extends PickaxeItem implements IAnimatable,
                                 // On the server side:
 
                                 // Special action
-                                ItemEntity droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
-                                level.addFreshEntity(droppedItem);
+                                ItemEntity droppedIron = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_IRON));
+                                level.addFreshEntity(droppedIron);
+                                ItemEntity droppedCoal = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.COAL));
+                                level.addFreshEntity(droppedCoal);
                                 // One extra gold per fortune level:
                                 for(int i = 0; i < EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE,stack); i++) {
-                                    droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
-                                    level.addFreshEntity(droppedItem);
+                                    droppedIron = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_IRON));
+                                    level.addFreshEntity(droppedIron);
+                                    droppedCoal = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.COAL));
+                                    level.addFreshEntity(droppedCoal);
                                 }
                                 // Reduce the item's fuel by 1.
                                 int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
@@ -246,7 +250,7 @@ public class NeanderthalsPickaxeItem extends PickaxeItem implements IAnimatable,
         Item mainHandItem = player.getMainHandItem().getItem();
         Item offHandItem = player.getOffhandItem().getItem();
         // Return if not correct item pair
-        if (!(mainHandItem.toString().equals("neanderthals_pickaxe") && offHandItem.toString().equals(CupsAddonsCommonConfigs.FUEL_CRYSOPHILISTS_PICKAXE.get()))) {
+        if (!(mainHandItem.toString().equals("neanderthals_pickaxe") && offHandItem.toString().equals(CupsAddonsCommonConfigs.FUEL_NEANDERTHALS_PICKAXE.get()))) {
             return super.use(world, player, hand);
         }
         // Return if item already fully fueled
