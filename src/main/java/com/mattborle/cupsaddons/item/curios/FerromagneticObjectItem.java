@@ -4,6 +4,7 @@ import com.mattborle.cupsaddons.CupsAddons;
 import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import com.mattborle.cupsaddons.init.ItemRegistry;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -23,6 +24,7 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Random;
 
 import static com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs.ACTIVE_ABILITY_FERROMAGNETIC_OBJECT;
 import static com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs.TUNE_FERROMAGNETIC_OBJECT;
@@ -59,17 +61,32 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         LivingEntity player = slotContext.entity();
 
-        // On the server,
-        if (!player.level.isClientSide()) {
-            CompoundTag tag = stack.getOrCreateTag();
-            if (tag.getBoolean("cupsaddons.has_used") && !player.isShiftKeyDown()) {
-                tag.putBoolean("cupsaddons.has_used", false);
-            } else if (!tag.getBoolean("cupsaddons.has_used") && player.isShiftKeyDown()) {
-                tag.putBoolean("cupsaddons.has_used", true);
+        CompoundTag tag = stack.getOrCreateTag();
+        if (tag.getBoolean("cupsaddons.has_used") && !player.isShiftKeyDown()) {
+            tag.putBoolean("cupsaddons.has_used", false);
+        } else if (!tag.getBoolean("cupsaddons.has_used") && player.isShiftKeyDown()) {
+            tag.putBoolean("cupsaddons.has_used", true);
 
+            // TODO: Particles do not always spawn?
+            // Particles spawned at feet
+            for(int i = 0; i < 20; i++) {
+                Random r = new Random();
+                player.level.addParticle(ParticleTypes.SMOKE, player.getX(), player.getY()+0.25, player.getZ(),
+                        (-2f + r.nextFloat() * (4f)),
+                        (-0.5f + r.nextFloat() * (1f)),
+                        (-2f + r.nextFloat() * (4f)));
+                player.level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, player.getX(), player.getY()+0.25, player.getZ(),
+                        (-0.5f + r.nextFloat() * (1f)),
+                        (-0.1f + r.nextFloat() * (0.2f)),
+                        (-0.5f + r.nextFloat() * (1f)));
+            }
 
-                // Do active ability if enabled
-                if(ACTIVE_ABILITY_FERROMAGNETIC_OBJECT.get()) {
+            // Do active ability if enabled
+            if(ACTIVE_ABILITY_FERROMAGNETIC_OBJECT.get()) {
+
+                if (!player.level.isClientSide()) {
+                    // On the server
+
                     // Play magnet sound
                     player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.PLAYERS, 1.0f, 1.0f + player.getRandom().nextFloat() * 0.1f);
                     // Find nearby entities
@@ -91,7 +108,10 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
                                         entityLegs.getItem() == Items.IRON_LEGGINGS || entityLegs.getItem() == Items.CHAINMAIL_LEGGINGS ||
                                         entityFeet.getItem() == Items.IRON_BOOTS || entityFeet.getItem() == Items.CHAINMAIL_BOOTS) {
                                     // Repel entities that fail any of the above tests
-                                    entity.push(player); // TODO: FIX Very light push (sort of like walking into an entity)
+                                    for(int strength = 25; strength > 0; strength--)
+                                    {
+                                        entity.push(player);
+                                    }
                                 } else {
                                     // Damage entities that pass any of the above tests
                                     entity.hurt(DamageSource.MAGIC, DAMAGE);
@@ -101,8 +121,6 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
                             }
                         }
                     }
-
-
                     // List nearby entities to console for debug.
                     CupsAddons.LOGGER.info("nearbyEntities:");
                     for(int i = 0; i < nearbyEntities.size(); i++){
