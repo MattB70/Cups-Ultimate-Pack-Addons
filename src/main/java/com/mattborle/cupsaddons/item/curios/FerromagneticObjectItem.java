@@ -75,7 +75,7 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
                         (-2f + r.nextFloat() * (4f)),
                         (-0.5f + r.nextFloat() * (1f)),
                         (-2f + r.nextFloat() * (4f)));
-                player.level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, player.getX(), player.getY()+0.25, player.getZ(),
+                player.level.addParticle(ParticleTypes.SNOWFLAKE, player.getX(), player.getY()+0.25, player.getZ(),
                         (-0.5f + r.nextFloat() * (1f)),
                         (-0.1f + r.nextFloat() * (0.2f)),
                         (-0.5f + r.nextFloat() * (1f)));
