@@ -136,11 +136,32 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
                                 // Special action
                                 ItemEntity droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
                                 level.addFreshEntity(droppedItem);
-                                // One extra gold per fortune level:
-                                for(int i = 0; i < EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE,stack); i++) {
-                                    droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
-                                    level.addFreshEntity(droppedItem);
+
+                                // extra gold chance per fortune level:
+                                Random r = new Random();
+                                float chance = r.nextInt(2);
+                                switch(EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE,stack))
+                                {
+                                    case 1: // 1/3% chance for extra
+                                        if(chance == 0)
+                                        {
+                                            droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
+                                            level.addFreshEntity(droppedItem);
+                                        }
+                                        break;
+                                    case 2: // 2/3% chance for extra
+                                        if(chance > 0)
+                                        {
+                                            droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
+                                            level.addFreshEntity(droppedItem);
+                                        }
+                                        break;
+                                    case 3: // 100% chance for extra
+                                        droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
+                                        level.addFreshEntity(droppedItem);
+                                        break;
                                 }
+
                                 // Reduce the item's fuel by 1.
                                 int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
                                 stack.getTag().remove("cupsaddons.fuel");
