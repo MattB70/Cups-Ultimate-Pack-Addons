@@ -19,7 +19,7 @@
 
 
   "item.cupsaddons.ferromagnetic_object": "Ferromagnetic Object",
-  "tooltip.cupsaddons.ferromagnetic_object_active_ability": "§d\nActive abilities:§r\n§6- Damages all surrounding entities that are §dNOT§6 wearing §eIron§6 or §eChainmail§6 armor.\n§6- Knocks back all surrounding entities that §dARE§6 wearing §eIron§6 or §eChainmail§6 armor.\n",
+  "tooltip.cupsaddons.ferromagnetic_object_active_ability": "§d\nActive abilities:§r\n§6- Damages all surrounding entities that are §dNOT§6 wearing §eIron§6 or §eChainmail§6 armor.\n§6- Knocks back all surrounding entities that §dARE§6 wearing §eIron§6 or §eChainmail§6 armor.\n- Ignores players.\n",
   "tooltip.cupsaddons.ferromagnetic_object_passive_ability": "§dPassive abilities:§r\n§5- Wearing §dIron§5 or §dChainmail§5 armor grants effects:\n  §5- §6+1 Armor Point§5 per §darmor piece§5.\n  §5- §6+2 Armor Points§5 bonus for wearing a §dfull set§5.\n",
 
 

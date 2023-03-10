@@ -15,6 +15,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -67,64 +68,48 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
         } else if (!tag.getBoolean("cupsaddons.has_used") && player.isShiftKeyDown()) {
             tag.putBoolean("cupsaddons.has_used", true);
 
-            // TODO: Particles do not always spawn?
-            // Particles spawned at feet
-            for(int i = 0; i < 20; i++) {
-                Random r = new Random();
-                player.level.addParticle(ParticleTypes.SMOKE, player.getX(), player.getY()+0.25, player.getZ(),
-                        (-2f + r.nextFloat() * (4f)),
-                        (-0.5f + r.nextFloat() * (1f)),
-                        (-2f + r.nextFloat() * (4f)));
-                player.level.addParticle(ParticleTypes.SNOWFLAKE, player.getX(), player.getY()+0.25, player.getZ(),
-                        (-0.5f + r.nextFloat() * (1f)),
-                        (-0.1f + r.nextFloat() * (0.2f)),
-                        (-0.5f + r.nextFloat() * (1f)));
-            }
-
             // Do active ability if enabled
             if(ACTIVE_ABILITY_FERROMAGNETIC_OBJECT.get()) {
 
                 if (!player.level.isClientSide()) {
                     // On the server
-
                     // Play magnet sound
-                    player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.PLAYERS, 1.0f, 1.0f + player.getRandom().nextFloat() * 0.1f);
+                    player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.PLAYERS, 1.2f, 0.8f + player.getRandom().nextFloat() * 0.1f);
                     // Find nearby entities
                     List<LivingEntity> nearbyEntities = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), player, AABB.ofSize(player.getEyePosition(), RANGE, RANGE / 2, RANGE));
                     // Iterate nearbyEntities and knock back non-iron/chainmail wearing entities, and pull in those with the armor
                     for (int i = 0; i < nearbyEntities.size(); i++) {
                         LivingEntity entity = nearbyEntities.get(i);
-                        // If entity is alive and can see the player (don't knockback through walls):
-                        if (entity.isAlive() && entity.hasLineOfSight(player)) {
-                            try {
-                                // Get armor for checking
-                                ItemStack entityHead = entity.getItemBySlot(EquipmentSlot.HEAD);
-                                ItemStack entityChest = entity.getItemBySlot(EquipmentSlot.CHEST);
-                                ItemStack entityLegs = entity.getItemBySlot(EquipmentSlot.LEGS);
-                                ItemStack entityFeet = entity.getItemBySlot(EquipmentSlot.FEET);
-                                // Check armor
-                                if (entityHead.getItem() == Items.IRON_HELMET || entityHead.getItem() == Items.CHAINMAIL_HELMET ||
-                                        entityChest.getItem() == Items.IRON_CHESTPLATE || entityChest.getItem() == Items.CHAINMAIL_CHESTPLATE ||
-                                        entityLegs.getItem() == Items.IRON_LEGGINGS || entityLegs.getItem() == Items.CHAINMAIL_LEGGINGS ||
-                                        entityFeet.getItem() == Items.IRON_BOOTS || entityFeet.getItem() == Items.CHAINMAIL_BOOTS) {
-                                    // Repel entities that fail any of the above tests
-                                    for(int strength = 25; strength > 0; strength--)
-                                    {
-                                        entity.push(player);
+
+                        // skip players
+                        if (!(entity instanceof Player)) {
+
+                            // If entity is alive and can see the player (don't knockback through walls):
+                            if (entity.isAlive() && entity.hasLineOfSight(player)) {
+                                try {
+                                    // Get armor for checking
+                                    ItemStack entityHead = entity.getItemBySlot(EquipmentSlot.HEAD);
+                                    ItemStack entityChest = entity.getItemBySlot(EquipmentSlot.CHEST);
+                                    ItemStack entityLegs = entity.getItemBySlot(EquipmentSlot.LEGS);
+                                    ItemStack entityFeet = entity.getItemBySlot(EquipmentSlot.FEET);
+                                    // Check armor
+                                    if (entityHead.getItem() == Items.IRON_HELMET || entityHead.getItem() == Items.CHAINMAIL_HELMET ||
+                                            entityChest.getItem() == Items.IRON_CHESTPLATE || entityChest.getItem() == Items.CHAINMAIL_CHESTPLATE ||
+                                            entityLegs.getItem() == Items.IRON_LEGGINGS || entityLegs.getItem() == Items.CHAINMAIL_LEGGINGS ||
+                                            entityFeet.getItem() == Items.IRON_BOOTS || entityFeet.getItem() == Items.CHAINMAIL_BOOTS) {
+                                        // Repel entities that fail any of the above tests
+                                        for (int strength = 30; strength > 0; strength--) {
+                                            entity.push(player);
+                                        }
+                                    } else {
+                                        // Damage entities that pass any of the above tests
+                                        entity.hurt(DamageSource.MAGIC, DAMAGE);
                                     }
-                                } else {
-                                    // Damage entities that pass any of the above tests
-                                    entity.hurt(DamageSource.MAGIC, DAMAGE);
+                                } catch (Exception e) {
+                                    CupsAddons.LOGGER.error(e.getStackTrace().toString());
                                 }
-                            } catch (Exception e) {
-                                CupsAddons.LOGGER.error(e.getStackTrace().toString());
                             }
                         }
-                    }
-                    // List nearby entities to console for debug.
-                    CupsAddons.LOGGER.info("nearbyEntities:");
-                    for(int i = 0; i < nearbyEntities.size(); i++){
-                        CupsAddons.LOGGER.info("   Entity: "+nearbyEntities.get(i).getDisplayName().getString());
                     }
                 }
             }
