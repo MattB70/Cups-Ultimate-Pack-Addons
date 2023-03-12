@@ -116,6 +116,7 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
                 else // on client
                 {
                     // Particles
+                    // TODO: No or inconsistent particle spawning
                     for(int i = 0; i < 20; i++){
                         Random r = new Random();
                         level.addParticle(ParticleTypes.SMOKE, player.getX(), player.getY()+0.1, player.getZ(),
