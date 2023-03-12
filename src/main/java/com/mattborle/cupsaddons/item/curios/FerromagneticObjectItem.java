@@ -61,6 +61,7 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         LivingEntity player = slotContext.entity();
+        Level level = player.getLevel();
 
         CompoundTag tag = stack.getOrCreateTag();
         if (tag.getBoolean("cupsaddons.has_used") && !player.isShiftKeyDown()) {
@@ -71,12 +72,12 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
             // Do active ability if enabled
             if(ACTIVE_ABILITY_FERROMAGNETIC_OBJECT.get()) {
 
-                if (!player.level.isClientSide()) {
+                if (!level.isClientSide()) {
                     // On the server
                     // Play magnet sound
-                    player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.PLAYERS, 1.2f, 0.8f + player.getRandom().nextFloat() * 0.1f);
+                    level.playSound(null, player.getX(), player.getY(), player.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.PLAYERS, 1.2f, 0.8f + player.getRandom().nextFloat() * 0.1f);
                     // Find nearby entities
-                    List<LivingEntity> nearbyEntities = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), player, AABB.ofSize(player.getEyePosition(), RANGE, RANGE / 2, RANGE));
+                    List<LivingEntity> nearbyEntities = level.getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), player, AABB.ofSize(player.getEyePosition(), RANGE, RANGE / 2, RANGE));
                     // Iterate nearbyEntities and knock back non-iron/chainmail wearing entities, and pull in those with the armor
                     for (int i = 0; i < nearbyEntities.size(); i++) {
                         LivingEntity entity = nearbyEntities.get(i);
@@ -110,6 +111,21 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
                                 }
                             }
                         }
+                    }
+                }
+                else // on client
+                {
+                    // Particles
+                    for(int i = 0; i < 20; i++){
+                        Random r = new Random();
+                        level.addParticle(ParticleTypes.SMOKE, player.getX(), player.getY()+0.1, player.getZ(),
+                                (-6f + r.nextFloat() * (12f)),
+                                (-0.5f + r.nextFloat() * (1f)),
+                                (-6f + r.nextFloat() * (12f)));
+                        level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, player.getX(), player.getY()+0.1, player.getZ(),
+                                (-4f + r.nextFloat() * (8f)),
+                                (-0.1f + r.nextFloat() * (0.2f)),
+                                (-4f + r.nextFloat() * (8f)));
                     }
                 }
             }
