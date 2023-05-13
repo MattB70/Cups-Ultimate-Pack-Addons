@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+      "BAB",
+      "ECE",
+      "BEB"
+  ],
+  "key": {
+    "A": {
+      "item": "enigmaticlegacy:astral_dust"
+    },
+    "B": {
+      "item": "botania:blaze_block"
+    },
+    "E": {
+      "item": "alltheores:enderium_plate"
+    },
+    "C": {
+      "item": "minecraft:ender_chest"
+    }
+  },
+  "result": {
+    "item": "enderstorage:ender_pouch",
+    "count": 1
+  }
+}
