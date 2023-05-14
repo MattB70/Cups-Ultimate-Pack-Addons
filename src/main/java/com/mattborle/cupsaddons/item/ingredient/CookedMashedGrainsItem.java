@@ -2,6 +2,7 @@
 package com.mattborle.cupsaddons.item.ingredient;
 
 import com.mattborle.cupsaddons.init.ItemRegistry;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.food.FoodProperties;
@@ -15,5 +16,10 @@ public class CookedMashedGrainsItem extends Item {
 				.nutrition(2)
 				.saturationMod(1f)
 				.build()));
+	}
+
+	@Override
+	public int getUseDuration(ItemStack itemstack) {
+		return 64;
 	}
 }

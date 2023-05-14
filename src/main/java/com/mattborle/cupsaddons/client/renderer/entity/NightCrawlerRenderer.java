@@ -1,3 +1,4 @@
+/*
 package com.mattborle.cupsaddons.client.renderer.entity;
 
 import com.mattborle.cupsaddons.client.model.entity.NightCrawlerModel;
@@ -24,3 +25,4 @@ public class NightCrawlerRenderer extends MobRenderer<NightCrawlerMobEntity, Nig
         return new ResourceLocation("cupsaddons:textures/entities/night_crawler.png");
     }
 }
+ */

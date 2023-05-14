@@ -7,6 +7,7 @@
   "tooltip.cupsaddons.fuel_item_instructions":  "§8§oRight click with the required fuel in your off-hand to fuel this item.",
   "tooltip.cupsaddons.use_item_mainhand_instructions":  "§eRight click with this item in your main-hand to use it.",
   "tooltip.cupsaddons.use_item_offhand_instructions":  "§eRight click with this item in your off-hand to use it.",
+  "tooltip.cupsaddons.scrap_description": "§eCan be crafted from dozens of items.",
 
 
   "item.cupsaddons.crysophilists_pickaxe": "Crysophilist's Pickaxe",
@@ -33,6 +34,7 @@
   "item.cupsaddons.bottle_o_moonshine": "Bottle o' Moonshine",
   "item.cupsaddons.barley_corn_mix": "Barley Corn Mix",
   "item.cupsaddons.bundle_of_sticks": "Bundle Of Sticks",
+  "item.cupsaddons.loot_scraps": "Loot Scraps",
   "item.cupsaddons.impure_bottle_o_moonshine": "Bottle o' Moonshine",
   "item.cupsaddons.eggnog_and_rum": "Eggnog and Rum",
   "item.cups_mobs.night_crawler_spawn_egg": "Night Crawler Spawn Egg",

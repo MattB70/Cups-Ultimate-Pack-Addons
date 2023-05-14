@@ -1,3 +1,4 @@
+/*
 package com.mattborle.cupsaddons.entity;
 
 import com.mattborle.cupsaddons.handlers.consumable.NightEssenceEatingHandler;
@@ -135,3 +136,4 @@ public class NightCrawlerMobEntity extends Monster {
         return builder;
     }
 }
+ */

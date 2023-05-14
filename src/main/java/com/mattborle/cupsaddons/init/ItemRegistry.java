@@ -7,6 +7,7 @@ import com.mattborle.cupsaddons.item.ingredient.BarleyCornMixItem;
 import com.mattborle.cupsaddons.item.ingredient.BundleOfSticksItem;
 import com.mattborle.cupsaddons.item.ingredient.CookedMashedGrainsItem;
 import com.mattborle.cupsaddons.item.ingredient.MashedGrainsItem;
+import com.mattborle.cupsaddons.item.scrap.ScrapItem;
 import com.mattborle.cupsaddons.item.tool.CrysophilistsPickaxeItem;
 import com.mattborle.cupsaddons.item.tool.NeanderthalsPickaxeItem;
 import net.minecraft.world.item.*;
@@ -49,20 +50,28 @@ public class ItemRegistry {
     public static final RegistryObject<Item> NEANDERTHALS_PICKAXE = MOD_ITEMS.register("neanderthals_pickaxe",
             () -> new NeanderthalsPickaxeItem(Tiers.STONE,1, -3.0f, new Item.Properties()));
 
+
     // Curios ==========================================================================================================
     public static final RegistryObject<Item> FERROMAGNETIC_OBJECT = MOD_ITEMS.register("ferromagnetic_object", () -> new FerromagneticObjectItem(new Item.Properties()));
 
+
     // Items ===========================================================================================================
+    public static final RegistryObject<Item> BUNDLE_OF_STICKS = MOD_ITEMS.register("bundle_of_sticks", () -> new BundleOfSticksItem());
+
+    public static final RegistryObject<Item> LOOT_SCRAPS = MOD_ITEMS.register("loot_scraps", () -> new ScrapItem());
+
     public static final RegistryObject<Item> BARLEY_CORN_MIX = MOD_ITEMS.register("barley_corn_mix", BarleyCornMixItem::new);
     public static final RegistryObject<Item> MASHED_GRAINS = MOD_ITEMS.register("mashed_grains", () -> new MashedGrainsItem());
-    public static final RegistryObject<Item> BUNDLE_OF_STICKS = MOD_ITEMS.register("bundle_of_sticks", () -> new BundleOfSticksItem());
     public static final RegistryObject<Item> COOKED_MASHED_GRAINS = MOD_ITEMS.register("cooked_mashed_grains", () -> new CookedMashedGrainsItem());
     public static final RegistryObject<Item> BOTTLE_O_MOONSHINE = MOD_ITEMS.register("bottle_o_moonshine", () -> new BottleOMoonshineItem());
     public static final RegistryObject<Item> IMPURE_BOTTLE_O_MOONSHINE = MOD_ITEMS.register("impure_bottle_o_moonshine", () -> new ImpureBottleOMoonshineItem());
+
     public static final RegistryObject<Item> NIGHT_ESSENCE = MOD_ITEMS.register("night_essence", () -> new NightEssenceItem());
+
     public static final RegistryObject<Item> EGGNOG_AND_RUM = MOD_ITEMS.register("eggnog_and_rum", () -> new EggnogAndRumItem());
     public static final RegistryObject<Item> SWEETENED_MILK = MOD_ITEMS.register("sweetened_milk", () -> new SweetenedMilkItem());
 
+
     // Spawn Eggs ======================================================================================================
-    public static final RegistryObject<Item> NIGHT_CRAWLER_MOB = MOD_ITEMS.register("night_crawler_mob_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.NIGHT_CRAWLER_MOB, -1, -1184257, new Item.Properties().tab(CreativeTab.instance)));
+    //public static final RegistryObject<Item> NIGHT_CRAWLER_MOB = MOD_ITEMS.register("night_crawler_mob_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.NIGHT_CRAWLER_MOB, -1, -1184257, new Item.Properties().tab(CreativeTab.instance)));
 }

@@ -1,7 +1,7 @@
 package com.mattborle.cupsaddons.init;
 
 import com.mattborle.cupsaddons.CupsAddons;
-import com.mattborle.cupsaddons.entity.NightCrawlerMobEntity;
+//import com.mattborle.cupsaddons.entity.NightCrawlerMobEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -19,6 +19,7 @@ public class EntityRegistry {
 
     // Mobs ============================================================================================================
     // Night Crawler
+    /*
     public static final RegistryObject<EntityType<NightCrawlerMobEntity>> NIGHT_CRAWLER_MOB = register("night_crawler_mob",
             EntityType.Builder.<NightCrawlerMobEntity>of(NightCrawlerMobEntity::new, MobCategory.MONSTER)
                     .setShouldReceiveVelocityUpdates(true)
@@ -26,6 +27,7 @@ public class EntityRegistry {
                     .setUpdateInterval(3)
                     .setCustomClientFactory(NightCrawlerMobEntity::new)
                     .sized(0.6f, 1.9f));
+     */
 
     private static <T extends Entity> RegistryObject<EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
         return MOD_ENTITIES.register(registryname, () -> entityTypeBuilder.build(registryname));
@@ -33,11 +35,11 @@ public class EntityRegistry {
     @SubscribeEvent
     public static void init(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            NightCrawlerMobEntity.init();
+            //NightCrawlerMobEntity.init();
         });
     }
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
-        event.put(NIGHT_CRAWLER_MOB.get(), NightCrawlerMobEntity.createAttributes().build());
+        //event.put(NIGHT_CRAWLER_MOB.get(), NightCrawlerMobEntity.createAttributes().build());
     }
 }
