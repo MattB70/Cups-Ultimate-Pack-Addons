@@ -21,14 +21,10 @@ public class ScrapItem extends Item {
     public ScrapItem() {
         super(new Properties().tab(ItemRegistry.CreativeTab.instance)
                 .stacksTo(64)
-                .rarity(Rarity.COMMON));
+                .rarity(Rarity.UNCOMMON));
     }
     @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        if(Screen.hasShiftDown()){
-            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.scrap_description"));
-        }else{
-            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.hold_shift_for_details"));
-        }
+        tooltip.add(new TranslatableComponent("tooltip.cupsaddons.scrap_description"));
     }
 }
