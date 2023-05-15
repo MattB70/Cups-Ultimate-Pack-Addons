@@ -1,5 +1,6 @@
 package com.mattborle.cupsaddons.item.curios;
 
+import com.google.common.collect.Multimap;
 import com.mattborle.cupsaddons.CupsAddons;
 import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import com.mattborle.cupsaddons.init.ItemRegistry;
@@ -12,10 +13,16 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -26,9 +33,9 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
-import static com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs.ACTIVE_ABILITY_FERROMAGNETIC_OBJECT;
-import static com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs.TUNE_FERROMAGNETIC_OBJECT;
+import static com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs.*;
 
 public class FerromagneticObjectItem extends Item implements ICurioItem {
 
@@ -49,8 +56,9 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
         String cooldownString = df.format(CupsAddonsCommonConfigs.COOLDOWN_FERROMAGNETIC_OBJECT.get());
         if(Screen.hasShiftDown()){
             tooltip.add(new TranslatableComponent("tooltip.cupsaddons.ferromagnetic_object_active_ability"));
-            tooltip.add(new TextComponent("§dCooldown: §6"+cooldownString+" seconds\n"));
-            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.ferromagnetic_object_passive_ability"));
+            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.press_shift_to_use"));
+            tooltip.add(new TextComponent("\n§dCooldown: §6"+cooldownString+" seconds\n"));
+            //tooltip.add(new TranslatableComponent("tooltip.cupsaddons.ferromagnetic_object_passive_ability"));
         }else{
             tooltip.add(new TextComponent(""));
             tooltip.add(new TranslatableComponent("tooltip.cupsaddons.hold_shift_for_details"));
@@ -75,7 +83,7 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
                 if (!level.isClientSide()) {
                     // On the server
                     // Play magnet sound
-                    level.playSound(null, player.getX(), player.getY(), player.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.PLAYERS, 1.2f, 0.8f + player.getRandom().nextFloat() * 0.1f);
+                    level.playSound(null, player.getX(), player.getY(), player.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.PLAYERS, 1.2f, 0.9f + player.getRandom().nextFloat() * 0.1f);
                     // Find nearby entities
                     List<LivingEntity> nearbyEntities = level.getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), player, AABB.ofSize(player.getEyePosition(), RANGE, RANGE / 2, RANGE));
                     // Iterate nearbyEntities and knock back non-iron/chainmail wearing entities, and pull in those with the armor
@@ -102,31 +110,17 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
                                         for (int strength = 30; strength > 0; strength--) {
                                             entity.push(player);
                                         }
-                                    } else {
-                                        // Damage entities that pass any of the above tests
-                                        entity.hurt(DamageSource.MAGIC, DAMAGE);
+                                        // Briefly give entity glowing effect
+                                        if(entity.isAffectedByPotions()) {
+                                            entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 10, 1, (false), (false)));
+                                            entity.playSound(ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), 1.5f, 0.9f);
+                                        }
                                     }
                                 } catch (Exception e) {
                                     CupsAddons.LOGGER.error(e.getStackTrace().toString());
                                 }
                             }
                         }
-                    }
-                }
-                else // on client
-                {
-                    // Particles
-                    // TODO: No or inconsistent particle spawning
-                    for(int i = 0; i < 20; i++){
-                        Random r = new Random();
-                        level.addParticle(ParticleTypes.SMOKE, player.getX(), player.getY()+0.1, player.getZ(),
-                                (-6f + r.nextFloat() * (12f)),
-                                (-0.5f + r.nextFloat() * (1f)),
-                                (-6f + r.nextFloat() * (12f)));
-                        level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, player.getX(), player.getY()+0.1, player.getZ(),
-                                (-4f + r.nextFloat() * (8f)),
-                                (-0.1f + r.nextFloat() * (0.2f)),
-                                (-4f + r.nextFloat() * (8f)));
                     }
                 }
             }

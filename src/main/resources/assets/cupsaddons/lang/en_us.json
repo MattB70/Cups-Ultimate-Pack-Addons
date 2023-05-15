@@ -1,6 +1,7 @@
 {
   "tooltip.cupsaddons.reward_item":  "§5§oReward Item",
   "tooltip.cupsaddons.unique_item":  "§6§oUnique Item",
+  "tooltip.cupsaddons.press_shift_to_use":  "§6Press §dShift§6 to use §dActive Ability§6",
   "tooltip.cupsaddons.hold_shift_for_details":  "§5Hold §6Shift§5 to see details",
   "tooltip.cupsaddons.hold_ctrl_for_details":  "§eHold §6§oCtrl §r§efor details",
   "tooltip.cupsaddons.hold_ctrl_alt_for_details":  "§eHold §6§oCtrl §r§e+ §6§oAlt §r§efor more details",
@@ -20,8 +21,8 @@
 
 
   "item.cupsaddons.ferromagnetic_object": "Ferromagnetic Object",
-  "tooltip.cupsaddons.ferromagnetic_object_active_ability": "§d\nActive abilities:§r\n§6- Damages all surrounding entities that are §dNOT§6 wearing §eIron§6 or §eChainmail§6 armor.\n§6- Knocks back all surrounding entities that §dARE§6 wearing §eIron§6 or §eChainmail§6 armor.\n- Ignores players.\n",
-  "tooltip.cupsaddons.ferromagnetic_object_passive_ability": "§dPassive abilities:§r\n§5- Wearing §dIron§5 or §dChainmail§5 armor grants effects:\n  §5- §6+1 Armor Point§5 per §darmor piece§5.\n  §5- §6+2 Armor Points§5 bonus for wearing a §dfull set§5.\n",
+  "tooltip.cupsaddons.ferromagnetic_object_active_ability": "§d\nActive ability:§r\n§6- Knocks back all surrounding entities that are wearing §eIron§6 or §eChainmail§6 armor.\n- Ignores players.\n",
+  "tooltip.cupsaddons.ferromagnetic_object_passive_ability": "§dPassive ability:§r\n§5- Wearing §dIron§5 or §dChainmail§5 armor grants effects:\n  §5- §6+1 Armor Point§5 per §darmor piece§5.\n  §5- §6+2 Armor Points§5 bonus for wearing a §dfull set§5.\n",
 
 
   "itemGroup.cupsaddons": "Cup's Ultimate Pack",

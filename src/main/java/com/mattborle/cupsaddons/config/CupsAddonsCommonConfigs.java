@@ -20,7 +20,7 @@ public class CupsAddonsCommonConfigs {
 
     // Ferromagnetic Object
     public static final ForgeConfigSpec.ConfigValue<Boolean> ACTIVE_ABILITY_FERROMAGNETIC_OBJECT;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> PASSIVE_ABILITY_FERROMAGNETIC_OBJECT;
+    //public static final ForgeConfigSpec.ConfigValue<Boolean> PASSIVE_ABILITY_FERROMAGNETIC_OBJECT;
     public static final ForgeConfigSpec.ConfigValue<Double> COOLDOWN_FERROMAGNETIC_OBJECT;
     public static final ForgeConfigSpec.ConfigValue<Double> TUNE_FERROMAGNETIC_OBJECT;
 
@@ -60,10 +60,10 @@ public class CupsAddonsCommonConfigs {
         BUILDER.push("Ferromagnetic Object");
         ACTIVE_ABILITY_FERROMAGNETIC_OBJECT = BUILDER.comment("Enable the Ferromagnetic Object's active ability (Default: true)")
                 .define("Ferromagnetic Object's Active Ability (Boolean)", true);
-        PASSIVE_ABILITY_FERROMAGNETIC_OBJECT = BUILDER.comment("Enable the Ferromagnetic Object's passive ability (Default: true)")
-                .define("Ferromagnetic Object's Passive Ability (Boolean)", true);
+        //PASSIVE_ABILITY_FERROMAGNETIC_OBJECT = BUILDER.comment("Enable the Ferromagnetic Object's passive ability (Default: true)")
+        //        .define("Ferromagnetic Object's Passive Ability (Boolean)", true);
         COOLDOWN_FERROMAGNETIC_OBJECT = BUILDER.comment("How strong should the Ferromagnetic Object be (Applies to most attributes including abilities) (Default: 5.0 = 5s)")
-                .defineInRange("Ferromagnetic Object Cooldown (s)", 5.0, 0.0, 86400.0);
+                .defineInRange("Ferromagnetic Object Cooldown (s)", 0.0, 0.0, 86400.0);
         TUNE_FERROMAGNETIC_OBJECT = BUILDER.comment("How strong should the Ferromagnetic Object be (Applies to most attributes including abilities) (Default: 1.0 = 100%)")
                 .defineInRange("Ferromagnetic Object Strength (%)", 1.0, 0.0, 100.0);
         BUILDER.pop();
