@@ -11,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -80,12 +81,12 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
             // Do active ability if enabled
             if(ACTIVE_ABILITY_FERROMAGNETIC_OBJECT.get()) {
 
-                if (!level.isClientSide()) {
+                if (level instanceof ServerLevel serverLevel) {
                     // On the server
                     // Play magnet sound
-                    level.playSound(null, player.getX(), player.getY(), player.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.PLAYERS, 1.2f, 0.9f + player.getRandom().nextFloat() * 0.1f);
+                    serverLevel.playSound(null, player.getX(), player.getY(), player.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.PLAYERS, 1.2f, 0.9f + player.getRandom().nextFloat() * 0.1f);
                     // Find nearby entities
-                    List<LivingEntity> nearbyEntities = level.getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), player, AABB.ofSize(player.getEyePosition(), RANGE, RANGE / 2, RANGE));
+                    List<LivingEntity> nearbyEntities = serverLevel.getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), player, AABB.ofSize(player.getEyePosition(), RANGE, RANGE / 2, RANGE));
                     // Iterate nearbyEntities and knock back non-iron/chainmail wearing entities, and pull in those with the armor
                     for (int i = 0; i < nearbyEntities.size(); i++) {
                         LivingEntity entity = nearbyEntities.get(i);
@@ -113,8 +114,11 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
                                         // Briefly give entity glowing effect
                                         if(entity.isAffectedByPotions()) {
                                             entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 10, 1, (false), (false)));
-                                            entity.playSound(ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), 1.5f, 0.9f);
+                                            entity.playSound(ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), 1.5f, 1f);
                                         }
+                                        // Spawn particles around entity
+                                        // sendParticles to level (ParticleType,x,y,z,numParticles,dx,dy,dz,speed)
+                                        serverLevel.sendParticles(ParticleTypes.CRIT, entity.getX(),entity.getY()+1,entity.getZ(),8,0,1,0,0.5);
                                     }
                                 } catch (Exception e) {
                                     CupsAddons.LOGGER.error(e.getStackTrace().toString());
@@ -122,6 +126,10 @@ public class FerromagneticObjectItem extends Item implements ICurioItem {
                             }
                         }
                     }
+                    // Ability use Particles
+                    // sendParticles to level (ParticleType,x,y,z,numParticles,dx,dy,dz,speed)
+                    serverLevel.sendParticles(ParticleTypes.SMOKE, player.getX(),player.getY()+0.1,player.getZ(),30,RANGE/4,0,RANGE/4,0.1);
+                    serverLevel.sendParticles(ParticleTypes.LARGE_SMOKE, player.getX(),player.getY()+0.1,player.getZ(),20,0,0,0,RANGE/4);
                 }
             }
         }

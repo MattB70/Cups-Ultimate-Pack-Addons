@@ -9,6 +9,7 @@ import com.mattborle.cupsaddons.item.ingredient.CookedMashedGrainsItem;
 import com.mattborle.cupsaddons.item.ingredient.MashedGrainsItem;
 import com.mattborle.cupsaddons.item.scrap.ScrapItem;
 import com.mattborle.cupsaddons.item.tool.CrysophilistsPickaxeItem;
+import com.mattborle.cupsaddons.item.tool.ExpertsPickaxeItem;
 import com.mattborle.cupsaddons.item.tool.NeanderthalsPickaxeItem;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -49,6 +50,8 @@ public class ItemRegistry {
             () -> new CrysophilistsPickaxeItem(Tiers.NETHERITE,1, -2.0f, new Item.Properties()));
     public static final RegistryObject<Item> NEANDERTHALS_PICKAXE = MOD_ITEMS.register("neanderthals_pickaxe",
             () -> new NeanderthalsPickaxeItem(Tiers.STONE,1, -3.0f, new Item.Properties()));
+    public static final RegistryObject<Item> EXPERTS_PICKAXE = MOD_ITEMS.register("experts_pickaxe",
+            () -> new ExpertsPickaxeItem(Tiers.STONE,1, -2.8f, new Item.Properties()));
 
 
     // Curios ==========================================================================================================
