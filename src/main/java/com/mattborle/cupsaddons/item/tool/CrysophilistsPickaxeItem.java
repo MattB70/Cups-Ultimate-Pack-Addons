@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -130,12 +131,12 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
                 if (stack.getTag().get("cupsaddons.fuel") != null) {
                     if (stack.getTag().get("cupsaddons.fuel").getAsString() != null) {
                         if (Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString()) > 0) {
-                            if (!level.isClientSide) {
+                            if (level instanceof ServerLevel serverLevel) {
                                 // On the server side:
 
                                 // Special action
-                                ItemEntity droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
-                                level.addFreshEntity(droppedItem);
+                                ItemEntity droppedItem = new ItemEntity(serverLevel, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
+                                serverLevel.addFreshEntity(droppedItem);
 
                                 // extra gold chance per fortune level:
                                 Random r = new Random();
@@ -145,20 +146,20 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
                                     case 1: // 1/3% chance for extra
                                         if(chance == 0)
                                         {
-                                            droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
-                                            level.addFreshEntity(droppedItem);
+                                            droppedItem = new ItemEntity(serverLevel, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
+                                            serverLevel.addFreshEntity(droppedItem);
                                         }
                                         break;
                                     case 2: // 2/3% chance for extra
                                         if(chance > 0)
                                         {
-                                            droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
-                                            level.addFreshEntity(droppedItem);
+                                            droppedItem = new ItemEntity(serverLevel, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
+                                            serverLevel.addFreshEntity(droppedItem);
                                         }
                                         break;
                                     case 3: // 100% chance for extra
-                                        droppedItem = new ItemEntity(level, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
-                                        level.addFreshEntity(droppedItem);
+                                        droppedItem = new ItemEntity(serverLevel, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, new ItemStack(Items.RAW_GOLD));
+                                        serverLevel.addFreshEntity(droppedItem);
                                         break;
                                 }
 
@@ -168,10 +169,15 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
                                 CompoundTag nbtData = stack.getTag();
                                 nbtData.putInt("cupsaddons.fuel", fuel - 1);
                                 livingEntity.getMainHandItem().setTag(nbtData);
+
+                                // Display particles on server side
+                                serverLevel.sendParticles(ParticleTypes.CRIT, blockPos.getX()+0.5,blockPos.getY()+0.5,blockPos.getZ()+0.5,5,0,0,0,0.5);
                             }
                             // On the client, display fuel level:
                             int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
                             displayFuelLevel(fuel); // display max fuel
+                            // Play sound on client
+                            Minecraft.getInstance().player.playSound(ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magic_pop")), 0.2f, (float)((Math.random() * (1.6 - 1.25)) + 1.25));
                         }
                     }
                 }
