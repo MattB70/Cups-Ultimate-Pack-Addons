@@ -21,6 +21,6 @@ public class MashedGrainsItem extends Item {
 
 	@Override
 	public int getUseDuration(ItemStack itemstack) {
-		return 64;
+		return 32;
 	}
 }

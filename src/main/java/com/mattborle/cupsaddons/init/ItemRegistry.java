@@ -7,12 +7,13 @@ import com.mattborle.cupsaddons.item.ingredient.BarleyCornMixItem;
 import com.mattborle.cupsaddons.item.ingredient.BundleOfSticksItem;
 import com.mattborle.cupsaddons.item.ingredient.CookedMashedGrainsItem;
 import com.mattborle.cupsaddons.item.ingredient.MashedGrainsItem;
+import com.mattborle.cupsaddons.item.raid.RaidCommissionItem;
+import com.mattborle.cupsaddons.item.raid.RaidCommissionLegendaryItem;
 import com.mattborle.cupsaddons.item.scrap.ScrapItem;
 import com.mattborle.cupsaddons.item.tool.CrysophilistsPickaxeItem;
 import com.mattborle.cupsaddons.item.tool.ExpertsPickaxeItem;
 import com.mattborle.cupsaddons.item.tool.NeanderthalsPickaxeItem;
 import net.minecraft.world.item.*;
-import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -56,6 +57,11 @@ public class ItemRegistry {
 
     // Curios ==========================================================================================================
     public static final RegistryObject<Item> FERROMAGNETIC_OBJECT = MOD_ITEMS.register("ferromagnetic_object", () -> new FerromagneticObjectItem(new Item.Properties()));
+
+
+    // Raids and Campaigns =============================================================================================
+    public static final RegistryObject<Item> RAID_COMMISSION = MOD_ITEMS.register("raid_commission", () -> new RaidCommissionItem());
+    public static final RegistryObject<Item> RAID_COMMISSION_LEGENDARY = MOD_ITEMS.register("raid_commission_legendary", () -> new RaidCommissionLegendaryItem());
 
 
     // Items ===========================================================================================================
