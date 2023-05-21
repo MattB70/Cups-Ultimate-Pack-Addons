@@ -62,8 +62,8 @@ public class ExpertsPickaxeItem extends PickaxeItem implements IAnimatable {
                 }
             }
         }
-        tooltip.add(new TextComponent("§eAwarded to §6§o"+playerName));
-        tooltip.add(new TextComponent("§eMined §6§o"+uses+"§r§e blocks"));
+        tooltip.add(new TextComponent("§8Awarded to §6§o"+playerName));
+        tooltip.add(new TextComponent("§8Mined §6§o"+uses+"§r§8 blocks"));
     }
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int p_41407_, boolean p_41408_) {
@@ -75,7 +75,6 @@ public class ExpertsPickaxeItem extends PickaxeItem implements IAnimatable {
                 nbtData.putString("cupsaddons.playerName", entity.getScoreboardName());
                 nbtData.putString("cupsaddons.uses", "0");
                 stack.setTag(nbtData);
-                CupsAddons.LOGGER.info("Cup's Addons: "+entity.getScoreboardName()+" received a Expert's Pickaxe!");
             }
         }
         super.inventoryTick(stack, level, entity, p_41407_, p_41408_);

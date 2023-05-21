@@ -19,6 +19,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -89,32 +90,60 @@ public class NeanderthalsPickaxeItem extends PickaxeItem implements IAnimatable,
     }
     @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        if(CupsAddonsCommonConfigs.ABILITY_NEANDERTHALS_PICKAXE.get()){
-            int fuel = 0;
+        int fuel = 0;
+        int uses = 0;
+        String playerName = "";
+
+        if(stack.getTag() != null){
             // Get fuel nbt and put it in fuel variable if exists
-            if(stack.getTag() != null){
-                if(stack.getTag().get("cupsaddons.fuel") != null) {
-                    if (stack.getTag().get("cupsaddons.fuel").getAsString() != null) {
-                        fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
-                    }
+            if(stack.getTag().get("cupsaddons.fuel") != null) {
+                if (stack.getTag().get("cupsaddons.fuel").getAsString() != null) {
+                    fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
                 }
             }
-            // Display fuel tooltip
-            tooltip.add(new TextComponent("Fuel: "+fuel+"/"+maxFuel+ " ("+ WordUtils.capitalize(fuelItem.replace("_", " "))+")")
-                    .withStyle(ChatFormatting.BLUE));
-            if(Screen.hasControlDown()){
-                tooltip.add(new TranslatableComponent("tooltip.cupsaddons.neanderthals_pickaxe_description"));
-                if(Screen.hasAltDown()){
-                    tooltip.add(new TranslatableComponent("tooltip.cupsaddons.neanderthals_pickaxe_description_extra"));
-                }else{
-                    tooltip.add(new TranslatableComponent("tooltip.cupsaddons.hold_ctrl_alt_for_details"));
+            // Get uses nbt and put it in uses variable if exists
+            if(stack.getTag().get("cupsaddons.uses") != null) {
+                if (stack.getTag().get("cupsaddons.uses").getAsString() != null) {
+                    uses = Integer.parseInt(stack.getTag().get("cupsaddons.uses").getAsString());
                 }
-            }else{
-                tooltip.add(new TranslatableComponent("tooltip.cupsaddons.hold_ctrl_for_details"));
             }
-            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.fuel_item_instructions"));
+            // Get playerName nbt and put it in playerName variable if exists
+            if(stack.getTag().get("cupsaddons.playerName") != null) {
+                if (stack.getTag().get("cupsaddons.playerName").getAsString() != null) {
+                    playerName = stack.getTag().get("cupsaddons.playerName").getAsString();
+                }
+            }
         }
-        tooltip.add(new TranslatableComponent("tooltip.cupsaddons.reward_item"));
+        // Display fuel tooltip
+        tooltip.add(new TextComponent("Fuel: "+fuel+"/"+maxFuel+ " ("+ WordUtils.capitalize(fuelItem.replace("_", " "))+")")
+                .withStyle(ChatFormatting.BLUE));
+        if(Screen.hasControlDown()){
+            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.neanderthals_pickaxe_description"));
+            if(Screen.hasAltDown()){
+                tooltip.add(new TranslatableComponent("tooltip.cupsaddons.neanderthals_pickaxe_description_extra"));
+            }else{
+                tooltip.add(new TranslatableComponent("tooltip.cupsaddons.hold_ctrl_alt_for_details"));
+            }
+        }else{
+            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.hold_ctrl_for_details"));
+        }
+        tooltip.add(new TranslatableComponent("tooltip.cupsaddons.fuel_item_instructions"));
+        tooltip.add(new TextComponent("§8Awarded to §6§o"+playerName));
+        tooltip.add(new TextComponent("§8Mined §6§o"+uses+"§r§8 blocks"));
+    }
+    @Override
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int p_41407_, boolean p_41408_) {
+        if(!level.isClientSide){
+            if(stack.getTag() == null){
+                // Set playerName and uses nbt if it doesn't exist, if it does exist, skip all of this.
+                stack.setTag(new CompoundTag());
+                CompoundTag nbtData = stack.getTag();
+                nbtData.putString("cupsaddons.playerName", entity.getScoreboardName());
+                nbtData.putString("cupsaddons.uses", "0");
+                stack.setTag(nbtData);
+            }
+        }
+        super.inventoryTick(stack, level, entity, p_41407_, p_41408_);
     }
     @Override
     public boolean mineBlock(ItemStack stack, Level level, BlockState blockState, BlockPos blockPos, LivingEntity livingEntity) {
@@ -156,6 +185,15 @@ public class NeanderthalsPickaxeItem extends PickaxeItem implements IAnimatable,
                             int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
                             displayFuelLevel(fuel); // display max fuel
                         }
+                    }
+                }
+                if (stack.getTag().get("cupsaddons.uses") != null) {
+                    if (stack.getTag().get("cupsaddons.uses").getAsString() != null) {
+                        int uses = Integer.parseInt(stack.getTag().get("cupsaddons.uses").getAsString());
+                        stack.getTag().remove("cupsaddons.uses");
+                        CompoundTag nbtData = stack.getTag();
+                        nbtData.putInt("cupsaddons.uses", uses + 1);
+                        livingEntity.getMainHandItem().setTag(nbtData);
                     }
                 }
             }
