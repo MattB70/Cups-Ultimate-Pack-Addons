@@ -128,9 +128,9 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
         }else{
             tooltip.add(new TranslatableComponent("tooltip.cupsaddons.hold_ctrl_for_details"));
         }
-        tooltip.add(new TranslatableComponent("tooltip.cupsaddons.fuel_item_instructions"));
         tooltip.add(new TextComponent("§8Awarded to §6§o"+playerName));
         tooltip.add(new TextComponent("§8Mined §6§o"+uses+"§r§8 blocks"));
+        tooltip.add(new TranslatableComponent("tooltip.cupsaddons.fuel_item_instructions"));
     }
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int p_41407_, boolean p_41408_) {
@@ -148,6 +148,16 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
     }
     @Override
     public boolean mineBlock(ItemStack stack, Level level, BlockState blockState, BlockPos blockPos, LivingEntity livingEntity) {
+        // Increment uses counter
+        if (stack.getTag().get("cupsaddons.uses") != null) {
+            if (stack.getTag().get("cupsaddons.uses").getAsString() != null) {
+                int uses = Integer.parseInt(stack.getTag().get("cupsaddons.uses").getAsString());
+                stack.getTag().remove("cupsaddons.uses");
+                CompoundTag nbtData = stack.getTag();
+                nbtData.putInt("cupsaddons.uses", uses + 1);
+                livingEntity.getMainHandItem().setTag(nbtData);
+            }
+        }
         // Check if the mined block is of Tag STONE or ORE
         if (blockState.is(Tags.Blocks.ORE_BEARING_GROUND_STONE) ||
                 blockState.is(Tags.Blocks.ORE_BEARING_GROUND_NETHERRACK) ||
@@ -159,7 +169,16 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
             if (stack.getTag() != null) {
                 if (stack.getTag().get("cupsaddons.fuel") != null) {
                     if (stack.getTag().get("cupsaddons.fuel").getAsString() != null) {
+
+                        // display fuel level:
+                        int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
+                        displayFuelLevel(fuel); // display fuel
+
                         if (Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString()) > 0) {
+
+                            // Play sound on client
+                            Minecraft.getInstance().player.playSound(ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magic_pop")), 0.2f, (float)((Math.random() * (1.6 - 1.25)) + 1.25));
+
                             if (level instanceof ServerLevel serverLevel) {
                                 // On the server side:
 
@@ -193,7 +212,7 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
                                 }
 
                                 // Reduce the item's fuel by 1.
-                                int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
+                                fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
                                 stack.getTag().remove("cupsaddons.fuel");
                                 CompoundTag nbtData = stack.getTag();
                                 nbtData.putInt("cupsaddons.fuel", fuel - 1);
@@ -201,25 +220,19 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
 
                                 // Display particles on server side
                                 serverLevel.sendParticles(ParticleTypes.CRIT, blockPos.getX()+0.5,blockPos.getY()+0.5,blockPos.getZ()+0.5,5,0,0,0,0.5);
+
+                                // If stone type block, don't return a stack as to ensure no stone is dropped.
+                                // Instead, remove the block.
+                                if (blockState.is(Tags.Blocks.ORE_BEARING_GROUND_STONE) ||
+                                        blockState.is(Tags.Blocks.ORE_BEARING_GROUND_NETHERRACK) ||
+                                        blockState.is(Tags.Blocks.ORE_BEARING_GROUND_DEEPSLATE)) {
+                                    serverLevel.removeBlock(blockPos, true);
+                                    return super.mineBlock(null, serverLevel, blockState, blockPos, livingEntity);
+                                }
                             }
-                            // On the client, display fuel level:
-                            int fuel = Integer.parseInt(stack.getTag().get("cupsaddons.fuel").getAsString());
-                            displayFuelLevel(fuel); // display max fuel
-                            // Play sound on client
-                            Minecraft.getInstance().player.playSound(ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magic_pop")), 0.2f, (float)((Math.random() * (1.6 - 1.25)) + 1.25));
                         }
                     }
                 }
-            }
-        }
-        // Increment uses counter
-        if (stack.getTag().get("cupsaddons.uses") != null) {
-            if (stack.getTag().get("cupsaddons.uses").getAsString() != null) {
-                int uses = Integer.parseInt(stack.getTag().get("cupsaddons.uses").getAsString());
-                stack.getTag().remove("cupsaddons.uses");
-                CompoundTag nbtData = stack.getTag();
-                nbtData.putInt("cupsaddons.uses", uses + 1);
-                livingEntity.getMainHandItem().setTag(nbtData);
             }
         }
         return super.mineBlock(stack, level, blockState, blockPos, livingEntity);
@@ -388,6 +401,7 @@ public class CrysophilistsPickaxeItem extends PickaxeItem implements IAnimatable
         }
         if(currentFuel == 0){       // If the item fuel is empty
             player.displayClientMessage(new TextComponent("Fuel: EMPTY").withStyle(ChatFormatting.RED), true);
+            player.playSound(SoundEvents.GENERIC_BURN, 0.1f, 1.6f); // play out of fuel sound
             return;
         }
         // else, display fuel as a percentage

@@ -10,11 +10,11 @@
 
 
   "item.cupsaddons.crysophilists_pickaxe": "Chrysophilist's Pickaxe",
-  "tooltip.cupsaddons.crysophilists_pickaxe_description": "§7While fueled, mined §fStone§7 or §fOre§7 blocks will drop an additional §6Raw Gold§7, plus 1/3 chance for an additional §6Raw Gold§7 for every level of §6Fortune§7. Without fuel, the pickaxe acts as normal.\n§fThis tool is Unbreakable§7.",
+  "tooltip.cupsaddons.crysophilists_pickaxe_description": "§7While fueled, mined §fStone§7 or §fOre§7 blocks will drop an additional §6Raw Gold§7, plus 1/3 chance for an additional §6Raw Gold§7 for every level of §6Fortune§7. Some blocks won't drop themselves. Without fuel, the pickaxe acts as normal.\n§fThis tool is Unbreakable§7.",
   "tooltip.cupsaddons.crysophilists_pickaxe_description_extra": "\n§6Netherite§8 tier pickaxe.\n\nFueled ability works on the following tags: \n§6Blocks.ORE_BEARING_GROUND_DEEPSLATE§8\n§6Blocks.ORE_BEARING_GROUND_NETHERRACK§8\n§6Blocks.ORE_BEARING_GROUND_STONE§8\n§6Blocks.ORES_IN_GROUND_STONE§8\n§6Blocks.ORES_IN_GROUND_DEEPSLATE§8\n§6Blocks.ORES_IN_GROUND_NETHERRACK§8\n",
 
   "item.cupsaddons.neanderthals_pickaxe": "Neanderthal's Pickaxe",
-  "tooltip.cupsaddons.neanderthals_pickaxe_description": "§7While fueled, mined §fStone§7 or §fOre§7 blocks will drop an additional §6Raw Iron§7 and §6Coal§7, plus one more of each for every level of §6Fortune§7. Without fuel, the pickaxe acts as normal.\n§fThis tool is Unbreakable§7.",
+  "tooltip.cupsaddons.neanderthals_pickaxe_description": "§7While fueled, mined §fStone§7 or §fOre§7 blocks will drop an additional §6Raw Iron§7 and §6Coal§7, plus one more of each for every level of §6Fortune§7. Some blocks won't drop themselves. Without fuel, the pickaxe acts as normal.\n§fThis tool is Unbreakable§7.",
   "tooltip.cupsaddons.neanderthals_pickaxe_description_extra": "\n§6Stone§8 tier pickaxe.\n\nFueled ability works on the following tags: \n§6Blocks.ORE_BEARING_GROUND_DEEPSLATE§8\n§6Blocks.ORE_BEARING_GROUND_NETHERRACK§8\n§6Blocks.ORE_BEARING_GROUND_STONE§8\n§6Blocks.ORES_IN_GROUND_STONE§8\n§6Blocks.ORES_IN_GROUND_DEEPSLATE§8\n§6Blocks.ORES_IN_GROUND_NETHERRACK§8\n",
 
   "item.cupsaddons.experts_pickaxe": "Expert's Pickaxe",
