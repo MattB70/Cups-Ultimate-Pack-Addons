@@ -187,15 +187,16 @@ public class NeanderthalsPickaxeItem extends PickaxeItem implements IAnimatable,
                         }
                     }
                 }
-                if (stack.getTag().get("cupsaddons.uses") != null) {
-                    if (stack.getTag().get("cupsaddons.uses").getAsString() != null) {
-                        int uses = Integer.parseInt(stack.getTag().get("cupsaddons.uses").getAsString());
-                        stack.getTag().remove("cupsaddons.uses");
-                        CompoundTag nbtData = stack.getTag();
-                        nbtData.putInt("cupsaddons.uses", uses + 1);
-                        livingEntity.getMainHandItem().setTag(nbtData);
-                    }
-                }
+            }
+        }
+        // Increment uses counter
+        if (stack.getTag().get("cupsaddons.uses") != null) {
+            if (stack.getTag().get("cupsaddons.uses").getAsString() != null) {
+                int uses = Integer.parseInt(stack.getTag().get("cupsaddons.uses").getAsString());
+                stack.getTag().remove("cupsaddons.uses");
+                CompoundTag nbtData = stack.getTag();
+                nbtData.putInt("cupsaddons.uses", uses + 1);
+                livingEntity.getMainHandItem().setTag(nbtData);
             }
         }
         return super.mineBlock(stack, level, blockState, blockPos, livingEntity);
