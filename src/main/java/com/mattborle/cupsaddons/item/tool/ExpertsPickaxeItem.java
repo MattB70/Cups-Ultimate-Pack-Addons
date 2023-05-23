@@ -39,7 +39,7 @@ public class ExpertsPickaxeItem extends PickaxeItem implements IAnimatable {
     public ExpertsPickaxeItem(Tier tier, int p_42962_, float p_42963_, Properties properties) {
         super(tier, p_42962_, p_42963_, properties
                 .tab(ItemRegistry.CreativeTab.instance)     // Show in creative menu tab
-                .rarity(Rarity.COMMON)                        // Rarity color for title and loot beams
+                .rarity(Rarity.COMMON)                      // Rarity color for title and loot beams
                 .fireResistant()                            // Cannot be destroyed in lava
                 .durability(-1)                     // Durability of -1 means unbreakable
         );
