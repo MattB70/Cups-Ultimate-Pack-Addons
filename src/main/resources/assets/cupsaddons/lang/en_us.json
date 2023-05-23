@@ -14,6 +14,7 @@
   "tooltip.cupsaddons.raid_commission_desc_5": "§cOmens §7modify gameplay and§r",
   "tooltip.cupsaddons.raid_commission_desc_6": "§7alter rewards.§r",
   "tooltip.cupsaddons.consumed_on_use": "§7Consumed upon use.§r",
+  "tooltip.cupsaddons.tool_unbreakable": "§fThis tool is Unbreakable§r",
 
 
   "item.cupsaddons.crysophilists_pickaxe": "Chrysophilist's Pickaxe",
@@ -25,6 +26,9 @@
   "tooltip.cupsaddons.neanderthals_pickaxe_description_extra": "\n§6Stone§8 tier pickaxe.\n\nFueled ability works on the following tags: \n§6Blocks.ORE_BEARING_GROUND_DEEPSLATE§8\n§6Blocks.ORE_BEARING_GROUND_NETHERRACK§8\n§6Blocks.ORE_BEARING_GROUND_STONE§8\n§6Blocks.ORES_IN_GROUND_STONE§8\n§6Blocks.ORES_IN_GROUND_DEEPSLATE§8\n§6Blocks.ORES_IN_GROUND_NETHERRACK§8\n",
 
   "item.cupsaddons.experts_pickaxe": "Expert's Pickaxe",
+  "item.cupsaddons.distinguished_pickaxe": "Distinguished Pickaxe",
+  "item.cupsaddons.masters_pickaxe": "Master's Pickaxe",
+  "item.cupsaddons.gods_pickaxe": "God's Pickaxe",
 
 
   "item.cupsaddons.ferromagnetic_object": "Ferromagnetic Object",

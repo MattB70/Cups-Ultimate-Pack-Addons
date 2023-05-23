@@ -10,9 +10,7 @@ import com.mattborle.cupsaddons.item.ingredient.MashedGrainsItem;
 import com.mattborle.cupsaddons.item.raid.RaidCommissionItem;
 import com.mattborle.cupsaddons.item.raid.RaidCommissionLegendaryItem;
 import com.mattborle.cupsaddons.item.scrap.ScrapItem;
-import com.mattborle.cupsaddons.item.tool.CrysophilistsPickaxeItem;
-import com.mattborle.cupsaddons.item.tool.ExpertsPickaxeItem;
-import com.mattborle.cupsaddons.item.tool.NeanderthalsPickaxeItem;
+import com.mattborle.cupsaddons.item.tool.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -52,7 +50,13 @@ public class ItemRegistry {
     public static final RegistryObject<Item> NEANDERTHALS_PICKAXE = MOD_ITEMS.register("neanderthals_pickaxe",
             () -> new NeanderthalsPickaxeItem(Tiers.STONE,1, -3.0f, new Item.Properties()));
     public static final RegistryObject<Item> EXPERTS_PICKAXE = MOD_ITEMS.register("experts_pickaxe",
-            () -> new ExpertsPickaxeItem(Tiers.STONE,1, -2.8f, new Item.Properties()));
+            () -> new ExpertsPickaxeItem(Tiers.IRON,1, -2.8f, new Item.Properties()));
+    public static final RegistryObject<Item> DISTINGUISHED_PICKAXE = MOD_ITEMS.register("distinguished_pickaxe",
+            () -> new DistinguishedPickaxeItem(Tiers.DIAMOND,1, -2.8f, new Item.Properties()));
+    public static final RegistryObject<Item> MASTERS_PICKAXE = MOD_ITEMS.register("masters_pickaxe",
+            () -> new MastersPickaxeItem(Tiers.NETHERITE,1, -2.8f, new Item.Properties()));
+    public static final RegistryObject<Item> GODS_PICKAXE = MOD_ITEMS.register("gods_pickaxe",
+            () -> new GodsPickaxeItem(Tiers.NETHERITE,1, -2.8f, new Item.Properties()));
 
 
     // Curios ==========================================================================================================
