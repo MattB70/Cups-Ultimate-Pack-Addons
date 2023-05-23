@@ -7,6 +7,13 @@
   "tooltip.cupsaddons.use_item_mainhand_instructions":  "§eRight click with this item in your main-hand to use it.",
   "tooltip.cupsaddons.use_item_offhand_instructions":  "§eRight click with this item in your off-hand to use it.",
   "tooltip.cupsaddons.scrap_description": "§8Can be crafted from dozens of items. Helpful for organization.",
+  "tooltip.cupsaddons.raid_commission_desc_1": "§7Raids are §6one-life §7missions§r",
+  "tooltip.cupsaddons.raid_commission_desc_2": "§7that allow limitless coop.§r",
+  "tooltip.cupsaddons.raid_commission_desc_3": "§6Reward money §7is §6equally§r",
+  "tooltip.cupsaddons.raid_commission_desc_4": "§7split across participants.§r",
+  "tooltip.cupsaddons.raid_commission_desc_5": "§cBad Omens §7modify gameplay§r",
+  "tooltip.cupsaddons.raid_commission_desc_6": "§7and boost rewards.§r",
+  "tooltip.cupsaddons.consumed_on_use": "§7Consumed upon use.§r",
 
 
   "item.cupsaddons.crysophilists_pickaxe": "Chrysophilist's Pickaxe",

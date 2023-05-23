@@ -1,9 +1,11 @@
 package com.mattborle.cupsaddons.item.raid;
 
 import com.mattborle.cupsaddons.init.ItemRegistry;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -16,9 +18,10 @@ import java.util.Random;
 
 public class RaidCommissionItem extends Item {
 
-    int baseReward = 50000; // Base value used to calculate rewards. an Easy raid with no modifiers.
-    float modMult = 1.3f;   // Reward multiplier for every modifier present.
-    float difMult = 2.2f;   // Reward multiplier for every difficulty level above easy.
+    int baseReward = 80000; // Base value used to calculate rewards. an Easy raid with no bad_omens.
+    float modMult = 1.3f;   // Reward multiplier for every bad_omen present.
+    float goodModMult = 0.85f;// Reward multiplier for every good_omen present.
+    float difMult = 2.1f;   // Reward multiplier for every difficulty level above easy.
 
     public RaidCommissionItem() {
         super(new Properties().tab(ItemRegistry.CreativeTab.instance)
@@ -30,9 +33,12 @@ public class RaidCommissionItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         int difficulty =-1; // Difficulty saved as int, (0,1,2),(Easy,Normal,Hard)
-        int modifier1 = -1; // Modifier saved as int, -1 means no modifier.
-        int modifier2 = -1; // Modifier saved as int, -1 means no modifier, (0,1,2, etc),(Thick Skin, Speed Demons, Mending Monsters, Low Gravity)
-        int modifier3 = -1; // Modifier saved as int, -1 means no modifier.
+        int good_omen1 = -1; // good_omen saved as int, -1 means no good_omen.
+        int good_omen2 = -1; // good_omen saved as int, -1 means no good_omen.
+        int good_omen3 = -1; // good_omen saved as int, -1 means no good_omen.
+        int bad_omen1 = -1; // bad_omen saved as int, -1 means no bad_omen.
+        int bad_omen2 = -1; // bad_omen saved as int, -1 means no bad_omen, (0,1,2, etc),(Thick Skin, Speed Demons, Mending Monsters, Low Gravity)
+        int bad_omen3 = -1; // bad_omen saved as int, -1 means no bad_omen.
         int reward = -1;    // Reward money saved as int, -1 means something went wrong.
         int location = -1;  // Location saved as int, -1 means something went wrong.
         if(stack.getTag() != null){
@@ -48,22 +54,40 @@ public class RaidCommissionItem extends Item {
                     location = Integer.parseInt(stack.getTag().get("cupsaddons.location").getAsString());
                 }
             }
-            // Get modifier1 nbt and put it in modifier1 variable if exists
-            if(stack.getTag().get("cupsaddons.modifier1") != null) {
-                if (stack.getTag().get("cupsaddons.modifier1").getAsString() != null) {
-                    modifier1 = Integer.parseInt(stack.getTag().get("cupsaddons.modifier1").getAsString());
+            // Get good_omen1 nbt and put it in good_omen1 variable if exists
+            if(stack.getTag().get("cupsaddons.good_omen1") != null) {
+                if (stack.getTag().get("cupsaddons.good_omen1").getAsString() != null) {
+                    good_omen1 = Integer.parseInt(stack.getTag().get("cupsaddons.good_omen1").getAsString());
                 }
             }
-            // Get modifier2 nbt and put it in modifier2 variable if exists
-            if(stack.getTag().get("cupsaddons.modifier2") != null) {
-                if (stack.getTag().get("cupsaddons.modifier2").getAsString() != null) {
-                    modifier2 = Integer.parseInt(stack.getTag().get("cupsaddons.modifier2").getAsString());
+            // Get good_omen2 nbt and put it in good_omen2 variable if exists
+            if(stack.getTag().get("cupsaddons.good_omen2") != null) {
+                if (stack.getTag().get("cupsaddons.good_omen2").getAsString() != null) {
+                    good_omen2 = Integer.parseInt(stack.getTag().get("cupsaddons.good_omen2").getAsString());
                 }
             }
-            // Get modifier3 nbt and put it in modifier3 variable if exists
-            if(stack.getTag().get("cupsaddons.modifier3") != null) {
-                if (stack.getTag().get("cupsaddons.modifier3").getAsString() != null) {
-                    modifier3 = Integer.parseInt(stack.getTag().get("cupsaddons.modifier3").getAsString());
+            // Get good_omen3 nbt and put it in good_omen3 variable if exists
+            if(stack.getTag().get("cupsaddons.good_omen3") != null) {
+                if (stack.getTag().get("cupsaddons.good_omen3").getAsString() != null) {
+                    good_omen3 = Integer.parseInt(stack.getTag().get("cupsaddons.good_omen3").getAsString());
+                }
+            }
+            // Get bad_omen1 nbt and put it in bad_omen1 variable if exists
+            if(stack.getTag().get("cupsaddons.bad_omen1") != null) {
+                if (stack.getTag().get("cupsaddons.bad_omen1").getAsString() != null) {
+                    bad_omen1 = Integer.parseInt(stack.getTag().get("cupsaddons.bad_omen1").getAsString());
+                }
+            }
+            // Get bad_omen2 nbt and put it in bad_omen2 variable if exists
+            if(stack.getTag().get("cupsaddons.bad_omen2") != null) {
+                if (stack.getTag().get("cupsaddons.bad_omen2").getAsString() != null) {
+                    bad_omen2 = Integer.parseInt(stack.getTag().get("cupsaddons.bad_omen2").getAsString());
+                }
+            }
+            // Get bad_omen3 nbt and put it in bad_omen3 variable if exists
+            if(stack.getTag().get("cupsaddons.bad_omen3") != null) {
+                if (stack.getTag().get("cupsaddons.bad_omen3").getAsString() != null) {
+                    bad_omen3 = Integer.parseInt(stack.getTag().get("cupsaddons.bad_omen3").getAsString());
                 }
             }
             // Get reward nbt and put it in reward variable if exists
@@ -74,65 +98,206 @@ public class RaidCommissionItem extends Item {
             }
         }
         // Set difficulty text:
-        switch(difficulty)
-        {
-            case 0:
-                tooltip.add(new TextComponent("§a§oEasy§r"));
-                break;
-            case 1:
-                tooltip.add(new TextComponent("§e§oNormal§r"));
-                break;
-            case 2:
-                tooltip.add(new TextComponent("§6§oHard§r"));
-                break;
-            default:
-                tooltip.add(new TextComponent("§4§o§k?a?b?c?§r"));
-                break;
+        if(Screen.hasControlDown()) {
+            switch (difficulty) {
+                case 0:
+                    tooltip.add(new TextComponent("§e§oEasy (☠)§r"));
+                    break;
+                case 1:
+                    tooltip.add(new TextComponent("§e§oNormal (☠ ☠)§r"));
+                    break;
+                case 2:
+                    tooltip.add(new TextComponent("§e§oHard (☠ ☠ ☠)§r"));
+                    break;
+                default:
+                    tooltip.add(new TextComponent("§4§o§k?a?b?c?§r"));
+                    break;
+            }
+        }else{
+            switch (difficulty) {
+                case 0:
+                    tooltip.add(new TextComponent("§e§o                  ☠§r"));
+                    break;
+                case 1:
+                    tooltip.add(new TextComponent("§e§o                 ☠ ☠§r"));
+                    break;
+                case 2:
+                    tooltip.add(new TextComponent("§e§o               ☠ ☠ ☠§r"));
+                    break;
+                default:
+                    tooltip.add(new TextComponent("§4§o§k?a?b?c?§r"));
+                    break;
+            }
         }
         // Set location text:
-        tooltip.add(new TextComponent("§7Location §m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯§r"));
-        switch(location)
-        {
-            case 0:
-                tooltip.add(new TextComponent("§e§oDeep within a §6Chasm within§r"));
-                tooltip.add(new TextComponent("§e§othe western region of the§r"));
-                tooltip.add(new TextComponent("§e§oold world.§r"));
-                break;
-            case 1:
-                tooltip.add(new TextComponent("§e§oThe §6Streets §eof the old city§r"));
-                tooltip.add(new TextComponent("§e§owithin the western region of§r"));
-                tooltip.add(new TextComponent("§e§othe old world.§r"));
-                break;
-            default:
-                tooltip.add(new TextComponent("§4§o§k?a?b?c?§r"));
-                break;
+        tooltip.add(new TextComponent("§7Location §m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯§r"));
+        if(Screen.hasControlDown()) {
+            switch(location)
+            {
+                case 0:
+                    tooltip.add(new TextComponent("§e§oDeep within a §6Chasm §eon§r"));
+                    tooltip.add(new TextComponent("§e§othe western region of the§r"));
+                    tooltip.add(new TextComponent("§e§oold world.§r"));
+                    break;
+                case 1:
+                    tooltip.add(new TextComponent("§e§oThe §6Streets §eof the old city§r"));
+                    tooltip.add(new TextComponent("§e§owithin the western region of§r"));
+                    tooltip.add(new TextComponent("§e§othe old world.§r"));
+                    break;
+                default:
+                    tooltip.add(new TextComponent("§4§o§k?a?b?c?§r"));
+                    break;
+            }
         }
-        // Set Modifier text:
-        tooltip.add(new TextComponent("§7Omens §m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯§r"));
-        // 0 = Thick Skin (tough monsters)
-        if(modifier1 == 0 || modifier2 == 0 || modifier3 == 0)
+        else
         {
-            tooltip.add(new TextComponent("§7- §6§oThick Skin§r"));
+            switch(location)
+            {
+                case 0:
+                    tooltip.add(new TextComponent("§o§6Chasm§r"));
+                    break;
+                case 1:
+                    tooltip.add(new TextComponent("§o§6Streets§r"));
+                    break;
+                default:
+                    tooltip.add(new TextComponent("§4§o§k?a?b?c?§r"));
+                    break;
+            }
         }
-        // 1 = Speed Demons (fast monsters)
-        if(modifier1 == 1 || modifier2 == 1 || modifier3 == 1)
+
+
+        if(Screen.hasControlDown()) {
+            // Spacer
+            tooltip.add(new TextComponent(""));
+            // Set good_omen text:
+            if(good_omen1 > 0 || good_omen2 > 0 || good_omen3 > 0){
+                tooltip.add(new TextComponent("§7Good Omens §m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯§r"));
+                // 0 = Thick Skin (tough monsters)
+                if(good_omen1 == 0 || good_omen2 == 0 || good_omen3 == 0)
+                {
+                    tooltip.add(new TextComponent("§7- §a§oMonster HP reduced§r"));
+                }
+                // 1 = Speed Demons (fast monsters)
+                if(good_omen1 == 1 || good_omen2 == 1 || good_omen3 == 1)
+                {
+                    tooltip.add(new TextComponent("§7- §a§oMonster Speed reduced§r"));
+                }
+                // 2 = Mending Monsters (healing monsters)
+                if(good_omen1 == 2 || good_omen2 == 2 || good_omen3 == 2)
+                {
+                    tooltip.add(new TextComponent("§7- §a§oPlayer HP regeneration§r"));
+                }
+                // 3 = Other
+                if(good_omen1 == 3 || good_omen2 == 3 || good_omen3 == 3)
+                {
+                    tooltip.add(new TextComponent("§7- §a§oKnockback reduced§r"));
+                }
+                // Spacer
+                tooltip.add(new TextComponent(""));
+            }
+            // Set bad_omen text:
+            if(bad_omen1 > 0 || bad_omen2 > 0 || bad_omen3 > 0){
+                tooltip.add(new TextComponent("§7Bad Omens §m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯§r"));
+                // 0 = Thick Skin (tough monsters)
+                if(bad_omen1 == 0 || bad_omen2 == 0 || bad_omen3 == 0)
+                {
+                    tooltip.add(new TextComponent("§7- §c§oMonster HP increased§r"));
+                }
+                // 1 = Speed Demons (fast monsters)
+                if(bad_omen1 == 1 || bad_omen2 == 1 || bad_omen3 == 1)
+                {
+                    tooltip.add(new TextComponent("§7- §c§oMonster Speed increased§r"));
+                }
+                // 2 = Mending Monsters (healing monsters)
+                if(bad_omen1 == 2 || bad_omen2 == 2 || bad_omen3 == 2)
+                {
+                    tooltip.add(new TextComponent("§7- §c§oMonster HP regeneration§r"));
+                }
+                // 3 = Other
+                if(bad_omen1 == 3 || bad_omen2 == 3 || bad_omen3 == 3)
+                {
+                    tooltip.add(new TextComponent("§7- §c§oKnockback increased§r"));
+                }
+                // Spacer
+                tooltip.add(new TextComponent(""));
+            }
+        }
+        else
         {
-            tooltip.add(new TextComponent("§7- §3§oSpeed Demons§r"));
+            // Spacer
+            tooltip.add(new TextComponent(""));
+            // Set good_omen text:
+            if(good_omen1 > 0 || good_omen2 > 0 || good_omen3 > 0){
+                tooltip.add(new TextComponent("§7Good Omens §m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯§r"));
+                // 0 = Thick Skin (tough monsters)
+                if(good_omen1 == 0 || good_omen2 == 0 || good_omen3 == 0)
+                {
+                    tooltip.add(new TextComponent("§7- §a§oWeak Monsters§r"));
+                }
+                // 1 = Speed Demons (fast monsters)
+                if(good_omen1 == 1 || good_omen2 == 1 || good_omen3 == 1)
+                {
+                    tooltip.add(new TextComponent("§7- §a§oSlow Monsters§r"));
+                }
+                // 2 = Mending Monsters (healing monsters)
+                if(good_omen1 == 2 || good_omen2 == 2 || good_omen3 == 2)
+                {
+                    tooltip.add(new TextComponent("§7- §a§oMending Players§r"));
+                }
+                // 3 = Other
+                if(good_omen1 == 3 || good_omen2 == 3 || good_omen3 == 3)
+                {
+                    tooltip.add(new TextComponent("§7- §a§oPlanted Feet§r"));
+                }
+                // Spacer
+                tooltip.add(new TextComponent(""));
+            }
+            // Set bad_omen text:
+            if(bad_omen1 > 0 || bad_omen2 > 0 || bad_omen3 > 0){
+                tooltip.add(new TextComponent("§7Bad Omens §m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯§r"));
+                // 0 = Thick Skin (tough monsters)
+                if(bad_omen1 == 0 || bad_omen2 == 0 || bad_omen3 == 0)
+                {
+                    tooltip.add(new TextComponent("§7- §c§oTough Monsters§r"));
+                }
+                // 1 = Speed Demons (fast monsters)
+                if(bad_omen1 == 1 || bad_omen2 == 1 || bad_omen3 == 1)
+                {
+                    tooltip.add(new TextComponent("§7- §c§oQuick Monsters§r"));
+                }
+                // 2 = Mending Monsters (healing monsters)
+                if(bad_omen1 == 2 || bad_omen2 == 2 || bad_omen3 == 2)
+                {
+                    tooltip.add(new TextComponent("§7- §c§oMending Monsters§r"));
+                }
+                // 3 = Other
+                if(bad_omen1 == 3 || bad_omen2 == 3 || bad_omen3 == 3)
+                {
+                    tooltip.add(new TextComponent("§7- §c§oHeavy Hitters§r"));
+                }
+                // Spacer
+                tooltip.add(new TextComponent(""));
+            }
         }
-        // 2 = Mending Monsters (healing monsters)
-        if(modifier1 == 2 || modifier2 == 2 || modifier3 == 2)
-        {
-            tooltip.add(new TextComponent("§7- §c§oMending Monsters§r"));
-        }
-        // 3 = Other
-        if(modifier1 == 3 || modifier2 == 3 || modifier3 == 3)
-        {
-            tooltip.add(new TextComponent("§7- §b§oLow Gravity§r"));
-        }
-        tooltip.add(new TextComponent("§7§m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯§r"));
+
+
         // Set Reward text:
         tooltip.add(new TextComponent("§7Reward: §r§e"+String.format("%,d",reward)+"¢§r"));
-        tooltip.add(new TextComponent("§7§m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯§r"));
+        // Spacer
+        tooltip.add(new TextComponent(""));
+        // Details
+        if(Screen.hasControlDown()) {
+            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.raid_commission_desc_1"));
+            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.raid_commission_desc_2"));
+            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.raid_commission_desc_3"));
+            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.raid_commission_desc_4"));
+            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.raid_commission_desc_5"));
+            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.raid_commission_desc_6"));
+            tooltip.add(new TextComponent(""));
+            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.consumed_on_use"));
+        }else{
+            tooltip.add(new TranslatableComponent("tooltip.cupsaddons.hold_ctrl_for_details"));
+        }
     }
 
 
@@ -145,17 +310,23 @@ public class RaidCommissionItem extends Item {
                 // Define these for calculating rewards
                 int difficulty = randomInt(0,2);
                 int location = randomInt(0,1);
-                int modifier1 = randomInt(-1,3);
-                int modifier2 = randomInt(-1,3);
-                int modifier3 = randomInt(-1,3);
+                int good_omen1 = randomInt(-12,3);
+                int good_omen2 = randomInt(-12,3);
+                int good_omen3 = randomInt(-12,3);
+                int bad_omen1 = randomInt(-12,3); // 0 is the first bad_omen, but we make the range wider such that there
+                int bad_omen2 = randomInt(-12,3); // is a lower chance of there being a bad_omen in each slot. Anything
+                int bad_omen3 = randomInt(-12,3); // less than 0 is treated as no bad_omen, so this works.
                 double reward = baseReward;
                 stack.setTag(new CompoundTag());
                 CompoundTag nbtData = stack.getTag();
                 nbtData.putInt("cupsaddons.difficulty", difficulty);
                 nbtData.putInt("cupsaddons.location", location);
-                nbtData.putInt("cupsaddons.modifier1", modifier1);
-                nbtData.putInt("cupsaddons.modifier2", modifier2);
-                nbtData.putInt("cupsaddons.modifier3", modifier3);
+                nbtData.putInt("cupsaddons.good_omen1", good_omen1);
+                nbtData.putInt("cupsaddons.good_omen2", good_omen2);
+                nbtData.putInt("cupsaddons.good_omen3", good_omen3);
+                nbtData.putInt("cupsaddons.bad_omen1", bad_omen1);
+                nbtData.putInt("cupsaddons.bad_omen2", bad_omen2);
+                nbtData.putInt("cupsaddons.bad_omen3", bad_omen3);
 
                 // Reward calc:
                 Random r = new Random();
@@ -165,11 +336,19 @@ public class RaidCommissionItem extends Item {
                     reward = (int)(reward*difMult);
                 if(difficulty >= 2)
                     reward = (int)(reward*difMult);
-                if(modifier1 > -1)
+
+                if(good_omen1 > -1)
+                    reward = (int)(reward*goodModMult);
+                if(good_omen2 > -1 && good_omen2 != good_omen1)
+                    reward = (int)(reward*goodModMult);
+                if(good_omen3 > -1 && good_omen3 != good_omen1 && good_omen3 != good_omen2)
+                    reward = (int)(reward*goodModMult);
+
+                if(bad_omen1 > -1)
                     reward = (int)(reward*modMult);
-                if(modifier2 > -1 && modifier2 != modifier1)
+                if(bad_omen2 > -1 && bad_omen2 != bad_omen1)
                     reward = (int)(reward*modMult);
-                if(modifier3 > -1 && modifier3 != modifier1 && modifier3 != modifier2)
+                if(bad_omen3 > -1 && bad_omen3 != bad_omen1 && bad_omen3 != bad_omen2)
                     reward = (int)(reward*modMult);
                 // Put reward value in nbt after casting it to an int to avoid cents.
                 nbtData.putInt("cupsaddons.reward", (int)reward);
