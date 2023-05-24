@@ -16,9 +16,6 @@ public class SoundRegistry {
 
     // Sounds
     static {
-        MOD_SOUNDS.put(new ResourceLocation("cupsaddons", "night_crawler_hurt"), new SoundEvent(new ResourceLocation("cupsaddons", "night_crawler_hurt")));
-        MOD_SOUNDS.put(new ResourceLocation("cupsaddons", "night_crawler_death"), new SoundEvent(new ResourceLocation("cupsaddons", "night_crawler_death")));
-        MOD_SOUNDS.put(new ResourceLocation("cupsaddons", "night_crawler_ambient"), new SoundEvent(new ResourceLocation("cupsaddons", "night_crawler_ambient")));
         MOD_SOUNDS.put(new ResourceLocation("cupsaddons", "transport_end"), new SoundEvent(new ResourceLocation("cupsaddons", "transport_end")));
         MOD_SOUNDS.put(new ResourceLocation("cupsaddons", "transport_observed"), new SoundEvent(new ResourceLocation("cupsaddons", "transport_observed")));
         MOD_SOUNDS.put(new ResourceLocation("cupsaddons", "magnetize"), new SoundEvent(new ResourceLocation("cupsaddons", "magnetize")));

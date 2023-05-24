@@ -3,7 +3,6 @@ package com.mattborle.cupsaddons;
 import com.mattborle.cupsaddons.config.CupsAddonsClientConfigs;
 import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import com.mattborle.cupsaddons.init.EnchantmentRegistry;
-import com.mattborle.cupsaddons.init.EntityRegistry;
 import com.mattborle.cupsaddons.init.ItemRegistry;
 import com.mattborle.cupsaddons.init.MobEffectRegistry;
 import com.mojang.logging.LogUtils;
@@ -42,7 +41,6 @@ public class CupsAddons
         modEventBus.addListener(this::commonSetup);
 
         ItemRegistry.MOD_ITEMS.register(modEventBus);
-        EntityRegistry.MOD_ENTITIES.register(modEventBus);
         EnchantmentRegistry.MOD_ENCHANTMENTS.register(modEventBus);
         MobEffectRegistry.MOD_EFFECTS.register(modEventBus);
 
