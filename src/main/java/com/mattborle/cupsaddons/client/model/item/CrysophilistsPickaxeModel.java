@@ -12,7 +12,7 @@ public class CrysophilistsPickaxeModel extends AnimatedGeoModel<CrysophilistsPic
     }
     @Override
     public ResourceLocation getTextureLocation(CrysophilistsPickaxeItem object) {
-        return new ResourceLocation(CupsAddons.MOD_ID, "textures/items/crysophilists_pickaxe.png");
+        return new ResourceLocation(CupsAddons.MOD_ID, "textures/models/crysophilists_pickaxe.png");
     }
     @Override
     public ResourceLocation getAnimationFileLocation(CrysophilistsPickaxeItem animatable) {

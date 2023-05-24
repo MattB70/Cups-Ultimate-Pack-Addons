@@ -10,7 +10,9 @@ import com.mattborle.cupsaddons.item.ingredient.MashedGrainsItem;
 import com.mattborle.cupsaddons.item.raid.RaidCommissionItem;
 import com.mattborle.cupsaddons.item.raid.RaidCommissionLegendaryItem;
 import com.mattborle.cupsaddons.item.scrap.ScrapItem;
+import com.mattborle.cupsaddons.item.silly.GamerGlassesItem;
 import com.mattborle.cupsaddons.item.tool.*;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -62,7 +64,6 @@ public class ItemRegistry {
     // Curios ==========================================================================================================
     public static final RegistryObject<Item> FERROMAGNETIC_OBJECT = MOD_ITEMS.register("ferromagnetic_object", () -> new FerromagneticObjectItem(new Item.Properties()));
 
-
     // Raids and Campaigns =============================================================================================
     public static final RegistryObject<Item> RAID_COMMISSION = MOD_ITEMS.register("raid_commission", () -> new RaidCommissionItem());
     public static final RegistryObject<Item> RAID_COMMISSION_LEGENDARY = MOD_ITEMS.register("raid_commission_legendary", () -> new RaidCommissionLegendaryItem());
@@ -86,5 +87,9 @@ public class ItemRegistry {
 
 
     // Spawn Eggs ======================================================================================================
-    //public static final RegistryObject<Item> NIGHT_CRAWLER_MOB = MOD_ITEMS.register("night_crawler_mob_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.NIGHT_CRAWLER_MOB, -1, -1184257, new Item.Properties().tab(CreativeTab.instance)));
+
+
+    // Silly Items =====================================================================================================
+    public static final RegistryObject<Item> GAMER_GLASSES = MOD_ITEMS.register("gamer_glasses", () -> new GamerGlassesItem(ArmorMaterials.IRON, EquipmentSlot.HEAD,
+            new Item.Properties()));
 }

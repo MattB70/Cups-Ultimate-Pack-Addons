@@ -13,7 +13,7 @@ public class DistinguishedPickaxeModel extends AnimatedGeoModel<DistinguishedPic
     }
     @Override
     public ResourceLocation getTextureLocation(DistinguishedPickaxeItem object) {
-        return new ResourceLocation(CupsAddons.MOD_ID, "textures/items/distinguished_pickaxe.png");
+        return new ResourceLocation(CupsAddons.MOD_ID, "textures/models/distinguished_pickaxe.png");
     }
     @Override
     public ResourceLocation getAnimationFileLocation(DistinguishedPickaxeItem animatable) {

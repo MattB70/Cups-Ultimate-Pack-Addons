@@ -13,7 +13,7 @@ public class GodsPickaxeModel extends AnimatedGeoModel<GodsPickaxeItem> {
     }
     @Override
     public ResourceLocation getTextureLocation(GodsPickaxeItem object) {
-        return new ResourceLocation(CupsAddons.MOD_ID, "textures/items/gods_pickaxe.png");
+        return new ResourceLocation(CupsAddons.MOD_ID, "textures/models/gods_pickaxe.png");
     }
     @Override
     public ResourceLocation getAnimationFileLocation(GodsPickaxeItem animatable) {

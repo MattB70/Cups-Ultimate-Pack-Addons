@@ -12,7 +12,7 @@ public class NeanderthalsPickaxeModel extends AnimatedGeoModel<NeanderthalsPicka
     }
     @Override
     public ResourceLocation getTextureLocation(NeanderthalsPickaxeItem object) {
-        return new ResourceLocation(CupsAddons.MOD_ID, "textures/items/neanderthals_pickaxe.png");
+        return new ResourceLocation(CupsAddons.MOD_ID, "textures/models/neanderthals_pickaxe.png");
     }
     @Override
     public ResourceLocation getAnimationFileLocation(NeanderthalsPickaxeItem animatable) {

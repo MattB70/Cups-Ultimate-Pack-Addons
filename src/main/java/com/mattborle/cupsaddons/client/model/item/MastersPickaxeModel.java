@@ -13,7 +13,7 @@ public class MastersPickaxeModel extends AnimatedGeoModel<MastersPickaxeItem> {
     }
     @Override
     public ResourceLocation getTextureLocation(MastersPickaxeItem object) {
-        return new ResourceLocation(CupsAddons.MOD_ID, "textures/items/masters_pickaxe.png");
+        return new ResourceLocation(CupsAddons.MOD_ID, "textures/models/masters_pickaxe.png");
     }
     @Override
     public ResourceLocation getAnimationFileLocation(MastersPickaxeItem animatable) {
