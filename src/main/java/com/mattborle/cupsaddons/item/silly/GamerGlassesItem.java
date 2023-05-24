@@ -1,8 +1,5 @@
 package com.mattborle.cupsaddons.item.silly;
 
-import com.google.common.collect.ImmutableMap;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -18,21 +15,15 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.item.GeoArmorItem;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import java.util.Map;
 
 public class GamerGlassesItem extends GeoArmorItem implements IAnimatable {
 
     public AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public String IDLE_ANIMATION_NAME = "animation.gamer_glasses.idle";
 
-    private static final Map<ArmorMaterial, MobEffectInstance> MATERIAL_TO_EFFECT_MAP =
-            (new ImmutableMap.Builder<ArmorMaterial, MobEffectInstance>())
-                    .put(ArmorMaterials.IRON, new MobEffectInstance(MobEffects.LUCK, 200, 1)).build();
-
     public GamerGlassesItem(ArmorMaterial material, EquipmentSlot slot, Properties settings) {
         super(material, slot, settings);
     }
-
     @Override
     public void onArmorTick(ItemStack stack, Level world, Player player) {
         if(!world.isClientSide()) {
@@ -40,15 +31,14 @@ public class GamerGlassesItem extends GeoArmorItem implements IAnimatable {
         }
     }
 
-    // ANIMATIONS ======================================================================================================
 
+    // ANIMATIONS ======================================================================================================
 
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<GamerGlassesItem>(this, "controller",
                 20, this::predicate));
     }
-
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
