@@ -1,5 +1,6 @@
 package com.mattborle.cupsaddons.client.gui;
 
+import com.mattborle.cupsaddons.handlers.overlay.GamingDisplayOverlayIngame;
 import com.mattborle.cupsaddons.handlers.overlay.TransportingDisplayOverlayIngame;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -15,7 +16,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber({Dist.CLIENT})
-public class TransportingOverlay {
+public class FullscreenOverlays {
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void eventHandler(RenderGameOverlayEvent.Pre event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
@@ -45,10 +46,18 @@ public class TransportingOverlay {
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
                     GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             RenderSystem.setShaderColor(1, 1, 1, 1);
+
+
             if (TransportingDisplayOverlayIngame.execute(entity)) {
                 RenderSystem.setShaderTexture(0, new ResourceLocation("cupsaddons:textures/screens/transporting_overlay.png"));
                 Minecraft.getInstance().gui.blit(event.getMatrixStack(), 0, 0, 0, 0, w, h, w, h);
             }
+            if (GamingDisplayOverlayIngame.execute(entity)) {
+                RenderSystem.setShaderTexture(0, new ResourceLocation("cupsaddons:textures/screens/gamer_glasses.png"));
+                Minecraft.getInstance().gui.blit(event.getMatrixStack(), 0, 0, 0, 0, w, h, w, h);
+            }
+
+
             RenderSystem.depthMask(true);
             RenderSystem.defaultBlendFunc();
             RenderSystem.enableDepthTest();

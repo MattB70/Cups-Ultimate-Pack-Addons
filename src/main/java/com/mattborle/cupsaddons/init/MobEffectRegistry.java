@@ -19,4 +19,5 @@ public class MobEffectRegistry {
     public static final RegistryObject<MobEffect> AMPED = MOD_EFFECTS.register("amped", () -> new AmpedMobEffect());
     public static final RegistryObject<MobEffect> OVERDOSED = MOD_EFFECTS.register("overdosed", () -> new OverdosedMobEffect());
     public static final RegistryObject<MobEffect> TRANSPORTING = MOD_EFFECTS.register("transporting", () -> new TransportingMobEffect());
+    public static final RegistryObject<MobEffect> GAMING = MOD_EFFECTS.register("gaming", () -> new GamingMobEffect());
 }
