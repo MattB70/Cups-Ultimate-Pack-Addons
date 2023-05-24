@@ -13,6 +13,8 @@
   "tooltip.cupsaddons.raid_commission_desc_4": "§7split across participants.§r",
   "tooltip.cupsaddons.raid_commission_desc_5": "§cOmens §7modify gameplay and§r",
   "tooltip.cupsaddons.raid_commission_desc_6": "§7alter rewards.§r",
+  "tooltip.cupsaddons.raid_commission_warning_1": "§cEverything brought into a§r",
+  "tooltip.cupsaddons.raid_commission_warning_2": "§craid is lost upon failure!§r",
   "tooltip.cupsaddons.consumed_on_use": "§7Consumed upon use.§r",
   "tooltip.cupsaddons.tool_unbreakable": "§fThis tool is Unbreakable§r",
 

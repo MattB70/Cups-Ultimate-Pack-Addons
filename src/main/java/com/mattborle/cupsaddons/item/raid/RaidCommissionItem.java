@@ -285,6 +285,10 @@ public class RaidCommissionItem extends Item {
         tooltip.add(new TextComponent("§7Reward: §r§e"+String.format("%,d",reward)+"¢§r"));
         // Spacer
         tooltip.add(new TextComponent(""));
+        tooltip.add(new TranslatableComponent("tooltip.cupsaddons.raid_commission_warning_1"));
+        tooltip.add(new TranslatableComponent("tooltip.cupsaddons.raid_commission_warning_2"));
+        // Spacer
+        tooltip.add(new TextComponent(""));
         // Details
         if(Screen.hasControlDown()) {
             tooltip.add(new TranslatableComponent("tooltip.cupsaddons.raid_commission_desc_1"));
