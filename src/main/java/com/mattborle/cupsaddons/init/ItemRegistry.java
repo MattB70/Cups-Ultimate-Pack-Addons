@@ -10,10 +10,11 @@ import com.mattborle.cupsaddons.item.ingredient.MashedGrainsItem;
 import com.mattborle.cupsaddons.item.raid.RaidCommissionItem;
 import com.mattborle.cupsaddons.item.raid.RaidCommissionLegendaryItem;
 import com.mattborle.cupsaddons.item.scrap.ScrapItem;
-import com.mattborle.cupsaddons.item.silly.GamerGlassesItem;
+import com.mattborle.cupsaddons.item.armor.GamerGlassesItem;
 import com.mattborle.cupsaddons.item.tool.*;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -87,7 +88,8 @@ public class ItemRegistry {
 
 
     // Spawn Eggs ======================================================================================================
-
+    public static final RegistryObject<Item> SPARK_SPAWN_EGG = MOD_ITEMS.register("spark_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.SPARK, 0xc0c1c2, 0x54ddff,
+            new Item.Properties().tab(CreativeTab.instance)));
 
     // Silly Items =====================================================================================================
     public static final RegistryObject<Item> GAMER_GLASSES = MOD_ITEMS.register("gamer_glasses", () -> new GamerGlassesItem(ArmorMaterials.IRON, EquipmentSlot.HEAD,

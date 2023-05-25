@@ -1,7 +1,7 @@
 package com.mattborle.cupsaddons.client.model.armor;
 
 import com.mattborle.cupsaddons.CupsAddons;
-import com.mattborle.cupsaddons.item.silly.GamerGlassesItem;
+import com.mattborle.cupsaddons.item.armor.GamerGlassesItem;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

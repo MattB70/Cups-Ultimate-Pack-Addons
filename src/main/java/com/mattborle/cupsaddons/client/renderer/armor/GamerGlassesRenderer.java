@@ -1,7 +1,7 @@
 package com.mattborle.cupsaddons.client.renderer.armor;
 
 import com.mattborle.cupsaddons.client.model.armor.GamerGlassesModel;
-import com.mattborle.cupsaddons.item.silly.GamerGlassesItem;
+import com.mattborle.cupsaddons.item.armor.GamerGlassesItem;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
 public class GamerGlassesRenderer extends GeoArmorRenderer<GamerGlassesItem> {

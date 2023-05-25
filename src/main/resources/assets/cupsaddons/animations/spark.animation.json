@@ -1,0 +1,146 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.spark.attack": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 2.04167,
+			"bones": {
+				"body": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.875": {
+							"vector": [-180, 0, 180],
+							"easing": "easeOutExpo"
+						},
+						"2.0": {
+							"vector": [-360, 360, 360],
+							"easing": "linear"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [1.3, 1.3, 1.3],
+							"easing": "easeInOutCirc"
+						},
+						"1.25": {
+							"vector": [1.5, 1.5, 1.5],
+							"easing": "easeInBounce"
+						},
+						"2.0": {
+							"vector": [5, 5, 5],
+							"easing": "easeOutBounce"
+						},
+						"2.0417": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutBounce"
+						}
+					}
+				},
+				"ring1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.9167": {
+							"vector": [-360, 0, 0],
+							"easing": "easeOutCubic"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"1.25": {
+							"vector": [1, 1, 1]
+						},
+						"1.9583": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutElastic"
+						},
+						"2.0417": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutElastic"
+						}
+					}
+				},
+				"ring2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.9167": {
+							"vector": [-360, 0, 0],
+							"easing": "easeOutCubic"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"1.25": {
+							"vector": [1, 1, 1]
+						},
+						"1.9583": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutElastic"
+						},
+						"2.0417": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutElastic"
+						}
+					}
+				}
+			},
+			"sound_effects": {
+				"1.25": {
+					"effect": "expand"
+				},
+				"2.0": {
+					"effect": "explode"
+				}
+			}
+		},
+		"animation.spark.idle": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"body": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [-360, 0, 360]
+						}
+					}
+				},
+				"ring1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [-360, 0, 0]
+						}
+					}
+				},
+				"ring2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [-360, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

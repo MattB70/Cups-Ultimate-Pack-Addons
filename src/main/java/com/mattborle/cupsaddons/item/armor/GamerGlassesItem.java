@@ -1,4 +1,4 @@
-package com.mattborle.cupsaddons.item.silly;
+package com.mattborle.cupsaddons.item.armor;
 
 import com.mattborle.cupsaddons.init.MobEffectRegistry;
 import net.minecraft.network.chat.Component;

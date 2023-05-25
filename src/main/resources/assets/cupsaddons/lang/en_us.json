@@ -62,10 +62,10 @@
   "effect.cupsaddons.transporting": "Transporting",
   "effect.cupsaddons.greened_out": "Greened Out",
   "effect.cupsaddons.cave_senses": "Cave Senses",
-  "effect.cupsaddons.gaming": "Gaming B^)",
+  "effect.cupsaddons.gaming": "Gaming",
 
-  "entity.cups_mobs.night_crawler": "Night Crawler",
-  "entity.cupsaddons.night_crawler_mob": "Night Crawler",
+  "entity.cups_mobs.spark": "Spark",
+  "item.cupsaddons.spark_spawn_egg": "Spark Spawn Egg",
 
   "enchantment.cupsaddons.transporting_enchantment": "Transporting (Disabled)",
   "enchantment.cups_mobs.transport": "Transport",
