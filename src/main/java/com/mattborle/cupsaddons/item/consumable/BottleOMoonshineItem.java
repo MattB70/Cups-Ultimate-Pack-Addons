@@ -20,7 +20,7 @@ import com.mattborle.cupsaddons.handlers.consumable.MoonshineDrinkHandler;
 public class BottleOMoonshineItem extends Item {
 	public BottleOMoonshineItem() {
 		super(new Properties().tab(ItemRegistry.CreativeTab.instance)
-				.stacksTo(16)
+				.stacksTo(64)
 				.rarity(Rarity.UNCOMMON)
 				.food((new FoodProperties.Builder())
 				.nutrition(1)
@@ -39,8 +39,8 @@ public class BottleOMoonshineItem extends Item {
 		super.appendHoverText(itemstack, world, list, flag);
 		list.add(new TextComponent("\u00A7aPure"));
 		list.add(new TextComponent("\u00A7dEffects:"));
-		list.add(new TextComponent("\u00A79Resistance II (8m)"));
-		list.add(new TextComponent("\u00A79Strength I (8m)"));
+		list.add(new TextComponent("\u00A79Resistance II (4m)"));
+		list.add(new TextComponent("\u00A79Strength I (4m)"));
 		list.add(new TextComponent("\u00A7cNausea II (40s)"));
 		list.add(new TextComponent("\u00A7cSlowness I (40s)"));
 	}

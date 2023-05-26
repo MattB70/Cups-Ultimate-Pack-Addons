@@ -10,9 +10,9 @@ public class MoonshineDrinkHandler {
 		if (entity == null)
 			return;
 		if (entity instanceof LivingEntity _entity)
-			_entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 9600, 1, (false), (false)));
+			_entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 4800, 1, (false), (false)));
 		if (entity instanceof LivingEntity _entity)
-			_entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 9600, 0, (false), (false)));
+			_entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 4800, 0, (false), (false)));
 		if (entity instanceof LivingEntity _entity)
 			_entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 800, 1, (false), (false)));
 		if (entity instanceof LivingEntity _entity)
