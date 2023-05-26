@@ -26,7 +26,7 @@ public class SparkRenderer extends GeoEntityRenderer<SparkEntity> {
 
     @Override
     public RenderType getRenderType(SparkEntity animatable, float partialTick, PoseStack poseStack, @Nullable MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, int packedLight, ResourceLocation texture) {
-        poseStack.scale(3f, 3f, 3f); // Scale the mob visually
+        poseStack.scale(2f, 2f, 2f); // Scale the mob visually
         return super.getRenderType(animatable, partialTick, poseStack, bufferSource, buffer, packedLight, texture);
     }
 }
