@@ -78,5 +78,8 @@
   "subtitles.night_crawler_death": "Night Crawler dies",
   "subtitles.night_crawler_hurt": "Night Crawler is hurt",
   "subtitles.transport_observed": "Something enters transport",
-  "subtitles.night_crawler_ambient": "Night Crawler speaks"
+  "subtitles.night_crawler_ambient": "Night Crawler speaks",
+  "subtitles.spark_hover": "Spark hovers",
+  "subtitles.spark_attack": "Spark charges",
+  "subtitles.spark_death": "Spark explodes"
 }

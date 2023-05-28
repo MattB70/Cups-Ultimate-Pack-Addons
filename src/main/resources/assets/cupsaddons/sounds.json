@@ -68,5 +68,35 @@
         "stream": false
       }
     ]
+  },
+  "spark_hover": {
+    "category": "hostile",
+    "subtitle": "subtitles.spark_hover",
+    "sounds": [
+      {
+        "name": "cupsaddons:spark_hover",
+        "stream": false
+      }
+    ]
+  },
+  "spark_death": {
+    "category": "hostile",
+    "subtitle": "subtitles.spark_death",
+    "sounds": [
+      {
+        "name": "cupsaddons:spark_death",
+        "stream": false
+      }
+    ]
+  },
+  "spark_attack": {
+    "category": "hostile",
+    "subtitle": "subtitles.spark_attack",
+    "sounds": [
+      {
+        "name": "cupsaddons:spark_attack",
+        "stream": false
+      }
+    ]
   }
 }

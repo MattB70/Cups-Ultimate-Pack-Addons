@@ -6,19 +6,6 @@
 			"animation_length": 2.04167,
 			"bones": {
 				"body": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"1.875": {
-							"vector": [-180, 0, 180],
-							"easing": "easeOutExpo"
-						},
-						"2.0": {
-							"vector": [-360, 360, 360],
-							"easing": "linear"
-						}
-					},
 					"scale": {
 						"0.0": {
 							"vector": [1, 1, 1]
@@ -109,23 +96,13 @@
 			"loop": true,
 			"animation_length": 1,
 			"bones": {
-				"body": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"1.0": {
-							"vector": [-360, 0, 360]
-						}
-					}
-				},
 				"ring1": {
 					"rotation": {
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
 						"1.0": {
-							"vector": [-360, 0, 0]
+							"vector": [-1080, 0, 0]
 						}
 					}
 				},
@@ -135,7 +112,7 @@
 							"vector": [0, 0, 0]
 						},
 						"1.0": {
-							"vector": [-360, 0, 0]
+							"vector": [-1080, 0, 0]
 						}
 					}
 				}

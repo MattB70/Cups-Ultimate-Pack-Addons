@@ -1,9 +1,14 @@
 package com.mattborle.cupsaddons.entity;
 
+import com.mattborle.cupsaddons.CupsAddons;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -19,6 +24,8 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -26,8 +33,6 @@ import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.ParticleKeyFrameEvent;
-import software.bernie.geckolib3.core.event.SoundKeyframeEvent;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
@@ -39,13 +44,16 @@ import java.util.List;
 public class SparkEntity extends Monster implements IAnimatable {
 
     public AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    public String IDLE_ANIMATION_NAME = "animation.spark.idle";
+    public final String IDLE_ANIMATION_NAME = "animation.spark.idle";
+    private static int ATTACK_TIMER = 40;
     private int attackTimer = -1; // time in ticks for attack to play out, ending in mob's death. Default to -1 for not attacking.
+    private final int HOVER_SOUND_TIMER = 19; // How many ticks before looping sound. 2.636s, 2636ms,
+    private int hoverSoundTimer = HOVER_SOUND_TIMER;
 
     public SparkEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         xpReward = 2;
-        this.moveControl = new FlyingMoveControl(this, 25, true);
+        this.moveControl = new FlyingMoveControl(this, 15, true);
     }
     @Override
     protected PathNavigation createNavigation(Level world) {
@@ -54,7 +62,6 @@ public class SparkEntity extends Monster implements IAnimatable {
     }
     @Override
     public void setNoGravity(boolean ignored) {
-
         super.setNoGravity(true);
     }
     public void aiStep() {
@@ -66,72 +73,117 @@ public class SparkEntity extends Monster implements IAnimatable {
                 .add(Attributes.MAX_HEALTH, 8.0f)
                 .add(Attributes.ATTACK_DAMAGE, 0.0f)
                 .add(Attributes.ATTACK_SPEED, 0.0f)
-                .add(Attributes.FLYING_SPEED, 0.5f)
+                .add(Attributes.FLYING_SPEED, 0.8f)
                 .add(Attributes.MOVEMENT_SPEED, 0.3f).build();
     }
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2, false));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0, false));
         this.goalSelector.addGoal(2, new FloatGoal(this)); // Don't go underwater.
         this.goalSelector.addGoal(3, (new HurtByTargetGoal(this)).setAlertOthers()); // Alert others when damaged.
-        this.goalSelector.addGoal(4, (new NearestAttackableTargetGoal<>(this, Player.class, true)).setUnseenMemoryTicks(300)); // Attack Player
+        this.goalSelector.addGoal(4, (new NearestAttackableTargetGoal<>(this, Player.class, true)).setUnseenMemoryTicks(1000)); // Attack Player
         this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 1.0));
     }
     // Activate spark attack if it touches a player
     @Override
     public void playerTouch(Player player) {
         super.playerTouch(player);
-        if(this.attackTimer == -1){
-            this.attackTimer = 60; // set attack timer. This will trigger ticking damage and eventual death.
+        if(this.getLevel() instanceof ServerLevel serverLevel) {
+            if (this.attackTimer == -1) {
+                this.attackTimer = ATTACK_TIMER; // set attack timer. This will trigger ticking damage and eventual death.
+                // play attack sound once
+                serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:spark_attack")), SoundSource.HOSTILE, 1f, 1f);
+            }
         }
     }
     // Activate spark attack if it takes damage
     @Override
     public boolean hurt(DamageSource damageSource, float x) {
-        if(this.attackTimer == -1){
-            this.attackTimer = 60; // set attack timer. This will trigger ticking damage and eventual death.
+        if(this.getLevel() instanceof ServerLevel serverLevel) {
+            if (this.attackTimer == -1) {
+                this.attackTimer = ATTACK_TIMER; // set attack timer. This will trigger ticking damage and eventual death.
+                // play attack sound once
+                serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:spark_attack")), SoundSource.HOSTILE, 1f, 1f);
+            }
+            // do hurt particles
+            serverLevel.sendParticles(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.8, this.getZ(), 20, 0, 0, 0, 2);
         }
         return super.hurt(damageSource, x);
     }
-
-    protected SoundEvent getAmbientSound() {
-        return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magic_pop"));
-    }
-    protected float getSoundVolume() {
-        return 0.7f;
+    @Override
+    public void kill() {
+        if(this.getLevel() instanceof ServerLevel serverLevel){
+            // do death particles
+            serverLevel.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX(),this.getY()+0.8,this.getZ(),20,0,0,0,2);
+            // do death sound
+            serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_BURN, SoundSource.HOSTILE, 0.8f, 0.7f);
+        }
+        super.kill();
     }
     @Override
     public void tick() {
-        if(level instanceof ServerLevel serverLevel){
-            if (this.attackTimer > -1) {
-                this.attackTimer--;// reduce timer
-                // tick damage every 10 ticks
-                if(this.attackTimer % 10 == 0) {
-                    // get nearby entities
-                    List<LivingEntity> nearbyEntities = serverLevel.getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), this, AABB.ofSize(this.getEyePosition(), 10, 10 / 2, 10));
-                    // walk entities
-                    for (int i = 0; i < nearbyEntities.size(); i++) {
-                        LivingEntity entity = nearbyEntities.get(i);
-                        // only damage players
-                        if (entity instanceof Player) {
-                            // If entity is alive and can see the spark (don't attack through walls):
-                            if (entity.isAlive() && entity.hasLineOfSight(this)) {
-                                entity.hurt(DamageSource.MAGIC,1.0f); // hurt nearby entities
-                                this.push(entity); // push nearby entities a small amount to keep things moving
+        // Only do any of this if entity is alive
+        if (this.getHealth() > 0) {
+            // HOVER EFFECTS
+            // Only do hover sfx if the spark is not attacking/self-destructing. This doesn't mean it won't make the
+            // sound at all, but rather just won't loop it again once it begins attacking.
+            if (this.attackTimer <= 0) {
+                if (level instanceof ClientLevel clientLevel) {
+                    if (this.hoverSoundTimer == HOVER_SOUND_TIMER) {
+                        clientLevel.playLocalSound(
+                                this.getX(),
+                                this.getY(),
+                                this.getZ(),
+                                ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:spark_hover")),
+                                SoundSource.HOSTILE,
+                                0.8f,
+                                1.0f,
+                                true);
+                        this.hoverSoundTimer = 0;
+                    } else {
+                        this.hoverSoundTimer++; // decrement a tick
+                    }
+                }
+            } else {
+                // ATTACK
+                if (level instanceof ServerLevel serverLevel) {
+                    this.attackTimer--;// reduce timer
+                    // tick damage every 10 ticks
+                    if (this.attackTimer % 10 == 0) {
+                        // get nearby entities
+                        List<LivingEntity> nearbyEntities = serverLevel.getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), this, AABB.ofSize(this.getEyePosition(), 5, 5, 5));
+                        // walk entities
+                        for (int i = 0; i < nearbyEntities.size(); i++) {
+                            LivingEntity entity = nearbyEntities.get(i);
+                            // damage players
+                            if (entity instanceof Player) {
+                                // If entity is alive and can see the spark (don't attack through walls):
+                                if (entity.isAlive() && entity.hasLineOfSight(this)) {
+                                    entity.hurt(DamageSource.MAGIC, 1.0f); // hurt nearby entities
+                                    this.hurt(DamageSource.MAGIC, 1.0f); // hurt this spark
+                                    this.push(entity); // push nearby entities a small amount to keep things moving
+                                }
+                            }
+                            // damage sparks
+                            if (entity instanceof SparkEntity) {
+                                // If entity is alive and can see the spark (don't attack through walls):
+                                if (entity.isAlive() && entity.hasLineOfSight(this)) {
+                                    entity.hurt(DamageSource.MAGIC, 0.1f); // hurt nearby entities
+                                }
                             }
                         }
+                        // do sound and extra particles every 10 ticks on damage tick
+                        serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.HOSTILE, 0.6f, 1.5f);
+                        serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK, this.getX(), this.getY() + 0.8, this.getZ(), 10, 0, 0, 0, 2);
+                        serverLevel.sendParticles(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.8, this.getZ(), 10, 0, 0, 0, 2);
                     }
-                    // do sound and extra particles every 10 ticks on damage tick
-                    serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.PLAYERS, 0.6f, 1.5f);
-                    serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK, this.getX(),this.getY()+1,this.getZ(),10,0,0,0,2);
-                    serverLevel.sendParticles(ParticleTypes.SMOKE, this.getX(),this.getY()+1,this.getZ(),10,0,0,0,2);
-                }
-                // do particles every tick
-                serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK, this.getX(),this.getY()+1,this.getZ(),5,0,0,0,2);
-                if (this.attackTimer == 0) {
-                    // do particles and sound
-                    serverLevel.sendParticles(ParticleTypes.SMOKE, this.getX(),this.getY()+1,this.getZ(),5,0,0,0,0.5);
-                    serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magic_pop")), SoundSource.PLAYERS, 0.6f, 1.5f);
-                    this.kill(); // kill entity
+                    // do particles every tick
+                    serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK, this.getX(), this.getY() + 0.8, this.getZ(), 5, 0, 0, 0, 2);
+                    if (this.attackTimer == 0) {
+                        // overcharged to death.
+                        serverLevel.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX(), this.getY() + 0.8, this.getZ(), 20, 0, 0, 0, 2);
+                        serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:spark_death")), SoundSource.HOSTILE, 1f, 1f);
+                        this.kill(); // kill entity
+                    }
                 }
             }
         }
