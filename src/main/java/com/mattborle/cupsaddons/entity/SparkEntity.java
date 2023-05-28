@@ -1,6 +1,7 @@
 package com.mattborle.cupsaddons.entity;
 
 import com.mattborle.cupsaddons.CupsAddons;
+import com.mattborle.cupsaddons.init.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -77,9 +78,9 @@ public class SparkEntity extends Monster implements IAnimatable {
                 .add(Attributes.MOVEMENT_SPEED, 0.3f).build();
     }
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0, false));
-        this.goalSelector.addGoal(2, new FloatGoal(this)); // Don't go underwater.
-        this.goalSelector.addGoal(3, (new HurtByTargetGoal(this)).setAlertOthers()); // Alert others when damaged.
+        this.goalSelector.addGoal(1, new FloatGoal(this)); // Don't go underwater.
+        this.goalSelector.addGoal(2, (new HurtByTargetGoal(this)).setAlertOthers()); // Alert others when damaged.
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2, false));
         this.goalSelector.addGoal(4, (new NearestAttackableTargetGoal<>(this, Player.class, true)).setUnseenMemoryTicks(1000)); // Attack Player
         this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 1.0));
     }
@@ -113,7 +114,7 @@ public class SparkEntity extends Monster implements IAnimatable {
     public void kill() {
         if(this.getLevel() instanceof ServerLevel serverLevel){
             // do death particles
-            serverLevel.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX(),this.getY()+0.8,this.getZ(),20,0,0,0,2);
+            serverLevel.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX(),this.getY()+0.8,this.getZ(),20,0,0,0,0.5);
             // do death sound
             serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_BURN, SoundSource.HOSTILE, 0.8f, 0.7f);
         }
@@ -173,17 +174,17 @@ public class SparkEntity extends Monster implements IAnimatable {
                         }
                         // do sound and extra particles every 10 ticks on damage tick
                         serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:magnetize")), SoundSource.HOSTILE, 0.6f, 1.5f);
-                        serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK, this.getX(), this.getY() + 0.8, this.getZ(), 10, 0, 0, 0, 2);
-                        serverLevel.sendParticles(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.8, this.getZ(), 10, 0, 0, 0, 2);
+                        serverLevel.sendParticles(ModParticles.ELECTRICITY_PARTICLES.get(), this.getX(), this.getY() + 0.8, this.getZ(), 15, 0.5, 0.5, 0.5, 0.8);
+                        serverLevel.sendParticles(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.8, this.getZ(), 10, 0, 0, 0, 0.5);
                     }
-                    // do particles every tick
-                    serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK, this.getX(), this.getY() + 0.8, this.getZ(), 5, 0, 0, 0, 2);
                     if (this.attackTimer == 0) {
                         // overcharged to death.
-                        serverLevel.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX(), this.getY() + 0.8, this.getZ(), 20, 0, 0, 0, 2);
+                        serverLevel.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX(), this.getY() + 0.8, this.getZ(), 20, 0, 0, 0, 0.5);
                         serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cupsaddons:spark_death")), SoundSource.HOSTILE, 1f, 1f);
                         this.kill(); // kill entity
                     }
+                    // do particles every tick
+                    serverLevel.sendParticles(ModParticles.ELECTRICITY_PARTICLES.get(), this.getX(), this.getY() + 0.8, this.getZ(), 3, 0.5, 0.5, 0.5, 0.3);
                 }
             }
         }
