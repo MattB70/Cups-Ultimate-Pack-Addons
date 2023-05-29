@@ -23,6 +23,7 @@ public class SoundRegistry {
         MOD_SOUNDS.put(new ResourceLocation("cupsaddons", "spark_hover"), new SoundEvent(new ResourceLocation("cupsaddons", "spark_hover")));
         MOD_SOUNDS.put(new ResourceLocation("cupsaddons", "spark_death"), new SoundEvent(new ResourceLocation("cupsaddons", "spark_death")));
         MOD_SOUNDS.put(new ResourceLocation("cupsaddons", "spark_attack"), new SoundEvent(new ResourceLocation("cupsaddons", "spark_attack")));
+        MOD_SOUNDS.put(new ResourceLocation("cupsaddons", "spark_impact"), new SoundEvent(new ResourceLocation("cupsaddons", "spark_impact")));
     }
 
     @SubscribeEvent

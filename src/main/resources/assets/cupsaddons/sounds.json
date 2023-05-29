@@ -98,5 +98,15 @@
         "stream": false
       }
     ]
+  },
+  "spark_impact": {
+    "category": "hostile",
+    "subtitle": "subtitles.spark_impact",
+    "sounds": [
+      {
+        "name": "cupsaddons:spark_impact",
+        "stream": false
+      }
+    ]
   }
 }

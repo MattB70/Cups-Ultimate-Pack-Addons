@@ -11,11 +11,11 @@ public class ElectricityParticles extends TextureSheetParticle {
         this.xd = xd;       // velocities
         this.yd = yd;
         this.zd = zd;
-        this.quadSize *= 0.85f;
-        this.lifetime = 5; // in ticks
+        this.quadSize *= 2.5f;
+        this.lifetime = 3; // in ticks
         this.setSpriteFromAge(spriteset);
-        this.rCol = 1f;     // color in rgb
-        this.gCol = 1f;
+        this.rCol = (float)Math.random();     // color in rgb
+        this.gCol = (float)Math.random();
         this.bCol = 1f;
     }
     @Override
