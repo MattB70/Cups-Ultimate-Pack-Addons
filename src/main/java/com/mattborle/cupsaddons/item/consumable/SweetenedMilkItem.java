@@ -21,7 +21,7 @@ import com.mattborle.cupsaddons.handlers.consumable.SweetenedMilkDrinkHandler;
 public class SweetenedMilkItem extends Item {
 	public SweetenedMilkItem() {
 		super(new Properties().tab(ItemRegistry.CreativeTab.instance)
-				.stacksTo(16)
+				.stacksTo(64)
 				.rarity(Rarity.UNCOMMON)
 				.food((new FoodProperties.Builder())
 				.nutrition(5)

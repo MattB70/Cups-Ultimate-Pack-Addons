@@ -20,7 +20,7 @@ import com.mattborle.cupsaddons.handlers.consumable.EggnogAndRumDrinkHandler;
 public class EggnogAndRumItem extends Item {
 	public EggnogAndRumItem() {
 		super(new Properties().tab(ItemRegistry.CreativeTab.instance)
-				.stacksTo(16)
+				.stacksTo(64)
 				.rarity(Rarity.UNCOMMON)
 				.food((new FoodProperties.Builder())
 				.nutrition(5)
