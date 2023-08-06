@@ -1,7 +1,19 @@
 {
   "variants": {
-    "axis=y":    { "model": "cupsaddons:block/copper_oak_log" },
-    "axis=z":     { "model": "cupsaddons:block/copper_oak_log", "x": 90 },
-    "axis=x":     { "model": "cupsaddons:block/copper_oak_log", "x": 90, "y": 90 }
+    "axis=y":    [
+      { "model": "cupsaddons:block/copper_oak_log",  "weight": 400 },
+      { "model": "cupsaddons:block/copper_oak_log1",  "weight": 600 },
+      { "model": "cupsaddons:block/copper_oak_log2",  "weight": 1000 }
+    ],
+    "axis=z":     [
+      { "model": "cupsaddons:block/copper_oak_log", "weight": 400 , "x": 90 },
+      { "model": "cupsaddons:block/copper_oak_log1", "weight": 600 , "x": 90 },
+      { "model": "cupsaddons:block/copper_oak_log2", "weight": 1000 , "x": 90 }
+    ],
+    "axis=x":     [
+      { "model": "cupsaddons:block/copper_oak_log", "weight": 400 , "x": 90, "y": 90 },
+      { "model": "cupsaddons:block/copper_oak_log1", "weight": 600 , "x": 90, "y": 90 },
+      { "model": "cupsaddons:block/copper_oak_log2", "weight": 1000 , "x": 90, "y": 90 }
+    ]
   }
 }
