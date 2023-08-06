@@ -5,6 +5,8 @@ import com.mattborle.cupsaddons.config.CupsAddonsClientConfigs;
 import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import com.mattborle.cupsaddons.init.*;
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -41,6 +43,7 @@ public class CupsAddons
         modEventBus.addListener(this::commonSetup);
 
         ItemRegistry.MOD_ITEMS.register(modEventBus);
+        BlockRegistry.MOD_BLOCKS.register(modEventBus);
         EnchantmentRegistry.MOD_ENCHANTMENTS.register(modEventBus);
         MobEffectRegistry.MOD_EFFECTS.register(modEventBus);
         ModEntityTypes.ENTITY_TYPES.register(modEventBus);
@@ -67,7 +70,13 @@ public class CupsAddons
             // Some client setup code
             LOGGER.info("Cup's Ultimate Pack Addons (CLIENT)");
 
-            // Register mob renderers
+            // Special Render types
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.GOLDEN_OAK_SAPLING.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.IRON_OAK_SAPLING.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.COPPER_OAK_SAPLING.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.ZINC_OAK_SAPLING.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.RICH_OAK_SAPLING.get(), RenderType.cutout());
+
             EntityRenderers.register(ModEntityTypes.SPARK.get(), SparkRenderer::new);
         }
     }

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y":    { "model": "cupsaddons:block/golden_oak_log" },
+    "axis=z":     { "model": "cupsaddons:block/golden_oak_log", "x": 90 },
+    "axis=x":     { "model": "cupsaddons:block/golden_oak_log", "x": 90, "y": 90 }
+  }
+}

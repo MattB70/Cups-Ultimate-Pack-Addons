@@ -15,6 +15,7 @@ import com.mattborle.cupsaddons.item.tool.*;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -94,4 +95,9 @@ public class ItemRegistry {
     // Silly Items =====================================================================================================
     public static final RegistryObject<Item> GAMER_GLASSES = MOD_ITEMS.register("gamer_glasses", () -> new GamerGlassesItem(ArmorMaterials.IRON, EquipmentSlot.HEAD,
             new Item.Properties()));
+
+
+    public static void register(IEventBus eventBus) {
+        MOD_ITEMS.register(eventBus);
+    }
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "cupsaddons:block/golden_oak_sapling"
+  }
+}

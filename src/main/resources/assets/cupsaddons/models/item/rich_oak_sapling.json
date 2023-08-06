@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "cupsaddons:block/rich_oak_sapling"
+  }
+}

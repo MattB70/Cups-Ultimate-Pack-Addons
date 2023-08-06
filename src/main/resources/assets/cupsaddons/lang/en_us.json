@@ -40,6 +40,19 @@
 
   "itemGroup.cupsaddons": "Cup's Ultimate Pack",
 
+
+  "block.cupsaddons.golden_oak_sapling": "Golden Oak Sapling",
+  "block.cupsaddons.iron_oak_sapling": "Iron Oak Sapling",
+  "block.cupsaddons.copper_oak_sapling": "Copper Oak Sapling",
+  "block.cupsaddons.zinc_oak_sapling": "Zinc Oak Sapling",
+  "block.cupsaddons.rich_oak_sapling": "Rich Oak Sapling",
+  "block.cupsaddons.golden_oak_log": "Golden Oak Log",
+  "block.cupsaddons.iron_oak_log": "Iron Oak Log",
+  "block.cupsaddons.copper_oak_log": "Copper Oak Log",
+  "block.cupsaddons.zinc_oak_log": "Zinc Oak Log",
+  "block.cupsaddons.rich_oak_log": "Rich Oak Log",
+
+
   "item.cupsaddons.raid_commission": "Raid Commission",
   "item.cupsaddons.raid_commission_legendary": "Legendary Raid Commission",
   "item.cupsaddons.night_essence": "Night Essence",
