@@ -1,6 +1,7 @@
 package com.mattborle.cupsaddons.init;
 
 import com.mattborle.cupsaddons.CupsAddons;
+import com.mattborle.cupsaddons.block.RotatedPillarOreBlock;
 import com.mattborle.cupsaddons.world.feature.tree.OreTreeGrower;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -56,23 +57,23 @@ public class BlockRegistry {
     // Logs
     public static final RegistryObject<Block> GOLDEN_OAK_LOG = MOD_BLOCKS.register(
             "golden_oak_log",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG))
+            () -> new RotatedPillarOreBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG))
     );
     public static final RegistryObject<Block> IRON_OAK_LOG = MOD_BLOCKS.register(
             "iron_oak_log",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG))
+            () -> new RotatedPillarOreBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG))
     );
     public static final RegistryObject<Block> COPPER_OAK_LOG = MOD_BLOCKS.register(
             "copper_oak_log",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG))
+            () -> new RotatedPillarOreBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG))
     );
     public static final RegistryObject<Block> ZINC_OAK_LOG = MOD_BLOCKS.register(
             "zinc_oak_log",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG))
+            () -> new RotatedPillarOreBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG))
     );
     public static final RegistryObject<Block> RICH_OAK_LOG = MOD_BLOCKS.register(
             "rich_oak_log",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG))
+            () -> new RotatedPillarOreBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG))
     );
 
 
