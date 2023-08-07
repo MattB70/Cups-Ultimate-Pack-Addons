@@ -1,15 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "SSS",
-    "SAS",
-    "SSS"
+    "SLS",
+    "LAL",
+    "SLS"
   ],
   "key": {
     "A": {
       "item": "minecraft:oak_sapling"
     },
     "S": {
+      "item": "create:nugget_of_experience"
+    },
+    "L": {
       "item": "minecraft:lapis_lazuli"
     }
   },

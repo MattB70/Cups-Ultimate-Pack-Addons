@@ -6,7 +6,14 @@
     },
     {
       "item": "create:raw_zinc"
+    },
+    {
+      "item": "create:raw_zinc"
+    },
+    {
+      "item": "create:raw_zinc"
     }
+
   ],
   "result": {
     "item": "cupsaddons:zinc_oak_sapling",
