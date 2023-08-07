@@ -3,12 +3,10 @@ package com.mattborle.cupsaddons.init;
 import com.mattborle.cupsaddons.CupsAddons;
 import com.mattborle.cupsaddons.block.RotatedPillarOreBlock;
 import com.mattborle.cupsaddons.world.feature.tree.OreTreeGrower;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -74,6 +72,11 @@ public class BlockRegistry {
     public static final RegistryObject<Block> RICH_OAK_LOG = MOD_BLOCKS.register(
             "rich_oak_log",
             () -> new RotatedPillarOreBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG))
+    );
+    // Leaves
+    public static final RegistryObject<Block> METALLIC_OAK_LEAVES = MOD_BLOCKS.register(
+            "metallic_oak_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES))
     );
 
 

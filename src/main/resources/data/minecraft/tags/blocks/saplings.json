@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "cupsaddons:copper_oak_sapling",
+    "cupsaddons:golden_oak_sapling",
+    "cupsaddons:iron_oak_sapling",
+    "cupsaddons:zinc_oak_sapling",
+    "cupsaddons:rich_oak_sapling"
+  ]
+}
