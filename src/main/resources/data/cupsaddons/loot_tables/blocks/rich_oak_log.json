@@ -18,47 +18,47 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 22,
+          "weight": 220,
           "name": "minecraft:raw_iron"
         },
         {
           "type": "minecraft:item",
-          "weight": 20,
+          "weight": 200,
           "name": "minecraft:raw_copper"
         },
         {
           "type": "minecraft:item",
-          "weight": 13,
+          "weight": 90,
           "name": "minecraft:raw_gold"
         },
         {
           "type": "minecraft:item",
-          "weight": 26,
+          "weight": 200,
           "name": "minecraft:redstone"
         },
         {
           "type": "minecraft:item",
-          "weight": 6,
+          "weight": 15,
           "name": "minecraft:diamond"
         },
         {
           "type": "minecraft:item",
-          "weight": 24,
+          "weight": 200,
           "name": "minecraft:lapis_lazuli"
         },
         {
           "type": "minecraft:item",
-          "weight": 32,
+          "weight": 230,
           "name": "create:raw_zinc"
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 80,
           "name": "minecraft:emerald"
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 120,
           "name": "minecraft:quartz"
         },
         {
