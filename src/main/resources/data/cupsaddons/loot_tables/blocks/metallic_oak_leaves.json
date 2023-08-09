@@ -32,6 +32,46 @@
           ]
         }
       ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "cupsaddons:golden_oak_sapling",
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.01
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "cupsaddons:iron_oak_sapling",
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.01
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "cupsaddons:copper_oak_sapling",
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.01
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "cupsaddons:zinc_oak_sapling",
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.01
+        }
+      ]
     }
   ]
 }
