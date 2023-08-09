@@ -1,9 +1,10 @@
 package com.mattborle.cupsaddons.init;
 
 import com.mattborle.cupsaddons.CupsAddons;
+import com.mattborle.cupsaddons.block.RichLeavesBlock;
 import com.mattborle.cupsaddons.block.RotatedPillarOreBlock;
+import com.mattborle.cupsaddons.item.generic.GlowingBlockItem;
 import com.mattborle.cupsaddons.world.feature.tree.OreTreeGrower;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
@@ -16,6 +17,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.ToIntFunction;
 
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -78,22 +81,38 @@ public class BlockRegistry {
             "metallic_oak_leaves",
             () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES))
     );
-
+    public static final RegistryObject<Block> RICH_OAK_LEAVES = MOD_BLOCKS.register(
+            "rich_oak_leaves",
+            () -> new RichLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES))
+    );
 
 
     public static void register(IEventBus eventBus) {
         MOD_BLOCKS.register(eventBus);
     }
 
+
     // Register blocks as items
     @SubscribeEvent
     public static void onRegisterItems(final RegistryEvent.Register<Item> event) {
         final IForgeRegistry<Item> registry = event.getRegistry();
         MOD_BLOCKS.getEntries().stream().map(RegistryObject::get).forEach( (block) -> {
-            final Item.Properties properties = new Item.Properties().tab(ItemRegistry.CreativeTab.instance);
-            final BlockItem blockItem = new BlockItem(block, properties);
-            blockItem.setRegistryName(block.getRegistryName());
-            registry.register(blockItem);
+            // Rich blocks
+            if(block.getRegistryName().toString().contains("rich_"))
+            {
+                final Item.Properties properties = new Item.Properties().tab(ItemRegistry.CreativeTab.instance);
+                final GlowingBlockItem glowingBlockItem = new GlowingBlockItem(block, properties);
+                glowingBlockItem.setRegistryName(block.getRegistryName());
+                registry.register(glowingBlockItem);
+            }
+            else
+            // Normal blocks
+            {
+                final Item.Properties properties = new Item.Properties().tab(ItemRegistry.CreativeTab.instance);
+                final BlockItem blockItem = new BlockItem(block, properties);
+                blockItem.setRegistryName(block.getRegistryName());
+                registry.register(blockItem);
+            }
         });
     }
 }

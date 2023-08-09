@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "":
+    [
+      { "model": "cupsaddons:block/rich_oak_leaves", "weight": 1000  },
+      { "model": "cupsaddons:block/rich_oak_leaves1", "weight": 600  },
+      { "model": "cupsaddons:block/rich_oak_leaves2", "weight": 400  }
+    ]
+  }
+}

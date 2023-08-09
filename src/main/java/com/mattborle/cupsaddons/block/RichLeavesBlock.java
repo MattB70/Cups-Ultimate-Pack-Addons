@@ -1,0 +1,30 @@
+package com.mattborle.cupsaddons.block;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.Random;
+
+public class RichLeavesBlock extends LeavesBlock {
+    public RichLeavesBlock(Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+        serverLevel.sendParticles(ParticleTypes.GLOW, blockPos.getX()+0.5, blockPos.getY()+0.5, blockPos.getZ()+0.5, 1, 0.25, 0.25, 0.25, 1);
+        super.tick(blockState, serverLevel, blockPos, random);
+    }
+
+    @Override
+    public void destroy(LevelAccessor levelAccessor, BlockPos blockPos, BlockState blockState) {
+        for(int i = 0; i < 5; i++) {
+            levelAccessor.addParticle(ParticleTypes.GLOW, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, ((Math.random() * (4)) -2), ((Math.random() * (4)) -2), ((Math.random() * (4)) -2));
+        }
+        super.destroy(levelAccessor, blockPos, blockState);
+    }
+}
