@@ -1,6 +1,7 @@
 package com.mattborle.cupsaddons.init;
 
 import com.mattborle.cupsaddons.CupsAddons;
+import com.mattborle.cupsaddons.block.MetallicLeavesBlock;
 import com.mattborle.cupsaddons.block.RichLeavesBlock;
 import com.mattborle.cupsaddons.block.RotatedPillarOreBlock;
 import com.mattborle.cupsaddons.item.generic.GlowingBlockItem;
@@ -79,7 +80,7 @@ public class BlockRegistry {
     // Leaves
     public static final RegistryObject<Block> METALLIC_OAK_LEAVES = MOD_BLOCKS.register(
             "metallic_oak_leaves",
-            () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES))
+            () -> new MetallicLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES))
     );
     public static final RegistryObject<Block> RICH_OAK_LEAVES = MOD_BLOCKS.register(
             "rich_oak_leaves",

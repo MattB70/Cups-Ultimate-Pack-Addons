@@ -17,7 +17,7 @@ public class MetallicLeavesBlock  extends LeavesBlock {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter blockGetter, List<Component> tooltip, TooltipFlag tooltipFlag) {
-        tooltip.add(new TextComponent("\n§72% chance to drop an Ore Tree Sapling\n"));
+        tooltip.add(new TextComponent("§72% chance to drop an Ore Tree Sapling"));
         super.appendHoverText(itemStack, blockGetter, tooltip, tooltipFlag);
     }
 }
