@@ -38,7 +38,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
+          "weight": 8,
           "name": "minecraft:diamond"
         },
         {
@@ -53,7 +53,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 80,
+          "weight": 20,
           "name": "minecraft:emerald"
         },
         {
