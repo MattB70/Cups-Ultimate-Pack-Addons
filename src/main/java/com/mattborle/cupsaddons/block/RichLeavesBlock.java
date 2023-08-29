@@ -33,9 +33,4 @@ public class RichLeavesBlock extends LeavesBlock {
         }
         super.destroy(levelAccessor, blockPos, blockState);
     }
-
-    @Override
-    public float defaultDestroyTime() {
-        return 0.0f;
-    }
 }
