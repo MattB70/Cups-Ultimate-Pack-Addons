@@ -76,6 +76,7 @@ public class CupsAddons
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.COPPER_OAK_SAPLING.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.ZINC_OAK_SAPLING.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.RICH_OAK_SAPLING.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.UNCOMMON_TROPHY.get(), RenderType.translucent());
 
             EntityRenderers.register(ModEntityTypes.SPARK.get(), SparkRenderer::new);
         }

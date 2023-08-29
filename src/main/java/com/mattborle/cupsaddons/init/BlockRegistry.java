@@ -4,6 +4,7 @@ import com.mattborle.cupsaddons.CupsAddons;
 import com.mattborle.cupsaddons.block.MetallicLeavesBlock;
 import com.mattborle.cupsaddons.block.RichLeavesBlock;
 import com.mattborle.cupsaddons.block.RotatedPillarOreBlock;
+import com.mattborle.cupsaddons.block.UncommonTrophyBlock;
 import com.mattborle.cupsaddons.item.generic.GlowingBlockItem;
 import com.mattborle.cupsaddons.world.feature.tree.OreTreeGrower;
 import net.minecraft.world.item.BlockItem;
@@ -85,6 +86,11 @@ public class BlockRegistry {
     public static final RegistryObject<Block> RICH_OAK_LEAVES = MOD_BLOCKS.register(
             "rich_oak_leaves",
             () -> new RichLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES))
+    );
+    // Trophies
+    public static final RegistryObject<Block> UNCOMMON_TROPHY = MOD_BLOCKS.register(
+            "uncommon_trophy",
+            () -> new UncommonTrophyBlock(BlockBehaviour.Properties.copy(Blocks.GOLD_BLOCK).noOcclusion())
     );
 
 
