@@ -7,6 +7,7 @@ import com.mattborle.cupsaddons.item.ingredient.BarleyCornMixItem;
 import com.mattborle.cupsaddons.item.ingredient.BundleOfSticksItem;
 import com.mattborle.cupsaddons.item.ingredient.CookedMashedGrainsItem;
 import com.mattborle.cupsaddons.item.ingredient.MashedGrainsItem;
+import com.mattborle.cupsaddons.item.quest.TokenItem;
 import com.mattborle.cupsaddons.item.raid.RaidCommissionItem;
 import com.mattborle.cupsaddons.item.raid.RaidCommissionLegendaryItem;
 import com.mattborle.cupsaddons.item.scrap.ScrapItem;
@@ -30,7 +31,7 @@ public class ItemRegistry {
         }
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(BOTTLE_O_MOONSHINE.get()); // Use an item as the tab icon
+            return new ItemStack(CRYSOPHILISTS_PICKAXE.get()); // Use an item as the tab icon
         }
         // Register the new Creative Mod menu tab.
         public static final CreativeTab instance = new CreativeTab(CreativeModeTab.TABS.length, CupsAddons.MOD_ID);
@@ -72,6 +73,8 @@ public class ItemRegistry {
 
 
     // Items ===========================================================================================================
+    public static final RegistryObject<Item> TOKEN = MOD_ITEMS.register("token", () -> new TokenItem());
+
     public static final RegistryObject<Item> BUNDLE_OF_STICKS = MOD_ITEMS.register("bundle_of_sticks", () -> new BundleOfSticksItem());
 
     public static final RegistryObject<Item> LOOT_SCRAPS = MOD_ITEMS.register("loot_scraps", () -> new ScrapItem());
