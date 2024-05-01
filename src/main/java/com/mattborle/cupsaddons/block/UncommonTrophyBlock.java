@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class UncommonTrophyBlock extends Block {
+public class UncommonTrophyBlock extends Block{
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public UncommonTrophyBlock(Properties properties) {

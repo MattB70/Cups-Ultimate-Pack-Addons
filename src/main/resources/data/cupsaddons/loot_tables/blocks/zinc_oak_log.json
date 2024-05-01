@@ -16,7 +16,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "create:raw_zinc",
+          "name": "alltheores:raw_zinc",
           "conditions": [
             {
               "condition": "minecraft:random_chance",

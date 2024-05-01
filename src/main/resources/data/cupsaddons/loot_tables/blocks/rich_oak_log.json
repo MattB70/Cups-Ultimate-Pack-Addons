@@ -28,6 +28,16 @@
         },
         {
           "type": "minecraft:item",
+          "weight": 180,
+          "name": "alltheores:raw_tin"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 180,
+          "name": "alltheores:raw_aluminum"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 90,
           "name": "minecraft:raw_gold"
         },
@@ -49,7 +59,7 @@
         {
           "type": "minecraft:item",
           "weight": 230,
-          "name": "create:raw_zinc"
+          "name": "alltheores:raw_zinc"
         },
         {
           "type": "minecraft:item",
