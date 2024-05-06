@@ -15,7 +15,7 @@ public class TokenItem extends Item {
     public TokenItem() {
     		super(new Properties().tab(ItemRegistry.CreativeTab.instance)
 				.stacksTo(64)
-				.rarity(Rarity.RARE));
+				.rarity(Rarity.EPIC));
     }
 
     @Override
