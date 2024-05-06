@@ -9,6 +9,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,7 +18,7 @@ import java.util.List;
 public class RichLeavesBlock extends LeavesBlock {
 
     public RichLeavesBlock(Properties properties) {
-        super(properties);
+        super(properties.sound(SoundType.METAL));
     }
 
     @Override
@@ -32,5 +33,10 @@ public class RichLeavesBlock extends LeavesBlock {
             levelAccessor.addParticle(ParticleTypes.GLOW, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, ((Math.random() * (4)) -2), ((Math.random() * (4)) -2), ((Math.random() * (4)) -2));
         }
         super.destroy(levelAccessor, blockPos, blockState);
+    }
+
+    @Override
+    public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
+        return 8; // emit some light.
     }
 }
