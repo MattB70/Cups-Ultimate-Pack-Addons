@@ -21,11 +21,7 @@ public class TokenItem extends Item {
     @Override
     public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
         super.appendHoverText(itemstack, world, list, flag);
-        list.add(new TextComponent("\u00A7aPure"));
-        list.add(new TextComponent("\u00A7dEffects:"));
-        list.add(new TextComponent("\u00A79Resistance II (4m)"));
-        list.add(new TextComponent("\u00A79Strength I (4m)"));
-        list.add(new TextComponent("\u00A7cNausea II (40s)"));
-        list.add(new TextComponent("\u00A7cSlowness I (40s)"));
+        list.add(new TextComponent("\u00A7aSpend in your quest book for a permanent buff!"));
+        list.add(new TextComponent("\u00A7dSingle Use"));
     }
 }
