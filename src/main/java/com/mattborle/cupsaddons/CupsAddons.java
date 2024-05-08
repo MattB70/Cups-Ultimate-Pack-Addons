@@ -48,6 +48,7 @@ public class CupsAddons
         MobEffectRegistry.MOD_EFFECTS.register(modEventBus);
         ModEntityTypes.ENTITY_TYPES.register(modEventBus);
         ModParticles.PARTICLE_TYPES.register(modEventBus);
+        StructuresInit.DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CupsAddonsClientConfigs.SPEC, "cupsaddons-client.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CupsAddonsCommonConfigs.SPEC, "cupsaddons-common.toml");

@@ -22,6 +22,6 @@ public class TokenItem extends Item {
     public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
         super.appendHoverText(itemstack, world, list, flag);
         list.add(new TextComponent("\u00A7aSpend in your quest book for a permanent buff!"));
-        list.add(new TextComponent("\u00A7dSingle Use"));
+        list.add(new TextComponent("\u00A77\u00A7oSingle Use\u00A7r"));
     }
 }
