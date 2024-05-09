@@ -39,7 +39,7 @@ public class CupsAddons
 
     public CupsAddons()
     {
-        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
 
         ItemRegistry.MOD_ITEMS.register(modEventBus);

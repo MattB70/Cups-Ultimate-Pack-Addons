@@ -1,0 +1,17 @@
+{
+  "variants": {
+    "":    [
+      { "model": "cupsaddons:block/compacted_coal_ore", "weight": 300  },
+      { "model": "cupsaddons:block/compacted_coal_ore1", "weight": 300  },
+      { "model": "cupsaddons:block/compacted_coal_ore2", "weight": 1000  },
+
+      { "model": "cupsaddons:block/compacted_coal_ore", "weight": 300, "x": 180 },
+      { "model": "cupsaddons:block/compacted_coal_ore1", "weight": 300, "x": 180 },
+      { "model": "cupsaddons:block/compacted_coal_ore2", "weight": 1000, "x": 180 },
+
+      { "model": "cupsaddons:block/compacted_coal_ore", "weight": 300, "y": 180 },
+      { "model": "cupsaddons:block/compacted_coal_ore1", "weight": 300, "y": 180  },
+      { "model": "cupsaddons:block/compacted_coal_ore2", "weight": 1000, "y": 180 }
+    ]
+  }
+}

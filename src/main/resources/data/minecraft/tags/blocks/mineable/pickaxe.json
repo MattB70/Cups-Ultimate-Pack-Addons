@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "cupsaddons:compacted_aluminum_ore",
+    "cupsaddons:compacted_coal_ore",
+    "cupsaddons:compacted_copper_ore",
+    "cupsaddons:compacted_gold_ore",
+    "cupsaddons:compacted_iron_ore",
+    "cupsaddons:compacted_tin_ore",
+    "cupsaddons:compacted_zinc_ore"
+  ]
+}

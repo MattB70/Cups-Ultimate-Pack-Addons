@@ -1,10 +1,7 @@
 package com.mattborle.cupsaddons.init;
 
 import com.mattborle.cupsaddons.CupsAddons;
-import com.mattborle.cupsaddons.block.MetallicLeavesBlock;
-import com.mattborle.cupsaddons.block.RichLeavesBlock;
-import com.mattborle.cupsaddons.block.RotatedPillarOreBlock;
-import com.mattborle.cupsaddons.block.UncommonTrophyBlock;
+import com.mattborle.cupsaddons.block.*;
 import com.mattborle.cupsaddons.item.generic.GlowingBlockItem;
 import com.mattborle.cupsaddons.world.feature.tree.OreTreeGrower;
 import net.minecraft.world.item.BlockItem;
@@ -92,7 +89,35 @@ public class BlockRegistry {
             "uncommon_trophy",
             () -> new UncommonTrophyBlock(BlockBehaviour.Properties.copy(Blocks.GOLD_BLOCK).noOcclusion())
     );
-
+    // Ores
+    public static final RegistryObject<Block> COMPACTED_IRON_ORE = MOD_BLOCKS.register(
+            "compacted_iron_ore",
+            () -> new CompactedOreBlock(BlockBehaviour.Properties.copy(Blocks.IRON_ORE))
+    );
+    public static final RegistryObject<Block> COMPACTED_COAL_ORE = MOD_BLOCKS.register(
+            "compacted_coal_ore",
+            () -> new CompactedOreBlock(BlockBehaviour.Properties.copy(Blocks.IRON_ORE))
+    );
+    public static final RegistryObject<Block> COMPACTED_COPPER_ORE = MOD_BLOCKS.register(
+            "compacted_copper_ore",
+            () -> new CompactedOreBlock(BlockBehaviour.Properties.copy(Blocks.IRON_ORE))
+    );
+    public static final RegistryObject<Block> COMPACTED_ZINC_ORE = MOD_BLOCKS.register(
+            "compacted_zinc_ore",
+            () -> new CompactedOreBlock(BlockBehaviour.Properties.copy(Blocks.IRON_ORE))
+    );
+    public static final RegistryObject<Block> COMPACTED_GOLD_ORE = MOD_BLOCKS.register(
+            "compacted_gold_ore",
+            () -> new CompactedOreBlock(BlockBehaviour.Properties.copy(Blocks.IRON_ORE))
+    );
+    public static final RegistryObject<Block> COMPACTED_TIN_ORE = MOD_BLOCKS.register(
+            "compacted_tin_ore",
+            () -> new CompactedOreBlock(BlockBehaviour.Properties.copy(Blocks.IRON_ORE))
+    );
+    public static final RegistryObject<Block> COMPACTED_ALUMINUM_ORE = MOD_BLOCKS.register(
+            "compacted_aluminum_ore",
+            () -> new CompactedOreBlock(BlockBehaviour.Properties.copy(Blocks.IRON_ORE))
+    );
 
     public static void register(IEventBus eventBus) {
         MOD_BLOCKS.register(eventBus);

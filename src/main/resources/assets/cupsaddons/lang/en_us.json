@@ -53,7 +53,16 @@
   "block.cupsaddons.rich_oak_log": "Rich Oak Log",
   "block.cupsaddons.metallic_oak_leaves": "Metallic Oak Leaves",
   "block.cupsaddons.rich_oak_leaves": "Rich Oak Leaves",
+
   "block.cupsaddons.uncommon_trophy": "Uncommon Trophy",
+
+  "block.cupsaddons.compacted_iron_ore": "Compacted Iron Ore",
+  "block.cupsaddons.compacted_coal_ore": "Compacted Coal Ore",
+  "block.cupsaddons.compacted_copper_ore": "Compacted Copper Ore",
+  "block.cupsaddons.compacted_zinc_ore": "Compacted Zinc Ore",
+  "block.cupsaddons.compacted_gold_ore": "Compacted Gold Ore",
+  "block.cupsaddons.compacted_tin_ore": "Compacted Tin Ore",
+  "block.cupsaddons.compacted_aluminum_ore": "Compacted Aluminum Ore",
 
 
   "item.cupsaddons.raid_commission": "Raid Commission",
