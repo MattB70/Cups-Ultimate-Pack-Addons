@@ -6,13 +6,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.OreBlock;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
 public class CompactedOreBlock extends OreBlock {
 
@@ -20,24 +17,51 @@ public class CompactedOreBlock extends OreBlock {
         super(properties
                 .requiresCorrectToolForDrops()
                 .sound(SoundType.DEEPSLATE_BRICKS)  // sounds like deepslate bricks
-                .strength(30.0f));         // somewhat tough to break
+                .strength(10.0f));         // somewhat tough to break
     }
 
-    // override playerDestroy to make it never drop anything when a player breaks it.
+    // Skip destroy, and play 'failure to mine' effects on server side
     @Override
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity entity, ItemStack stack) {
+    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        super.playerWillDestroy(level, pos, state, player);
+
+        if(player.isCreative()) return; // creative mode -> skip
+
         // on server
         if(!level.isClientSide())
         {
-            for(int i = 0; i < 5; i++) {
-                // spawn failure to mine particle
-                level.addParticle(ParticleTypes.ASH, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ((Math.random() * (4)) - 2), ((Math.random() * (4)) - 2), ((Math.random() * (4)) - 2));
-            }//                                                                              volume       pitch
-            level.playSound(player,pos, SoundEvents.GENERIC_BURN, SoundSource.BLOCKS,0.2f,0.8f); // play sizzle sound
-            level.playSound(player,pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS,0.5f,0.6f); // play shatter sound
-            super.playerDestroy(level, player, pos, state, entity, null); // replace stack with null
+            // delete block and drop nothing
+            level.removeBlock(pos, false);
+        }
+        // on client
+        else
+        {//                                                                                 volume       pitch
+            level.playSound(player,pos, SoundEvents.GENERIC_BURN, SoundSource.BLOCKS,0.2f,0.7f); // play sizzle sound
+            level.playSound(player,pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS,0.05f,0.5f); // play shatter sound
+            level.removeBlock(pos,true); // simply delete the block the player will destroy, skipping drops.
+
+            // spawn one large smoke ploom
+            level.addParticle(
+                    ParticleTypes.CAMPFIRE_COSY_SMOKE,
+                    pos.getX() + 0.5,
+                    pos.getY() + 0.5,
+                    pos.getZ() + 0.5,
+                    0,0,0
+            );
+            // spawn several small particles
+            for(int i = 0; i < 3; i++) {
+                level.addParticle(
+                        ParticleTypes.SMOKE,
+                        pos.getX() + 0.5,
+                        pos.getY() + 0.5,
+                        pos.getZ() + 0.5,
+                        0,0,0
+                );
+            }
         }
     }
+
+
 
     @Override
     public void popExperience(ServerLevel level, BlockPos pos, int amount) {
