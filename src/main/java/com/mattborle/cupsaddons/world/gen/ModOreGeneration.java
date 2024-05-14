@@ -13,7 +13,7 @@ public class ModOreGeneration {
         List<Holder<PlacedFeature>> base =
                 event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES);
 
-        base.add(ModPlacedFeatures.COMPACTED_ALUMINUM_ORE_PLACED);
+        //base.add(ModPlacedFeatures.COMPACTED_ALUMINUM_ORE_PLACED); DISABLED ALIUMINUM
         base.add(ModPlacedFeatures.COMPACTED_COAL_ORE_PLACED);
         base.add(ModPlacedFeatures.COMPACTED_COPPER_ORE_PLACED);
         base.add(ModPlacedFeatures.COMPACTED_GOLD_ORE_PLACED);

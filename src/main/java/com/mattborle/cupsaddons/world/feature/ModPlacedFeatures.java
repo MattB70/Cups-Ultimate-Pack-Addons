@@ -30,13 +30,16 @@ public class ModPlacedFeatures {
             ModConfiguredFeatures.RICH_OAK_SPAWN, VegetationPlacements.treePlacement(
                     PlacementUtils.countExtra(1, 0.1f, 1)));
 
+
     // Compacted Ores ==================================================================================================
     // These don't generate often, and are meant to act as a red herring for the much larger, taller deposits generated
     // with adlods in CUP.
+
+    /* DISABLED ALUMINUM
     public static final Holder<PlacedFeature> COMPACTED_ALUMINUM_ORE_PLACED = PlacementUtils.register("compacted_aluminum_ore_placed",
             ModConfiguredFeatures.COMPACTED_ALUMINUM_ORE, ModOrePlacement.rareOrePlacement(10, // Once every x chunks
                     HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-64), VerticalAnchor.aboveBottom(600))));
-
+    */
     public static final Holder<PlacedFeature> COMPACTED_COAL_ORE_PLACED = PlacementUtils.register("compacted_coal_ore_placed",
             ModConfiguredFeatures.COMPACTED_COAL_ORE, ModOrePlacement.rareOrePlacement(12, // Once every x chunks
                     HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-64), VerticalAnchor.aboveBottom(600))));
