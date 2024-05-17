@@ -1,6 +1,6 @@
 # Cup's Ultimate Pack Addons
 
-## /!\ This is not meant to be run outside of the Cup's Ultiamte Pack modpack. Doing so will likely cause the features of this mod to not function /!\
+## /!\ This is not meant to be run outside of the Cup's Ultimate Pack modpack. Doing so will likely cause the features of this mod to not function /!\
 
 ***
 ### Dependency Versions
