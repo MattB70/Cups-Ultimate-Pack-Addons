@@ -112,7 +112,7 @@ public class ModConfiguredFeatures {
             OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.COMPACTED_ALUMINUM_ORE.get().defaultBlockState())
     );
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> COMPACTED_ALUMINUM_ORE = FeatureUtils.register("compacted_aluminum_ore",
-            Feature.ORE, new OreConfiguration(OVERWORLD_COMPACTED_ALUMINUM_ORES, 32)
+            Feature.ORE, new OreConfiguration(OVERWORLD_COMPACTED_ALUMINUM_ORES, 4)
     );
     
     
@@ -121,7 +121,7 @@ public class ModConfiguredFeatures {
             OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.COMPACTED_COAL_ORE.get().defaultBlockState())
     );
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> COMPACTED_COAL_ORE = FeatureUtils.register("compacted_coal_ore",
-            Feature.ORE, new OreConfiguration(OVERWORLD_COMPACTED_COAL_ORES, 32)
+            Feature.ORE, new OreConfiguration(OVERWORLD_COMPACTED_COAL_ORES, 4)
     );
 
     
@@ -130,7 +130,7 @@ public class ModConfiguredFeatures {
             OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.COMPACTED_COPPER_ORE.get().defaultBlockState())
     );
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> COMPACTED_COPPER_ORE = FeatureUtils.register("compacted_copper_ore",
-            Feature.ORE, new OreConfiguration(OVERWORLD_COMPACTED_COPPER_ORES, 32)
+            Feature.ORE, new OreConfiguration(OVERWORLD_COMPACTED_COPPER_ORES, 4)
     );
 
 
@@ -139,7 +139,7 @@ public class ModConfiguredFeatures {
             OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.COMPACTED_GOLD_ORE.get().defaultBlockState())
     );
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> COMPACTED_GOLD_ORE = FeatureUtils.register("compacted_gold_ore",
-            Feature.ORE, new OreConfiguration(OVERWORLD_COMPACTED_GOLD_ORES, 32)
+            Feature.ORE, new OreConfiguration(OVERWORLD_COMPACTED_GOLD_ORES, 4)
     );
 
 
@@ -148,7 +148,7 @@ public class ModConfiguredFeatures {
             OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.COMPACTED_IRON_ORE.get().defaultBlockState())
     );
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> COMPACTED_IRON_ORE = FeatureUtils.register("compacted_iron_ore",
-            Feature.ORE, new OreConfiguration(OVERWORLD_COMPACTED_IRON_ORES, 32)
+            Feature.ORE, new OreConfiguration(OVERWORLD_COMPACTED_IRON_ORES, 4)
     );
 
 
@@ -157,7 +157,7 @@ public class ModConfiguredFeatures {
             OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.COMPACTED_TIN_ORE.get().defaultBlockState())
     );
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> COMPACTED_TIN_ORE = FeatureUtils.register("compacted_tin_ore",
-            Feature.ORE, new OreConfiguration(OVERWORLD_COMPACTED_TIN_ORES, 32)
+            Feature.ORE, new OreConfiguration(OVERWORLD_COMPACTED_TIN_ORES, 4)
     );
 
 
@@ -166,6 +166,6 @@ public class ModConfiguredFeatures {
             OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.COMPACTED_ZINC_ORE.get().defaultBlockState())
     );
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> COMPACTED_ZINC_ORE = FeatureUtils.register("compacted_zinc_ore",
-            Feature.ORE, new OreConfiguration(OVERWORLD_COMPACTED_ZINC_ORES, 32)
+            Feature.ORE, new OreConfiguration(OVERWORLD_COMPACTED_ZINC_ORES, 4)
     );
 }
