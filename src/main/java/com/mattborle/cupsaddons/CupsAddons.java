@@ -4,6 +4,7 @@ import com.mattborle.cupsaddons.client.renderer.entity.SparkRenderer;
 import com.mattborle.cupsaddons.config.CupsAddonsClientConfigs;
 import com.mattborle.cupsaddons.config.CupsAddonsCommonConfigs;
 import com.mattborle.cupsaddons.init.*;
+import com.mattborle.cupsaddons.world.dimension.ModDimensions;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -48,6 +49,7 @@ public class CupsAddons
         MobEffectRegistry.MOD_EFFECTS.register(modEventBus);
         ModEntityTypes.ENTITY_TYPES.register(modEventBus);
         ModParticles.PARTICLE_TYPES.register(modEventBus);
+        ModDimensions.register();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CupsAddonsClientConfigs.SPEC, "cupsaddons-client.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CupsAddonsCommonConfigs.SPEC, "cupsaddons-common.toml");
