@@ -18,64 +18,78 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 220,
+          "weight": 12000,
           "name": "minecraft:raw_iron"
         },
         {
           "type": "minecraft:item",
-          "weight": 200,
+          "weight": 10000,
           "name": "minecraft:raw_copper"
         },
         {
           "type": "minecraft:item",
-          "weight": 180,
+          "weight": 18000,
           "name": "alltheores:raw_tin"
         },
         {
           "type": "minecraft:item",
-          "weight": 180,
-          "name": "alltheores:raw_aluminum"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 90,
+          "weight": 9000,
           "name": "minecraft:raw_gold"
         },
         {
           "type": "minecraft:item",
-          "weight": 200,
+          "weight": 25000,
           "name": "minecraft:redstone"
         },
         {
           "type": "minecraft:item",
-          "weight": 8,
+          "weight": 800,
           "name": "minecraft:diamond"
         },
         {
           "type": "minecraft:item",
-          "weight": 200,
+          "weight": 20000,
           "name": "minecraft:lapis_lazuli"
         },
         {
           "type": "minecraft:item",
-          "weight": 230,
+          "weight": 13000,
           "name": "alltheores:raw_zinc"
         },
         {
           "type": "minecraft:item",
-          "weight": 20,
+          "weight": 1000,
           "name": "minecraft:emerald"
         },
         {
           "type": "minecraft:item",
-          "weight": 120,
+          "weight": 12000,
           "name": "minecraft:quartz"
         },
         {
-          "type": "minecraft:tag",
+          "type": "minecraft:item",
+          "weight": 400,
+          "name": "enigmaticlegacy:astral_dust"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 400,
+          "name": "byg:raw_pendorite"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 200,
+          "name": "byg:emeraldite_shards"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 300,
+          "name": "byg:ametrine_gems"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 1,
-          "name": "forge:raw_materials",
-          "expand": true
+          "name": "enigmaticlegacy:etherium_ore"
         }
       ]
     }
